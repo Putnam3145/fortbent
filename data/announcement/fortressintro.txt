@@ -12,9 +12,8 @@ thats ok. dont mind them. itll probably even be fun!
  with what you and others can remember we can set up this game!
 heres how it goes: youve set off to colonize an area. there are...
 lets see. oh! do you remember [VAR:NAME_PLURAL:GLOBAL:LOCAL_LARGE_PREDATOR]?
-yeah there are lots of those! Whole lot!
-[P]ive digressed.
-There are almost no supplies left but
+yeah there are lots of those! whole lot!
+[P]There are almost no supplies left but
 if you can kill enough things youll have enough grist
 to last you forever!
 your memories and others will spin a tale at [VAR:NATIVENAME:GLOBAL:YOURFORT], "[VAR:TRANSLATEDNAME:GLOBAL:YOURFORT]".
