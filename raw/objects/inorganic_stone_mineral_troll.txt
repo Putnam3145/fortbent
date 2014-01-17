@@ -1,0 +1,2 @@
+inorganic_stone_mineral_troll
+[OBJECT:INORGANIC]

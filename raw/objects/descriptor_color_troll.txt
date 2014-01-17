@@ -1,0 +1,63 @@
+descriptor_color_troll
+
+[OBJECT:DESCRIPTOR_COLOR]
+
+[COLOR:TYRIAN_PURPLE]
+	[NAME:imperial purple]
+	[WORD:PURPLE]
+	[RGB:119:0:60]
+
+[COLOR:SEADWELLER_VIOLET]
+	[NAME:seadweller violet]
+	[WORD:PURPLE]
+	[RGB:106:0:106]
+	
+[COLOR:SUBJUGGLATOR_PURPLE]
+	[NAME:highblood purple]
+	[WORD:PURPLE]
+	[RGB:43:0:87]
+	
+[COLOR:NOBLE_BLUE]
+	[NAME:noble blue]
+	[WORD:BLUE]
+	[RGB:0:0:86]
+	
+[COLOR:ALMOST_NOBLE_BLUE]
+	[NAME:noble cerulean]
+	[WORD:BLUE]
+	[RGB:0:86:130]
+	
+[COLOR:CIVIL_TEAL]
+	[NAME:upper-class teal]
+	[WORD:BLUE]
+	[RGB:0:130:130]
+	
+[COLOR:MOTHERLY_JADE]
+	[NAME:maternal jade]
+	[WORD:JADE]
+	[RGB:0:129:85]
+
+[COLOR:MIDDLE_GREEN]
+	[NAME:middle-class green]
+	[WORD:GREEN]
+	[RGB:65:102:0]
+	
+[COLOR:TROLL_LIME]
+	[NAME:lime]
+	[WORD:GREEN]
+	[RGB:0:255:0]
+
+[COLOR:YUCKY_MUSTARD_YELLOW]
+	[NAME:lower-middle yellow]
+	[WORD:YELLOW]
+	[RGB:161:161:0]
+	
+[COLOR:LOW_OCHRE]
+	[NAME:ochre]
+	[WORD:BROWN]
+	[RGB:161:80:0]
+	
+[COLOR:LOW_RUST]
+	[NAME:rusty maroon]
+	[WORD:RED]
+	[RGB:161:0:0]

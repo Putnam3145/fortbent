@@ -1,0 +1,14 @@
+creature_troll_fanciful
+
+[OBJECT:CREATURE]
+[CREATURE:CHERUB]
+	[DOES_NOT_EXIST]
+	[NAME:cherub:cherubs:cherub]
+	[CASTE_NAME:cherub:cherubs:cherub]
+	[DESCRIPTION:A strange creature with green skin that is worshipped by some.]
+	[FANCIFUL]
+	[PREFSTRING:green skulls]
+	[CASTE:MALE]
+	[MALE][CREATURE_CLASS:MALE]
+	[CASTE:FEMALE]
+	[FEMALE][CREATURE_CLASS:FEMALE]

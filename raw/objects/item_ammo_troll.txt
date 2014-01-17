@@ -1,0 +1,7 @@
+item_ammo_troll
+[OBJECT:ITEM]
+	[ITEM_AMMO:ITEM_AMMO_BULLETS_TROLL]
+		[NAME:bullet:bullets]
+		[CLASS:BULLET]
+		[SIZE:150]
+		[ATTACK:EDGE:5:10000:kinda... just strike:kinda... just strikes:NO_SUB:1200]
