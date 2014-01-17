@@ -108,7 +108,7 @@ local function addLordEnglishSoul(unit,syndrome)
         {
 			new = df.unit_soul,
 			unit_id = unit.id, 
-			race = df.global.world.raws.creatures.list_creature[{utils.binsearch(df.global.world.raws.creatures.alphabetic,'LORD_ENGLISH','creature_id')}[0].caste[0].index],
+			race = df.global.world.raws.creatures.list_creature[utils.binsearch(df.global.world.raws.creatures.alphabetic,'Cherubic Lord of Time','name',utils.compare_field_key(0)).caste[0].index],
 			sex = 1, 
 			caste = 0,
 			unk1 = -1, 
