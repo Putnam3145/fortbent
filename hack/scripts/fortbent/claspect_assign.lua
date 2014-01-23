@@ -114,12 +114,6 @@ local function alreadyHasSyndrome(unit,syn_id)
     return false
 end
 
-fortbentInorganic=0
-
-for _,v in ipairs(df.global.world.raws.inorganics) do
-	if v.id=="FORTBENT_CLASPECTS" then fortbentInorganic=v break end
-end
-
 local function assignSyndrome(target,syn_id) --taken straight from here, but edited so I can understand it better: https://gist.github.com/warmist/4061959/. Also implemented expwnent's changes for compatibility with syndromeTrigger. I have used this so much ;_;
     if df.isnull(target) then
         return nil
@@ -239,6 +233,7 @@ isUnitAssigned={}
 dfhack.onStateChange.claspect = function(code)
 	local pauseCounter=0
 	if code==SC_WORLD_LOADED then
+		fortbentInorganic=dfhack.matinfo.find('INORGANIC:FORTBENT_CLASPECTS').material
 		dfhack.timeout(1,'ticks',monthlyClaspectAssign)
 	end
 	if code==SC_PAUSED then
