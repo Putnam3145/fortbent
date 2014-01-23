@@ -140,7 +140,7 @@ end
 
 function assignClaspect(unit,creatureClass,creatureAspect)
 	local success=false
-	for k,v in ipairs(fortbentInorganic.material.syndrome) do
+	for k,v in ipairs(fortbentInorganic.syndrome) do
 		if string.find(string.lower(v.syn_name),string.lower(creatureClass)) and string.find(string.lower(v.syn_name),string.lower(creatureAspect)) then
 			assignSyndrome(unit,k)
 			success=true
@@ -195,7 +195,7 @@ end
 function makeClaspect(unit,seed,unitidx)
 	if df.global.gamemode==1 and unitidx==0 then
 		local dialog = require('gui.dialogs')
-		local godtiers=fortbentInorganic.material.syndrome
+		local godtiers=fortbentInorganic.syndrome
 		local tbl={}
 		local tunit=df.global.world.units.active[0]
 		for k,syn in ipairs(godtiers) do
