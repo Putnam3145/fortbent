@@ -12718,7 +12718,7 @@ interaction_godtieractivate_troll
 					[CE_CAN_DO_INTERACTION:START:0]
 						[CE:COUNTER_TRIGGER:COMBATHARDNESS:75:100:REQUIRED]
 						[CDI:INTERACTION:PRINCE_OF_LIFE_DESTROY_LIFE]
-						[CDI:ADV_NAME:Destroy life (tier 1)]
+						[CDI:ADV_NAME:Destroy life (tier 2)]
 						[CDI:TARGET:A:TOUCHABLE]
 						[CDI:USAGE_HINT:ATTACK]
 						[CDI:MAX_TARGET_NUMBER:A:2]

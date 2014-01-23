@@ -250,7 +250,7 @@ seed = 0
 function assignAllClaspects()
 	if df.global.gamemode==1 then makeClaspect(df.global.world.units.active[0],39853,0) end
 	for k,unit in ipairs(df.global.world.units.active) do
-		if not unitAlreadyHasClaspect(unit) then makeClaspect(unit,seed,k) end
+		if not(unitDoesntNeedClaspect(unit)) then makeClaspect(unit,seed,k) end
 	end
 end
 
