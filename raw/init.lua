@@ -274,8 +274,7 @@ end
 
 local function unitIsMaidOrKnightOfTime(unit) 
     local unitTitle = unit.curse.name
-    if unitTitle=="knight of time" or unitTitle=="maid of time" then return true end
-    return false
+    return (unitTitle=="knight of time" or unitTitle=="maid of time")
 end
 
 local function maidAndKnightOfTimeTravel(unit)
