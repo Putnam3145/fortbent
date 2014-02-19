@@ -1,13 +1,11 @@
 -- Allows for script-based wishing.
  
 function createItem(mat,itemType,quality,pos)
-    local item=df['item_'..df.item_type[itemType[1]]:lower()..'st']:new() --incredible
+    local item=df[df.item_type.attrs[itemType[1]].classname]:new()
     item.id=df.global.item_next_id
     df.global.world.items.all:insert('#',item)
     df.global.item_next_id=df.global.item_next_id+1
-    if itemType[2]~=-1 then
-        item:setSubtype(itemType[2])
-    end
+    item:setSubtype(itemType[2])
     item:setMaterial(mat[1])
     item:setMaterialIndex(mat[2])
     item:categorize(true)
@@ -29,7 +27,7 @@ end
  
 local script=require('gui/script')
  
-function script.showItemPrompt(text,item_filter,hide_none)
+function showItemPrompt(text,item_filter,hide_none)
     require('gui.materials').ItemTypeDialog{
         prompt=text,
         item_filter=item_filter,
@@ -45,15 +43,15 @@ end
 function hackWish(posOrUnit)
     local pos = df.unit:is_instance(posOrUnit) and posOrUnit.pos or posOrUnit
     script.start(function()
-        local amountok, amount
-        local itemok,itemtype,itemsubtype=script.showItemPrompt('What item do you want?',function() return true end,true)
+--        local amountok, amount
+        local itemok,itemtype,itemsubtype=showItemPrompt('What item do you want?',nil,true)
         local matok,mattype,matindex=script.showMaterialPrompt('Wish','And what material should it be made of?')
         local qualityok,quality=script.showListPrompt('Wish','What quality should it be?',COLOR_LIGHTGREEN,qualityTable())
-        repeat amountok,amount=script.showInputPrompt('Wish','How many do you want? (numbers only!)',COLOR_LIGHTGREEN) until tonumber(amount)
+--        repeat amountok,amount=script.showInputPrompt('Wish','How many do you want? (numbers only!)',COLOR_LIGHTGREEN) until tonumber(amount)
         if mattype and itemtype then
-            for i=1,tonumber(amount) do
-                createItem({mattype,matindex},{itemtype,itemsubtype},quality,pos)
-            end
+--            for i=1,tonumber(amount) do
+            createItem({mattype,matindex},{itemtype,itemsubtype},quality,pos)
+--            end
         end
     end)
 end
