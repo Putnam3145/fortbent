@@ -4,9 +4,4 @@ local function destroyUndead(unit)
 	end
 end
 
-local function takeArg(arg) --shove it into the unit kill function, of course. What else could it mean. Seriously.
-	local unit = df.global.world.units.all[arg]
-	destroyUndead(unit)
-end
-
-takeArg(tonumber(...))
+destroyUndead(df.unit.find(...))
