@@ -1,5 +1,5 @@
 local function getUnitSyndrome(syndrome)
-    return df.global.world.raws.syndromes.all[syndrome.type]
+    return df.syndrome.find(syndrome.type)
 end
 
 local function unitIsThiefOfLife(unit)
@@ -24,4 +24,4 @@ local function takeArg(arg) --shove it into the unit kill function, of course. W
 	giveLife(unit)
 end
 
-takeArg(tonumber(...))
+giveLife(df.unit.find(...))
