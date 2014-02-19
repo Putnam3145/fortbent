@@ -5,4 +5,4 @@ local function deskill(unit)
 	end
 end
 
-deskill(df.global.world.units.all[tonumber(...)])
+deskill(df.unit.find(...))
