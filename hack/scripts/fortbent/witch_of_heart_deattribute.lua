@@ -4,4 +4,4 @@ local function deattribute(unit)
 	end
 end
 
-deattribute(df.global.world.units.all[tonumber(...)])
+deattribute(df.unit.find(...))
