@@ -1,0 +1,250 @@
+0.2 Pre-playable
+Mod released first time.
+
+0.3 Pre-playable
+Accidentally included caste differences in mod.
+
+0.8 Playable
+Playable trolls.
+
+0.8.01 Conversion attempt
+Made the text taste better. Mmmm, flavor.
+
+0.8.02 Conversion attempt
+Balance change. Armormetal was too cheap.
+
+0.8.1 Conversion attempt
+Added language file.
+
+0.9 Conversion attempt
+Added whole lot of crap. No Fun stuff, yet.
+
+0.9 000 Conversion attempt
+Added IT 000's sawmill, as well as fixed some stuff in the reaction files (Magma confuses me and I'm a lazy copy/paster!)
+
+1.0 Conversion attempt
+Buncha stuff, thought I uploaded this earlier 
+
+Musclebeasts. Wonderful, wonderful creatures. Milkable. STRONG.
+
+1.1 Conversion attempt
+Added new civ, and improved flavor text. If you're not using the full copy, don't expect too many changes!
+
+1.2 Conversion attempt
+Added new weapons, and fixed a little troll vulnerability.
+
+"The signless follower stabs the troll in the left lower arm with her sord..., denting the skin and bruising the muscle!"
+"The troll stabs the signless follower in the chitinous windhole with his sord..., chipping the chitin!"
+"A major artery has been opened by the attack!"
+"The signless follower has bled to death"
+
+Yeah, that whole "chipping the chitin causing bleed-out" thing? Fixed. I really don't want anyone to die by being shoan sord...'s stabs. All new weapons are mood-only, and, as of 1.5, can be alchemized in Adventurer mode as well.
+
+1.2_01 Conversion attempt
+Made the mod a bit more accessible, fixed some bugs.
+
+1.3 Conversion attempt
+Added a skulking civ, a completely unbalanced megabeast, and a slightly more balanced megabeast that will actually show up in-game. Also added taunts, I think. Not sure about that last one. The data's in there, more than likely, but their working doesn't. Think of it as a test for the [CASTE_SPEECH] tag.
+
+[SPEED:0] is hard to deal with.
+
+1.4 Conversion attempt
+Reworked the metal system. It is now made with wafers, made from metal strands, sheared from sheep.
+
+1.4.1 Conversion attempt
+Added some words, and overall improved the flavor text some more. Also fixed some duped raws. Sorry 'bout that :X
+
+1.5 Conversion attempt
+
+Grist and alchemization. That is all.
+
+1.5.1 Conversion attempt
+
+Added armor alchemization.
+
+RESET: Version 1.0
+
+Added psychic trolls, rebalanced some weapons (I think; I lost track), added tinkerbull, added my elemental metals mod (It's my mod, I do with it what I want!)
+Also, fixed bugs (lost all bug fixes during a botched copy+paste operation, then salvaged <_<) and added pumpkins. Also, alchemiter reactions. Phew. I keep forgetting.
+
+1.0_01
+
+Fixed every bug I could that I encountered during normal play, of which there were far too many.
+
+1.01
+Added dice and some stuff that I don't remember but I know is there
+
+1.01_01
+Fixed a duped raw issue that apparently has been there since 1.5.1CA but was never in the errorlogs until I noticed it. Schrödinbug?
+
+1.1
+Added imps, dersites, fixed bodies all up over, gave a carapace to the (pen)ultimate fun guy, added chitin to all that needed it, removed zombie trolls because they were pretty much superfluous (may put them back in when interactions come in), and added a series of alchemizing reactions to dorf mode (I hope),
+
+1.1.01
+The usual after-update fix tango.
+
+1.2
+Added a civ, made the trolls better (now the mod's more of a fantroll generator! Whoopee!), and added a megabeast who takes the parenthesis out of the aforementioned (pen)ultimate fun guy.
+
+1.2.1
+Bug fix tango. Also cleaned some stuff up for future plans.
+
+1.2.1.01
+Fixed problem introduced in 1.2.1. I feel like Valve~
+
+1.2.2
+Future plans. Added a Genesis-mod compatible version. And by compatible, I mean including all the features I could think of.
+
+1.2.3
+Added LFR-compatible version.
+
+1.2.3.1
+May have fixed a problem with ahab's crosshairs not being usable.
+
+1.2.4
+Added Masterwork DF-compatible version and fixed a thing or two.
+
+1.2.5
+My little fortbent.
+
+1.3
+Removed compatibility files due to being old, updated to 34.01. New sburb players, kangaram, new psychic trolls, better entity positions.
+
+1.3.1
+Just a simple 34.02 compatibility update.
+
+1.3.1_01
+I'm not sure, but I know there's something.
+
+2.0
+Removed sburb players entirely. Replaced with secrets/curses. Fixed as much of the errorlog as I could. Made a new download link for people who like the sburb players (because I know there are some).
+
+2.1
+Added something that I should have long, long ago. Caste differences.
+
+2.2
+Space god tiers now work as originally intended.
+
+2.2.2
+Fixed a small typo from 2.1.
+
+2.3
+You're going to want to embark with an imperial drone and a mother grub.
+
+2.3.1
+Made imperial drone and mother grub work. I forgot that intelligent creatures need marriage to have children...
+
+2.4
+Fixed dersites to work. Also fleshed them out a bit. Glub.
+
+2.5
+Added limelobbyists and updated for 34.10.
+
+2.6
+Added a bunch of lusus and a pre-scratch troll race. Also removed the signless followers.
+
+2.6.1
+Fixed some wonky ethics issues from 2.6.
+
+2.7
+Added computer bees, added prospitians, fixed light heroes, added some stuff for psychic trolls.
+
+2.7.1
+Fixed imperial drone and mother grub finally.
+
+3.0
+Added a new invading race or three.
+Added lands for many biomes.
+Added a few new grist and gave it to many creatures. Not all, yet. Some fell through the cracks. Same with biomes.
+Added a way to defeat Lord English without shenanigans.
+Added a reward for defeating the Black King.
+
+3.1
+Added Eagle0600's graphics based on Beefmo's into the main download. You'll have to enable them in the init.
+Added some new failure and fortress start announcement things.
+More grist.
+Some fixes for adventurer reactions.
+New colors for all trolls. Now blood-accurate.
+New colors for entire game pallette. Also blood-accurate.
+
+3.2
+A whole bunch of game balance updates and bug fixes, removing redundant features, etc., including:
+	Changing coal honk-birds to amenity grist honk-birds and making both honk-bird types way more expensive
+	Adding EBOs so that every creature in the game will give grist when butchered (excepting ant men, bumblebees, honey bees, and ants, but... well, that shouldn't come up often)
+	Fixed Prospitians to allow them to trade.
+	Fixed underlings to allow easier identification of the kinds of enemies you're going to face on embark. (I.E: you'll know their levels.)
+	The pants have been deprecated.
+	Fixed a buncha bugs.
+	
+3.2.1
+Fixed a duped raw that somehow eluded the errorlog for a while.
+
+3.2.2
+Fixed fractal psychics and trolls who can give birth.
+
+3.4
+Added a couple of first guardians (just two because... I felt like only two for now), allowed beforan trolls to go to war with alternians, created bandit trolls and humans that can invade and will leave real corpses, overhauled god tiers so that they're much, much better, and allowed the player to create god-tiers in their own fort (DFHack was required for that last bit, though, so that's included now.)
+
+3.5
+Made Lord English more terrifying, made a graphics version, added a kind of time-travel thing that is working frustratingly bad, may have forgotten something?
+TODO FOR GRAPHICS: Lord English, some of the wild creatures.
+
+3.5.1
+Hopefully fixed a worldgen crash.
+
+3.5.2
+Haha, I've completely forgotten.
+
+3.5.3
+Fixed dfusion's friendship and migrant plugins for Fortbent.
+
+3.5.4
+Fixed quest bed and ultimate reward
+
+3.5.5
+Added dave_ebubbles and finally fixed the impoverished word selector and NOT THAT WORLDGEN CRASH FUUUUU. (It's rarer, but still happens)
+
+4
+Added a lot of god tiers.
+
+4.1
+Fixed some bugs, added some stuff. I do not remember. Maybe fixed that crash bug above.
+
+5.-1
+Updated with first third of the sburb players. Every human and troll has a title now.
+
+5.0.-7
+Added life hero effects.
+
+5.0.-6
+Added hope hero effects and changed some ultimate weapons around.
+
+5.0.-5
+Added blood hero effects and fixed the system requirements; it's about the same as vanilla now, thankfully. Also changed the opening video a bit.
+
+5.0.-2
+Added void, mind, heart and a couple of doom effects. Also made LE more deadly (Because I really, really don't want you to colonize hell :V) and added Cherubs.
+
+5.0.-1
+Removed some debug code from shorten_all_names (whoops), fixed init.lua (it was in the wrong folder), added rage heroes.
+
+5
+Wrapped up loose ends. For the first time since 3.5.5, the mod is actually feature-complete again.
+
+5.1
+Fixed shorten_all_names, changed a bunch of strings, added wild imps, added kinda lame (but still nice) stonesense support.
+
+6
+Changed how claspects are assigned (should be extremely balanced now, but with less space and time by design) and fixed Friendship (DFHack-34.11-r3 doesn't have its object file, so I had to compile it)
+
+6.1
+Added time travel, some shitty-ass stonesense graphics, some definitively not-shitty new Lord English and Carapacian graphics, changed the music, rewrote the init.lua a bit, fixed some reactions, removed stonesense from ASCII version due to being very large (sorry), cleaned up house in general. Main issue: stonesense graphics are shitty; would rather they not be. I want shitty characters, not shitty art.
+
+6.2
+Compressed music to make it smaller (but now it sounds shittier oh well), updated ultimate reward to use my wish system, updated mod to DFHack-34.11-r4, which allowed Lord English and friends to heal without walruses being involved, remove a glaring capital letter.
+
+6.2.1
+Fixed a few bugs.
+
+6.2.3
+Made a buncha scripts not terrible.
