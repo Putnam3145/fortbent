@@ -228,12 +228,6 @@ c_variation_troll
 	[CV_NEW_TAG:CREATURE_CLASS:DOOM_GOD]
 	[CV_NEW_TAG:PREFSTRING:pessimism]
 	
-[CREATURE_VARIATION:SEER_OF_FOO]
-	[CV_NEW_TAG:SUPERNATURAL]
-	[CV_NEW_TAG:PREFSTRING:manipulativeness]
-	
-fup these creature variation shenanigans, too much space
-	
 [CREATURE_VARIATION:STRIFE_SPECIBI]
 	[CV_NEW_TAG:CASTE_PROFESSION_NAME:BOWMAN:bowkind user:bowkind users]
 	[CV_NEW_TAG:CASTE_PROFESSION_NAME:WRESTLER:fistkind user:fistkind users]

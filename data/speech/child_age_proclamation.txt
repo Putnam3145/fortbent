@@ -1,2 +1,0 @@
-I'm [CONTEXT:NUMBER]!
-I'm only [CONTEXT:NUMBER], dumbass.
