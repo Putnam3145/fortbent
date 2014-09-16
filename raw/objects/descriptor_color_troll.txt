@@ -45,7 +45,7 @@ descriptor_color_troll
 [COLOR:TROLL_LIME]
 	[NAME:lime]
 	[WORD:GREEN]
-	[RGB:0:255:0]
+	[RGB:46:215:58]
 
 [COLOR:YUCKY_MUSTARD_YELLOW]
 	[NAME:lower-middle yellow]
