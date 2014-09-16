@@ -2086,7 +2086,6 @@ language_TROLL
 		[T_WORD:YEARLING:erkarr]
 		[T_WORD:YELL:karorg]
 		[T_WORD:YELLOW:finnra]
-		[T_WORD:YOR:endall]
 		[T_WORD:YOUNG:kollux]
 		[T_WORD:YOUTH:skolla]
 		[T_WORD:ZEAL:ykkarr]

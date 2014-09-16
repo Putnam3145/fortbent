@@ -1,40 +1,8 @@
 local utils=require('utils')
 
-local function alreadyHasSyndrome(unit,syn_id)
-    for _,syndrome in ipairs(unit.syndromes.active) do
-        if syndrome.type == syn_id then return true end
-    end
-    return false
-end
-
-local function assignSyndrome(target,syn_id) --taken straight from here, but edited so I can understand it better: https://gist.github.com/warmist/4061959/
-    if target==nil then
-        return nil
-    end
-    if alreadyHasSyndrome(target,syn_id) then
-        return false
-    end
-    local newSyndrome=df.unit_syndrome:new()
-    local target_syndrome=df.syndrome.find(syn_id)
-    newSyndrome.type=target_syndrome.id
-    --newSyndrome.year=
-    --newSyndrome.year_time=
-    newSyndrome.ticks=1
-    newSyndrome.unk1=1
-    for k,v in ipairs(target_syndrome.ce) do
-        local sympt=df.unit_syndrome.T_symptoms:new()
-        sympt.ticks=1
-        sympt.flags=2
-        newSyndrome.symptoms:insert("#",sympt)
-    end
-    target.syndromes.active:insert("#",newSyndrome)
-    return true
-end
-
 local function titleIsPassive(unitTitle) --getting quite a lot of mileage out of this, hehe
-    if string.find(unitTitle,"heir") or string.find(unitTitle,"page") or string.find(unitTitle,"rogue") or string.find(unitTitle,"sylph") or string.find(unitTitle,"bard") then return true
-    end --seers not included because they should be different than that
-    return false
+    return string.find(unitTitle,"heir") or string.find(unitTitle,"page") or string.find(unitTitle,"rogue") or string.find(unitTitle,"sylph") or string.find(unitTitle,"bard")
+ --seers not included because they should be different than that
 end
 
 local function unitIsPassiveXHero(unit,herotype)
@@ -103,6 +71,7 @@ local function unitHasLESoul(unit)
 end
 
 local function addLordEnglishSoul(unit,syndrome)
+	local syndromeUtil=require('syndrome-util')
     unit.status.souls:insert('#', 
         {
             new = df.unit_soul,
@@ -120,7 +89,7 @@ local function addLordEnglishSoul(unit,syndrome)
             anon_4 = -1
         }
         )
-    assignSyndrome(unit,syndrome)
+    syndromeUtil.infectWithSyndromeIfValidTarget(unit,syndrome,syndromeUtil.ResetPolicy[ResetDuration])
 end
 
 local function insertMistThought(unit)
@@ -318,6 +287,3 @@ local function fortbentCallback()
 end
 
 dfhack.timeout(1,'months',fortbentCallback)
-
-plug=require"plugins.dfusion.friendship"
-plug.Friendship:install{"TROLL_ALTERNIA","TROLL_ALTERNIA","TROLL_BEFORUS","HUMAN","HUMAN_HERO_OF_BREATH","HUMAN_HERO_OF_LIGHT","HUMAN_HERO_OF_TIME","HUMAN_HERO_OF_SPACE","HUMAN_HERO_OF_LIFE","HUMAN_HERO_OF_HOPE","HUMAN_HERO_OF_VOID","HUMAN_HERO_OF_HEART","HUMAN_HERO_OF_BLOOD","HUMAN_HERO_OF_MIND","HUMAN_HERO_OF_RAGE","HUMAN_HERO_OF_DOOM","TROLL_HERO_OF_BREATH","TROLL_HERO_OF_LIGHT","TROLL_HERO_OF_TIME","TROLL_HERO_OF_SPACE","TROLL_HERO_OF_LIFE","TROLL_HERO_OF_HOPE","TROLL_HERO_OF_VOID","TROLL_HERO_OF_HEART","TROLL_HERO_OF_BLOOD","TROLL_HERO_OF_MIND","TROLL_HERO_OF_RAGE","TROLL_HERO_OF_DOOM"}

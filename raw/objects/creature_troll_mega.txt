@@ -466,6 +466,7 @@ creature_troll_mega
 		[MENT_ATT_RANGE:EMPATHY:0:0:0:0:0:0:0] HEE HEE HOO HOO HA HA.
 		[MENT_ATT_RANGE:ANALYTICAL_ABILITY:251:300:310:320:330:340:400] He has some problems learning things.
 		[SKILL_LEARN_RATES:20] I know it's a bit mean to have these, but he does have a learning disability. He has difficulty learning things. Doesn't stop him from being extremely powerful.
+		[NATURAL_SKILL:DISCIPLINE:20]
 		[NATURAL_SKILL:SITUATIONAL_AWARENESS:20]
 		[NATURAL_SKILL:JUDGING_INTENT:20]
 		[NATURAL_SKILL:MELEE_COMBAT:20]
@@ -538,7 +539,7 @@ creature_troll_mega
 			[ATTACK_CONTACT_PERC:100]
 			[ATTACK_FLAG_WITH]
 			[ATTACK_PRIORITY:MAIN]		
-		[CAN_DO_INTERACTION:HEAL_TROLL]
+		[CAN_DO_INTERACTION:DONOTHING_INTERACTION_TROLL]
 			[CDI:ADV_NAME:Heal yourself]
 			[CDI:TARGET:A:SELF_ONLY]
 			[CDI:TARGET_RANGE:A:1]
