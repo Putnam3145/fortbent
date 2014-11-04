@@ -10517,7 +10517,6 @@ interaction_godtieractivate_troll
 			[SYNDROME]
 					[CE_DISPLAY_NAME:NAME:bard of space:bards of space:bard of space:START:0]
 						[CE:COUNTER_TRIGGER:COMBATHARDNESS:30:100:REQUIRED]
-						[CE_ADD_TAG:LIKES_FIGHTING:START:0]
 						[CE_ADD_TAG:NO_PHYS_ATT_RUST:START:0] Just going to be unpredictable as hell.
 						[CE:COUNTER_TRIGGER:COMBATHARDNESS:30:100]
 						[CE_ADD_TAG:NO_SLEEP:NOSTUN:START:0]

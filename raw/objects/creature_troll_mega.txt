@@ -34,7 +34,7 @@ creature_troll_mega
 		[NOEXERT]
 		[BUILDINGDESTROYER:2]
 		[FLIER]
-		[LIKES_FIGHTING]
+		LIKES_FIGHTING deprecated 0.40.14
 		[GRASSTRAMPLE:50]
 		[NO_EAT]
 		[EXTRAVISION]

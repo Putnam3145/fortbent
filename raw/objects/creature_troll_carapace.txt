@@ -8,7 +8,7 @@ creature_troll_carapace
 		[COLOR:0:0:1]
 		[INTELLIGENT]
 		[CANOPENDOORS]
-		[LIKES_FIGHTING]
+		LIKES_FIGHTING deprecated 0.40.14
 		[PREFSTRING:carapace]
 		[CASTE_NAME:dersite:dersites:dersite]
 		[CHILDNAME:recently-spawned dersite:recently-spawned dersites:dersite]
