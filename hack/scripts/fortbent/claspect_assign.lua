@@ -18,7 +18,7 @@ syndromeUtil=require('syndrome-util')
 rng=dfhack.random.new()
 
 function assignClaspect(unit,aspect)
-	return dfhack.run_script('classes/change-class','-unit',unit,'-class',aspect)
+	return pcall(function() dfhack.run_script('classes/change-class','-unit',unit.id,'-class',aspect) end)
 end
 
 function unitAlreadyHasClaspect(unit)
@@ -48,12 +48,12 @@ function makeClaspect(unit,unitidx)
 		local script = require('gui.script')
         script.start(function()
 		local lok,aspect_num,aspect=script.showListPrompt('Aspect selection','Which aspect do you want to pick?',COLOR_WHITE,aspects)
-        assignClaspect(unit,aspect)
+        assignClaspect(unit,aspect.text)
         end)
         return aspect
 	end
 	local creatureAspect = rng:random(13)+1
-	if assignClaspect(unit,aspects[creatureAspect]) then
+	if assignClaspect(unit,aspects[creatureAspect].text) then --why i need to specify .text i will never know
 		return creatureAspect
 	end
 	return false

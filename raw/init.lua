@@ -1,4 +1,4 @@
-local function clockwork_majyyks_color_change() script.start(function()
+local function clockwork_majyyks_color_change() local script=require('gui.script') script.start(function()
     local iteration_speed=math.ceil(df.global.enabler.gfps/20)
     local colors={COLOR_LIGHTRED,COLOR_YELLOW,COLOR_BLUE,COLOR_GREEN,COLOR_MAGENTA,COLOR_BROWN}
     local clockwork_majyyks=dfhack.matinfo.find('CLOCKWORK_MAJYYKS').material
