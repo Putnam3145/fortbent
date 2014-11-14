@@ -18,7 +18,7 @@ syndromeUtil=require('syndrome-util')
 rng=dfhack.random.new()
 
 function assignClaspect(unit,aspect)
-	return dfhack.run('classes/change-class','-unit',unit,'-class',aspect)
+	return dfhack.run_script('classes/change-class','-unit',unit,'-class',aspect)
 end
 
 function unitAlreadyHasClaspect(unit)
@@ -53,7 +53,7 @@ function makeClaspect(unit,unitidx)
         return aspect
 	end
 	local creatureAspect = rng:random(13)+1
-	if assignClaspect(unit,claspects.aspects[creatureAspect]) then
+	if assignClaspect(unit,aspects[creatureAspect]) then
 		return creatureAspect
 	end
 	return false
@@ -63,7 +63,6 @@ end
 dfhack.onStateChange.claspect = function(code)
 	local pauseCounter=0
 	if code==SC_WORLD_LOADED then
-		fortbentInorganic=dfhack.matinfo.find('INORGANIC:FORTBENT_CLASPECTS').material
 		dfhack.timeout(1,'ticks',monthlyClaspectAssign)
 	end
 	if code==SC_PAUSED then
