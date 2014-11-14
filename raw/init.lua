@@ -21,7 +21,7 @@ end) end
 
 loaded=true
 
-clockwork_majyys_color_change()
+clockwork_majyyks_color_change()
 
 function onUnload()
     loaded=false
