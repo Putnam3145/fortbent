@@ -187,11 +187,7 @@ log-region
 
 fortbent/claspect_assign
 
-modtools/interaction-trigger -onDefendStr heals -command [ full-heal \DEFENDER_ID ]
-
-modtools/interaction-trigger -onDefendStr heal -command [ full-heal \DEFENDER_ID ]
-
-
+fortbent/godtier_transform
 
 #######################################################
 # Apply binary patches at runtime                     #
