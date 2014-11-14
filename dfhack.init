@@ -187,15 +187,7 @@ log-region
 
 fortbent/claspect_assign
 
-modtools/interaction-trigger -onDefendStr heals -command [ full-heal \DEFENDER_ID ]
-
-modtools/interaction-trigger -onDefendStr heal -command [ full-heal \DEFENDER_ID ]
-
-modtools/interaction-trigger -onDefendStr teleports -command [ fortbent/dest_teleport -unit \DEFENDER_ID ]
-
-modtools/interaction-trigger -onDefendStr die -command [ fortbent/lord_english_laser \DEFENDER_ID yes ]
-
-modtools/interaction-trigger -onDefendStr dies -command [ fortbent/lord_english_laser \DEFENDER_ID yes ]
+fortbent/godtier_transform
 
 #######################################################
 # Apply binary patches at runtime                     #
