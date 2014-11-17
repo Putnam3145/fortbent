@@ -7,4 +7,4 @@ validArgs = validArgs or utils.invert({
 
 local args = utils.processArgs({...}, validArgs)
 
-df.unit.find(args.unit).body.blood_count=math.ceil(df.unit.find(args.unit).body.blood_count/args.amount)
+df.unit.find(args.unit).body.blood_count=math.ceil(df.unit.find(args.unit).body.blood_count/tonumber(args.amount))
