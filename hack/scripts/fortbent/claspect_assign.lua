@@ -53,6 +53,8 @@ function makeClaspect(unit,unitidx)
         return aspect
 	end
 	local creatureAspect = rng:random(13)+1
+    local aspect=aspects[creatureAspect]
+    aspect=aspect and aspect.text or 'RAGE_1' --rage default
 	if assignClaspect(unit,aspects[creatureAspect].text) then --why i need to specify .text i will never know
 		return creatureAspect
 	end
@@ -75,7 +77,6 @@ dfhack.onStateChange.claspect = function(code)
 end
 
 function assignAllClaspects()
-	if df.global.gamemode==1 then makeClaspect(df.global.world.units.active[0],0) end
 	for k,unit in ipairs(df.global.world.units.active) do
 		if not(unitDoesntNeedClaspect(unit)) then 
 			makeClaspect(unit,k) 
