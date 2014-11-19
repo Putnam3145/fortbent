@@ -1,4 +1,3 @@
-
 local split = require('split')
 local utils = require 'utils'
 local establishclass = require('classes.establish-class')
@@ -61,6 +60,6 @@ validArgs = validArgs or utils.invert({
  'amount',
 })
 local args = utils.processArgs({...}, validArgs)
-
+unit=df.unit.find(args.unit)
 establishclass(unit,classes)
 addexperience(tonumber(args.unit),tonumber(args.amount),classes)
