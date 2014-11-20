@@ -405,7 +405,7 @@ entity_troll
 		[VALUE:POWER:30]
 		[VALUE:TRUTH:0]
 		[VALUE:CUNNING:5]
-		[VALUE:ELOQUENCE:-10] only lowbloods engage in rap battles and their like
+		[VALUE:ELOQUENCE:25]
 		[VALUE:FAIRNESS:-10]
 		[VALUE:DECORUM:10]
 		[VALUE:TRADITION:20]
