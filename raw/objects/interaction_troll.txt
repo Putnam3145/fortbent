@@ -12,11 +12,8 @@ interaction_troll
 			[IE_IMMEDIATE]
 			[SYNDROME]
 				[SYN_NAME:is a troll, yes]
-				Sterility removed because... well, mother grubs and drones are really, really broken.
-				[CE_ADD_TAG:TRANCES:PROB:100:START:0]
+				[CE_ADD_TAG:TRANCES:STERILE:PROB:100:START:0]
 				[CE_ADD_TAG:EXTRAVISION:PROB:20:START:0]
-				[CE_ADD_TAG:NOEMOTION:PROB:5:START:0]
-				[CE_ADD_TAG:MISCHIEVIOUS:NOEMOTION:PROB:1:START:0]
 		[I_EFFECT:ADD_SYNDROME]
 			[IE_TARGET:A]
 			[IE_IMMEDIATE]

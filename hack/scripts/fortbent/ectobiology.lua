@@ -4,13 +4,20 @@
 
 -- where MAKING THIS HAPEN
 
-local function getCitizenList()
+local function getCitizenList(lovers_only)
     local citizenTable={}
-    for k,u in ipairs(df.global.world.units.active) do
-        if dfhack.units.isCitizen(u) then
-            table.insert(citizenTable,{dfhack.TranslateName(dfhack.getVisibleName(u)),nil,u})
+    if lovers_only then
+        for k,u in ipairs(df.global.world.units.active) do
+            if dfhack.units.isCitizen(u) and (unit.relations.spouse_id~=-1 or unit.relations.lover_id~=-1) then
+                table.insert(citizenTable,{dfhack.TranslateName(dfhack.getVisibleName(u)),nil,u})
+            end
         end
-    end
+    else
+        for k,u in ipairs(df.global.world.units.active) do
+            if dfhack.units.isCitizen(u) then
+                table.insert(citizenTable,{dfhack.TranslateName(dfhack.getVisibleName(u)),nil,u})
+            end
+        end
     return citizenTable
 end
 
@@ -38,11 +45,23 @@ end
 local function ectobiologize(freeform)
     local script=require('gui.script')
     script.start(function()
+    local citizens=getCitizenList(not freeform)
     if freeform then
-        
+        local ok1,name1,unit1=script.showListPrompt("Unit Selection","Choose first paradox ghost slime target.",COLOR_WHITE,citizens)
+        local ok2,name2,unit2=script.showListPrompt("Unit Selection","Choose second paradox ghost slime target.",COLOR_WHITE,citizens)
+        unit1.relations.pregnancy_timer=1
+        unit1.relations.pregnancy_genes=unit.appearance.genes:new()
+        unit1.relations.pregnancy_spouse=unit2.hist_figure_id
+        unit1.relations.pregnancy_caste=unit2.caste
+        dfhack.run_script('modtools/add-syndrome','-syndrome','temp desterilize','-target',unit.id)
+        if unit1.sex==1 then
+            local normal_caste=unit.enemy.normal_caste
+            unit.enemy.normal_caste=getFemaleCasteWithSameMaxAge(unit)
+            script.sleep(1,'ticks')
+            unit.enemy.normal_caste=normal_caste
+        end
     else
-        local citizens=getCitizenList()
-        local ok,name,unit=script.showListPrompt("Unit Selection","Choose who you want to have a child.",COLOR_WHITE,tbl)
+        local ok,name,unit=script.showListPrompt("Unit Selection","Choose first genetic material giver.",COLOR_WHITE,citizens)
         if unit.relations.spouse_id==-1 and unit.relations.lover_id==-1 then
             script.showMessage('Unit selection',"That person ain't in a relationship, you ninnywhipper! Use freeform ectobiology for your weird shipping shit.")
         else
@@ -62,3 +81,13 @@ local function ectobiologize(freeform)
     end
     end)
 end
+
+local utils=require(utils)
+
+validArgs = validArgs or utils.invert({
+ 'freeform'
+})
+
+local args = utils.processArgs({...}, validArgs)
+
+ectobiologize(args.freeform)
