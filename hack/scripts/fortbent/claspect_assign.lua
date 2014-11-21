@@ -23,9 +23,9 @@ end
 
 function unitAlreadyHasClaspect(unit)
     for k,c_syn in ipairs(unit.syndromes.active) do
-		for _,ce in ipairs(df.global.world.raws.syndromes.all[c_syn.type].ce) do
-			if tostring(ce):find("display_namest") and ce.name:find('player') then return true end
-		end
+        for kk,syn_class in ipairs(df.syndrome.find(c_syn.type).syn_class) do
+            if syn_class.value=='IS_SBURBED' then return true end
+        end
 	end
     return false
 end
