@@ -429,481 +429,481 @@ reaction_class.txt
 ##############################################################
 
 [REACTION:CHANGE_CLASS_BREATH_1]
-	[NAME:change class - breath player]
+	[NAME:change class - breath]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_2]
-	[NAME:change class - breath player]
+	[NAME:change class - breath]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_3]
-	[NAME:change class - breath player]
+	[NAME:change class - breath]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_4]
-	[NAME:change class - breath player]
+	[NAME:change class - breath]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_5]
-	[NAME:change class - breath player]
+	[NAME:change class - breath]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_GOD_TIER_1]
-	[NAME:change class - god tiered breath player]
+	[NAME:change class - breath god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_GOD_TIER_2]
-	[NAME:change class - god tiered breath player]
+	[NAME:change class - breath god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_GOD_TIER_3]
-	[NAME:change class - god tiered breath player]
+	[NAME:change class - breath god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_GOD_TIER_4]
-	[NAME:change class - god tiered breath player]
+	[NAME:change class - breath god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BREATH_GOD_TIER_5]
-	[NAME:change class - god tiered breath player]
+	[NAME:change class - breath god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_1]
-	[NAME:change class - light player]
+	[NAME:change class - light]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_2]
-	[NAME:change class - light player]
+	[NAME:change class - light]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_3]
-	[NAME:change class - light player]
+	[NAME:change class - light]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_4]
-	[NAME:change class - light player]
+	[NAME:change class - light]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_5]
-	[NAME:change class - light player]
+	[NAME:change class - light]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_GOD_TIER_1]
-	[NAME:change class - god tiered light player]
+	[NAME:change class - light god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_GOD_TIER_2]
-	[NAME:change class - god tiered light player]
+	[NAME:change class - light god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_GOD_TIER_3]
-	[NAME:change class - god tiered light player]
+	[NAME:change class - light god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_GOD_TIER_4]
-	[NAME:change class - god tiered light player]
+	[NAME:change class - light god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIGHT_GOD_TIER_5]
-	[NAME:change class - god tiered light player]
+	[NAME:change class - light god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_1]
-	[NAME:change class - time player]
+	[NAME:change class - time]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_2]
-	[NAME:change class - time player]
+	[NAME:change class - time]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_3]
-	[NAME:change class - time player]
+	[NAME:change class - time]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_4]
-	[NAME:change class - time player]
+	[NAME:change class - time]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_5]
-	[NAME:change class - time player]
+	[NAME:change class - time]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_GOD_TIER_1]
-	[NAME:change class - god tiered time player]
+	[NAME:change class - time god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_GOD_TIER_2]
-	[NAME:change class - god tiered time player]
+	[NAME:change class - time god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_GOD_TIER_3]
-	[NAME:change class - god tiered time player]
+	[NAME:change class - time god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_GOD_TIER_4]
-	[NAME:change class - god tiered time player]
+	[NAME:change class - time god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_TIME_GOD_TIER_5]
-	[NAME:change class - god tiered time player]
+	[NAME:change class - time god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_1]
-	[NAME:change class - space player]
+	[NAME:change class - space]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_2]
-	[NAME:change class - space player]
+	[NAME:change class - space]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_3]
-	[NAME:change class - space player]
+	[NAME:change class - space]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_4]
-	[NAME:change class - space player]
+	[NAME:change class - space]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_5]
-	[NAME:change class - space player]
+	[NAME:change class - space]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_GOD_TIER_1]
-	[NAME:change class - god tiered space player]
+	[NAME:change class - space god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_GOD_TIER_2]
-	[NAME:change class - god tiered space player]
+	[NAME:change class - space god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_GOD_TIER_3]
-	[NAME:change class - god tiered space player]
+	[NAME:change class - space god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_GOD_TIER_4]
-	[NAME:change class - god tiered space player]
+	[NAME:change class - space god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_SPACE_GOD_TIER_5]
-	[NAME:change class - god tiered space player]
+	[NAME:change class - space god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_1]
-	[NAME:change class - life player]
+	[NAME:change class - life]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_2]
-	[NAME:change class - life player]
+	[NAME:change class - life]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_3]
-	[NAME:change class - life player]
+	[NAME:change class - life]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_4]
-	[NAME:change class - life player]
+	[NAME:change class - life]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_5]
-	[NAME:change class - life player]
+	[NAME:change class - life]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_GOD_TIER_1]
-	[NAME:change class - god tiered life player]
+	[NAME:change class - life god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_GOD_TIER_2]
-	[NAME:change class - god tiered life player]
+	[NAME:change class - life god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_GOD_TIER_3]
-	[NAME:change class - god tiered life player]
+	[NAME:change class - life god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_GOD_TIER_4]
-	[NAME:change class - god tiered life player]
+	[NAME:change class - life god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_LIFE_GOD_TIER_5]
-	[NAME:change class - god tiered life player]
+	[NAME:change class - life god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_1]
-	[NAME:change class - hope player]
+	[NAME:change class - hope]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_2]
-	[NAME:change class - hope player]
+	[NAME:change class - hope]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_3]
-	[NAME:change class - hope player]
+	[NAME:change class - hope]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_4]
-	[NAME:change class - hope player]
+	[NAME:change class - hope]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_5]
-	[NAME:change class - hope player]
+	[NAME:change class - hope]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_GOD_TIER_1]
-	[NAME:change class - god tiered hope player]
+	[NAME:change class - hope god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_GOD_TIER_2]
-	[NAME:change class - god tiered hope player]
+	[NAME:change class - hope god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_GOD_TIER_3]
-	[NAME:change class - god tiered hope player]
+	[NAME:change class - hope god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_GOD_TIER_4]
-	[NAME:change class - god tiered hope player]
+	[NAME:change class - hope god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HOPE_GOD_TIER_5]
-	[NAME:change class - god tiered hope player]
+	[NAME:change class - hope god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_1]
-	[NAME:change class - void player]
+	[NAME:change class - void]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_2]
-	[NAME:change class - void player]
+	[NAME:change class - void]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_3]
-	[NAME:change class - void player]
+	[NAME:change class - void]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_4]
-	[NAME:change class - void player]
+	[NAME:change class - void]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_5]
-	[NAME:change class - void player]
+	[NAME:change class - void]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_GOD_TIER_1]
-	[NAME:change class - god tiered void player]
+	[NAME:change class - void god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_GOD_TIER_2]
-	[NAME:change class - god tiered void player]
+	[NAME:change class - void god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_GOD_TIER_3]
-	[NAME:change class - god tiered void player]
+	[NAME:change class - void god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_GOD_TIER_4]
-	[NAME:change class - god tiered void player]
+	[NAME:change class - void god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_VOID_GOD_TIER_5]
-	[NAME:change class - god tiered void player]
+	[NAME:change class - void god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_1]
-	[NAME:change class - heart player]
+	[NAME:change class - heart]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_2]
-	[NAME:change class - heart player]
+	[NAME:change class - heart]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_3]
-	[NAME:change class - heart player]
+	[NAME:change class - heart]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_4]
-	[NAME:change class - heart player]
+	[NAME:change class - heart]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_5]
-	[NAME:change class - heart player]
+	[NAME:change class - heart]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_GOD_TIER_1]
-	[NAME:change class - god tiered heart player]
+	[NAME:change class - heart god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_GOD_TIER_2]
-	[NAME:change class - god tiered heart player]
+	[NAME:change class - heart god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_GOD_TIER_3]
-	[NAME:change class - god tiered heart player]
+	[NAME:change class - heart god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_GOD_TIER_4]
-	[NAME:change class - god tiered heart player]
+	[NAME:change class - heart god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_HEART_GOD_TIER_5]
-	[NAME:change class - god tiered heart player]
+	[NAME:change class - heart god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_1]
-	[NAME:change class - blood player]
+	[NAME:change class - blood]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_2]
-	[NAME:change class - blood player]
+	[NAME:change class - blood]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_3]
-	[NAME:change class - blood player]
+	[NAME:change class - blood]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_4]
-	[NAME:change class - blood player]
+	[NAME:change class - blood]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_5]
-	[NAME:change class - blood player]
+	[NAME:change class - blood]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_GOD_TIER_1]
-	[NAME:change class - god tiered blood player]
+	[NAME:change class - blood god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_GOD_TIER_2]
-	[NAME:change class - god tiered blood player]
+	[NAME:change class - blood god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_GOD_TIER_3]
-	[NAME:change class - god tiered blood player]
+	[NAME:change class - blood god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_GOD_TIER_4]
-	[NAME:change class - god tiered blood player]
+	[NAME:change class - blood god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_BLOOD_GOD_TIER_5]
-	[NAME:change class - god tiered blood player]
+	[NAME:change class - blood god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_1]
-	[NAME:change class - doom player]
+	[NAME:change class - doom]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_2]
-	[NAME:change class - doom player]
+	[NAME:change class - doom]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_3]
-	[NAME:change class - doom player]
+	[NAME:change class - doom]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_4]
-	[NAME:change class - doom player]
+	[NAME:change class - doom]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_5]
-	[NAME:change class - doom player]
+	[NAME:change class - doom]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_GOD_TIER_1]
-	[NAME:change class - god tiered doom player]
+	[NAME:change class - doom god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_GOD_TIER_2]
-	[NAME:change class - god tiered doom player]
+	[NAME:change class - doom god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_GOD_TIER_3]
-	[NAME:change class - god tiered doom player]
+	[NAME:change class - doom god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_GOD_TIER_4]
-	[NAME:change class - god tiered doom player]
+	[NAME:change class - doom god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_DOOM_GOD_TIER_5]
-	[NAME:change class - god tiered doom player]
+	[NAME:change class - doom god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_1]
-	[NAME:change class - mind player]
+	[NAME:change class - mind]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_2]
-	[NAME:change class - mind player]
+	[NAME:change class - mind]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_3]
-	[NAME:change class - mind player]
+	[NAME:change class - mind]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_4]
-	[NAME:change class - mind player]
+	[NAME:change class - mind]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_5]
-	[NAME:change class - mind player]
+	[NAME:change class - mind]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_GOD_TIER_1]
-	[NAME:change class - god tiered mind player]
+	[NAME:change class - mind god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_GOD_TIER_2]
-	[NAME:change class - god tiered mind player]
+	[NAME:change class - mind god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_GOD_TIER_3]
-	[NAME:change class - god tiered mind player]
+	[NAME:change class - mind god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_GOD_TIER_4]
-	[NAME:change class - god tiered mind player]
+	[NAME:change class - mind god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_MIND_GOD_TIER_5]
-	[NAME:change class - god tiered mind player]
+	[NAME:change class - mind god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_1]
-	[NAME:change class - rage player]
+	[NAME:change class - rage]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_2]
-	[NAME:change class - rage player]
+	[NAME:change class - rage]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_3]
-	[NAME:change class - rage player]
+	[NAME:change class - rage]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_4]
-	[NAME:change class - rage player]
+	[NAME:change class - rage]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_5]
-	[NAME:change class - rage player]
+	[NAME:change class - rage]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_GOD_TIER_1]
-	[NAME:change class - god tiered rage player]
+	[NAME:change class - rage god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_GOD_TIER_2]
-	[NAME:change class - god tiered rage player]
+	[NAME:change class - rage god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_GOD_TIER_3]
-	[NAME:change class - god tiered rage player]
+	[NAME:change class - rage god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_GOD_TIER_4]
-	[NAME:change class - god tiered rage player]
+	[NAME:change class - rage god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
 
 [REACTION:CHANGE_CLASS_RAGE_GOD_TIER_5]
-	[NAME:change class - god tiered rage player]
+	[NAME:change class - rage god]
 	[BUILDING:#YOUR_BUILDING_HERE#:NONE]
