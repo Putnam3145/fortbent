@@ -231,6 +231,8 @@ building_troll
 		[TILE:1:1:146]
 		[BUILD_ITEM:1:TOOL:ULTIMATE_REWARD_SBURB:INORGANIC:BK_SBURB]
     [BUILDING_WORKSHOP:ECTOBIOLOGY_LAB]
+        [NAME:Ectobiology Lab]
+        [NAME_COLOR:1:0:1]
         [DIM:3:5]
         [BLOCK:1:1:1:1]
         [BLOCK:2:0:0:0]
@@ -277,4 +279,4 @@ building_troll
         [COLOR:3:3:0:0:0:MAT:0:0:0]
         [COLOR:3:4:MAT:MAT:MAT]
         [COLOR:3:5:0:0:0:MAT:0:0:0]
-
+        [BUILD_ITEM:5:TOOL:GRIST:INORGANIC:BUILD]

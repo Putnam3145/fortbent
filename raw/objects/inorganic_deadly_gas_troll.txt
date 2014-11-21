@@ -288,3 +288,7 @@ inorganic_deadly_gas_troll
 			[MAT_FIXED_TEMP:10015]
 			[BOILING_POINT:10000]
 			[SPEC_HEAT:5000]
+    [INORGANIC:SYNDROME_CONTAINER_TROLL]
+        [SYNDROME]
+            [SYN_NAME:temp desterilize]
+            [CE_REMOVE_TAG:STERILE:START:0:END:2]
