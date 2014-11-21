@@ -16,5 +16,5 @@ validArgs = validArgs or utils.invert({
 local args = utils.processArgs({...}, validArgs)
 
 if unitIsVoidHero(df.unit.find(args.unit)) then
-    dfhack.run_script('gui/hack-wish','-unit',args.unit)
+    dfhack.run_script('gui/hack-wish','-unit',args.unit,'-restrictive')
 end
