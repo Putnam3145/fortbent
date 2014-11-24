@@ -10,7 +10,7 @@ creature_troll_easteregg
 	[SELECT_CASTE:MALE]
 	[CLUSTER_NUMBER:1:1]
 	[POPULATION_NUMBER:1:1]
-	[FREQUENCY:1]
+	[FREQUENCY:1] wait i exist in this that's weird as hell
 	[CAN_DO_INTERACTION:DONOTHING_INTERACTION_TROLL]
 			[CDI:ADV_NAME:holy shit fuck fuck!]
 			[CDI:TARGET:A:SELF_ONLY]
