@@ -4,6 +4,8 @@ modtools/interaction-trigger -onDefendStr heal -command [ full-heal \\DEFENDER_I
 
 modtools/interaction-trigger -onDefendStr teleports -command [ fortbent/dest_teleport -unit \\DEFENDER_ID ]
 
+modtools/interaction-trigger -suppressAttack -onAttackStr teleports -command [ fortbent/dest_teleport -unit \\ATTACKER_ID ]
+
 modtools/interaction-trigger -onDefendStr die -command [ fortbent/lord_english_laser \\DEFENDER_ID yes ]
 
 modtools/interaction-trigger -onDefendStr dies -command [ fortbent/lord_english_laser \\DEFENDER_ID yes ]
