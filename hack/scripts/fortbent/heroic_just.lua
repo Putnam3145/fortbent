@@ -5,6 +5,13 @@ local function is_god_tier(unit)
     return false
 end
 
+local function is_lord_english(unit)
+    for k,v in ipairs(df.creature_raw.find(unit.race).caste[unit.caste].creature_class) do
+        if v.value=='UNCONDITIONAL_IMMORTALITY' then return true end
+    end
+    return false
+end
+
 local function death_was_accident(incident)
     local death_cause=df.death_type[incident.death_cause]
     return not (death_cause=='SHOT' or death_cause=='BLEED' or death_cause=='STRUCK_DOWN' or death_cause=='DRAGONFIRE' or death_cause=='FIRE' or death_cause=='MURDER' or death_cause=='TRAP' or death_cause=='QUIT' or death_cause=='DRAIN_BLOOD') or incident.killer==-1
@@ -52,10 +59,14 @@ eventful.onUnitDeath.heroic_or_just_god_tier_death=function(unit_id)
         local heroic_or_just=death_was_heroic_or_just(unit)
         if heroic_or_just then
             ann_color=heroic_or_just=='heroic' and COLOR_YELLOW or COLOR_MAGENTA
-            ann_string='The death of ' .. dfhack.TranslateName(dfhack.getVisibleName(unit)) .. ' has been deemed ' .. heroic_or_just
+            ann_string='The death of ' .. dfhack.TranslateName(dfhack.units.getVisibleName(unit)) .. ' has been deemed ' .. heroic_or_just
             dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,ann_string,ann_color)
         else
+            dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,'Not heroic nor just; revival!',COLOR_YELLOW)
             dfhack.run_script('full-heal','-r','-unit',unit.id)
         end
+    elseif is_lord_english(unit) then
+        dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,'Lord English does not die.',COLOR_LGREEN)
+        dfhack.run_script('full-heal''r','-unit',unit.id)
     end
 end

@@ -65,3 +65,5 @@ modtools/reaction-trigger -reactionName ULTIMATE_REWARD_TROLL -command [ gui/hac
 modtools/reaction-trigger -reactionName ECTOBIOLOGY_TROLL -command [ fortbent/ectobiology ]
 
 modtools/reaction-trigger -reactionName ECTOBIOLOGY_TROLL_FREEFORM -command [ fortbent/ectobiology -freeform ]
+
+modtools/projectile-trigger -material CLOCKWORK_MAJYYKS -command [ fortbent/lord_english_laser_proj -projectile \\PROJECTILE_ID ]
