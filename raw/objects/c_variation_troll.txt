@@ -105,7 +105,6 @@ c_variation_troll
             [CV_NEW_TAG:CDI:VERB:teleports:teleports:NA]
             [CV_NEW_TAG:CDI:TARGET_VERB:flash green:suddenly flashes green]
             [CV_NEW_TAG:CDI:WAIT_PERIOD:50]
-        [CV_NEW_TAG:ITEMCORPSE:TOOL:GRIST_CACHE:INORGANIC:DENIZEN]
 
 [CREATURE_VARIATION:GOD_TIER_GENERAL]
     [CV_NEW_TAG:ARENA_RESTRICTED]

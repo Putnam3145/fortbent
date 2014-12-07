@@ -146,7 +146,6 @@ creature_troll_mega
                 [CDI:VERB:look at your victim:looks at its victim:NA]
                 [CDI:TARGET_VERB:can't see:can't see]
                 [CDI:WAIT_PERIOD:1000]
-            [ITEMCORPSE:TOOL:GRIST_CACHE:INORGANIC:DENIZEN]
     [CREATURE:INDESTRUCTIBLE_DEMON]
         [DESCRIPTION:A former agent of derse, who is now powered by the green sun. He likes to wreck shit.]
         [NAME:prototyped slayer:prototyped slayers:slayer]
@@ -290,7 +289,6 @@ creature_troll_mega
             [CDI:TARGET:A:SELF_ONLY]
             [CDI:MAX_TARGET_NUMBER:1]
             [CDI:WAIT_PERIOD:5]
-        [ITEMCORPSE:TOOL:GRIST_CACHE:INORGANIC:DENIZEN]
     [CREATURE:SPIDERMOM]
         [DESCRIPTION:A gigantic spider that sure looks hungry.]
         [NAME:gigantic spider:gigantic spiders:spider]
@@ -400,7 +398,6 @@ creature_troll_mega
                     [TLCM_NOUN:eyes:PLURAL]
             [SELECT_MATERIAL:ALL]
                 [MULTIPLY_VALUE:50]
-            [ITEMCORPSE:TOOL:GRIST_CACHE:INORGANIC:DENIZEN]
     [CREATURE:LORD_ENGLISH] i love this guy
         [DESCRIPTION:A huge indestructible time-traveling cherub with green skin and gigantic muscles, who once played a dead session of Sburb and won. He is nigh unkillable through any normal means. He likes to play games, Sburb among them.]
         [NAME:Cherubic Lord of Time:Cherubic Lords of Time:cherub]

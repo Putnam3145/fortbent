@@ -92,8 +92,6 @@ entity_troll
         [TOOL:ITEM_TOOL_HIVE]
         [TOOL:ITEM_TOOL_WHEELBARROW]
         [TOOL:ITEM_TOOL_MINECART]
-        [TOOL:GRIST_CACHE]
-        [TOOL:GRIST] For proper stockpiling.
         [CLOTHING]
         [CURRENCY:COPPER:1]
         [CURRENCY:BOONDOLLAR:2]
