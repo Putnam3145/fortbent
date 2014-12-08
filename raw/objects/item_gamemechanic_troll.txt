@@ -1,5 +1,12 @@
 item_gamemechanic_troll
 [OBJECT:ITEM]
+    [ITEM_TOOL:GRIST]
+        [NAME:grist:grist]
+        [VALUE:1]
+        [SIZE:1]
+        [UNIMPROVABLE]
+        [MATERIAL_SIZE:1]
+        [TILE:9]
     [ITEM_TOOL:BOONDOLLAR] How could I use these?
         [NAME:boondollar:boondollars]
         [VALUE:1]

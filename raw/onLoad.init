@@ -69,3 +69,8 @@ modtools/reaction-trigger -reactionName ECTOBIOLOGY_TROLL -command [ fortbent/ec
 modtools/reaction-trigger -reactionName ECTOBIOLOGY_TROLL_FREEFORM -command [ fortbent/ectobiology -freeform ]
 
 modtools/projectile-trigger -material CLOCKWORK_MAJYYKS -command [ fortbent/lord_english_laser_proj -projectile \\PROJECTILE_ID ]
+
+modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL -command [ fortbent/alchemize -unit \\WORKER_ID ]
+
+modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL_ADVENTURE -command [ fortbent/alchemize -unit \\WORKER_ID -adventure ]
+
