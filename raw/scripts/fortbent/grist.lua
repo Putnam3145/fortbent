@@ -34,7 +34,8 @@ eventful.onUnitDeath.grist=function(unit_id)
 end
 
 local function gristTorrent()
-    local civ_id=df.global.gamemode==df.game_mode['DWARF'] and df.global.ui.civ_id or df.global.world.units.active[0].civ_id
+    local civ_id=df.global.gamemode==df.game_mode['DWARF'] and df.global.ui.civ_id or #df.global.world.units.active>0 and df.global.world.units.active[0].civ_id or nil
+    if not civ_id then return end
     local civ=df.historical_entity.find(civ_id)
     local grist=dfhack.persistent.save({key='GRIST_'..civ_id})
     local rng=dfhack.random.new()
