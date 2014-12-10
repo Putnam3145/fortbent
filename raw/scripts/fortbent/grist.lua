@@ -25,12 +25,14 @@ local eventful=require('plugins.eventful')
 eventful.enableEvent(eventful.eventType['UNIT_DEATH'],5)
 
 eventful.onUnitDeath.grist=function(unit_id)
+    pcall(function()
     local victim=df.unit.find(unit_id)
     local victim_grist_value,zilly_value=getGristValue(victim)
     local grist=dfhack.persistent.save({key='GRIST_'..df.historical_figure.find(df.incident.find(victim.counters.death_id).killer_hfid).civ_id})
     grist.ints[1]=grist.ints[1]+victim_grist_value
     grist.ints[2]=grist.ints[2]+zilly_value
     grist:save()
+    end)
 end
 
 local function gristTorrent()
@@ -45,4 +47,4 @@ local function gristTorrent()
     grist:save()
 end
 
-dfhack.timeout(1,'ticks',function() require('repeat-util').scheduleUnlessAlreadyScheduled('GristTorrent',1,'days',gristTorrent) end)
+dfhack.timeout(1,'ticks',function() require('repeat-util').scheduleUnlessAlreadyScheduled('GristTorrent',7,'days',gristTorrent) end)
