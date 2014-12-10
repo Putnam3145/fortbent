@@ -44,4 +44,4 @@ local function gristTorrent()
     grist:save()
 end
 
-dfhack.timeout(1,'days',function() require('repeat-util').scheduleUnlessAlreadyScheduled('GristTorrent',1,'days',gristTorrent) end)
+dfhack.timeout(1,'ticks',function() require('repeat-util').scheduleUnlessAlreadyScheduled('GristTorrent',1,'days',gristTorrent) end)
