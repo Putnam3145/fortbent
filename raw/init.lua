@@ -1,5 +1,5 @@
 local majyyk_colors={COLOR_LIGHTRED,COLOR_YELLOW,COLOR_BLUE,COLOR_GREEN,COLOR_MAGENTA,COLOR_BROWN}
-local clockwork_majyyks=dfhack.matinfo.find('CLOCKWORK_MAJYYKS').material
+local clockwork_majyyks=dfhack.matinfo.find('CLOCKWORK_MAJYYKS_NO_ALCHEMIZE').material
 local clockwork_cur_color_idx=0
 clockwork_majyyks.build_color[2]=0
 clockwork_majyyks.tile_color[2]=0
