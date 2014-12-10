@@ -61,6 +61,7 @@ function getMatFilter(itemtype)
     return (mat.flags.LEATHER)
    end
   }
+  --print(itemTypes[df.item_type[itemtype]])
   return itemTypes[df.item_type[itemtype]] or getRestrictiveMatFilter(itemtype)
 end
 
@@ -86,21 +87,20 @@ function getRestrictiveMatFilter(itemType)
    end,
    BOULDER=ROCK,
    BAR=function(mat,parent,typ,idx)
-    return (mat.flags.IS_METAL or mat.flags.SOAP or mat.id==COAL)
+    return (mat.flags.IS_METAL or mat.flags.SOAP or mat.id=='COAL')
    end
    
   }
- for k,v in ipairs({'GOBLET','FLASK','TOY','RING','CROWN','SCEPTER','FIGURINE','TOOL'}) do
-  itemTypes[v]=itemTypes.INSTRUMENT
- end
  for k,v in ipairs({'SHOES','SHIELD','HELM','GLOVES'}) do
     itemTypes[v]=itemTypes.ARMOR
  end
- for k,v in ipairs({'EARRING','BRACELET'}) do
+ for k,v in ipairs({'EARRING','BRACELET','CHAIN'}) do
     itemTypes[v]=itemTypes.AMULET
  end
  itemTypes.BOULDER=itemTypes.ROCK
- return itemTypes[df.item_type[itemType]]
+ --print(itemType)
+ --print(itemTypes[df.item_type[itemType]])
+ return itemTypes[df.item_type[itemType]] or itemTypes.INSTRUMENT
 end
  
 function qualityTable()
@@ -156,7 +156,7 @@ end
 
 function alchemization_item_filter(itype,subtype,def) 
     if usesCreature(itype) then return false end
-    if itype==df.item_type.SLAB then return false end
+    if itype==df.item_type.SLAB or itype==df.item_type.BOOK then return false end
     if def then
         if def.source_hfid~=-1 or def.id:find('NO_ALCHEMIZE') or (def.id:find('ZILLY') and grist.ints[2]<1) then return false end
     end
@@ -165,14 +165,12 @@ function alchemization_item_filter(itype,subtype,def)
 end
 
 function alchemization_material_filter(mat,parent,typ,idx)
-    if not getMatFilter(itemType)(mat,parent,typ,idx) then return false end
-    if dfhack.items.getItemBaseValue(itemtype,itemsubtype,typ,idx)<grist.ints[1] or def.id:find('NO_ALCHEMIZE') then
+    if not getMatFilter(itemtype)(mat,parent,typ,idx) then return false end
+    if dfhack.items.getItemBaseValue(itemtype,itemsubtype,typ,idx)>grist.ints[1] or mat.id:find('NO_ALCHEMIZE') then
         return false
     end
     return true
 end
-
-local grist
 
 function alchemize(adventure,unit)
     if adventure then
@@ -180,13 +178,16 @@ function alchemize(adventure,unit)
     else
         grist=dfhack.persistent.save({key='GRIST_'..df.global.ui.civ_id})
     end
+    --print(grist)
     script.start(function()
     itemok,itemtype,itemsubtype=showItemPrompt('Choose the item',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
-    local zilly=dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ZILLY')
+    if not itemok then return end
+    local zilly=dfhack.items.getSubtypeCount(itemtype)>-1 and dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ZILLY')
     if zilly then
         local gristok=script.showYesNoPrompt('Alchemization','This will cost 1 zilly grist out of ' .. grist.ints[2] .. '. Ok?')
         if gristok then
             grist.ints[2]=grist.ints[2]-1
+            grist:save()
             local zilly_mat
             local subtype=dfhack.items.getSubtypeDef(itemtype,itemsubtype)
             if subtype.id=='ITEM_WEAPON_TROLL_KATANA_ZILLY' then
@@ -197,16 +198,26 @@ function alchemize(adventure,unit)
                 zilly_mat=dfhack.matinfo.find('SPECIAL_SHARP_NO_ALCHEMIZE')
             end
             dfhack.items.createItem(itemtype,itemsubtype,zilly_mat.type,zilly_mat.index,unit)
+            grist:save()
         end
     else
         local matok,mattype,matindex=showMaterialPrompt('Alchemization','Choose the material',alchemization_material_filter,true,true,true)
-        local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. dfhack.items.getItemBaseValue(itemtype,itemsubtype,mattype,matindex) .. 'grist (you currently have ' .. grist.ints[1] .. '). Ok?')
-        if gristok then 
-            grist.ints[1]=grist.ints[1]-dfhack.items.getItemBaseValue(itemtype,itemsubtype,mattype,matindex)
-            dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit)
+        local amountok,amount
+        local grist_cost=dfhack.items.getItemBaseValue(itemtype,itemsubtype,mattype,matindex)
+        local maximum=math.floor(grist.ints[1]/grist_cost)
+        repeat amountok,amount=script.showInputPrompt('Alchemization','How many do you want? (up to '..maximum..')',COLOR_LIGHTGREEN) until (tonumber(amount)<maximum+1 or not amountok)
+        local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. grist_cost*tonumber(amount) .. ' grist (you currently have ' .. grist.ints[1] .. '). Ok?')
+        if gristok and amountok then 
+            grist.ints[1]=grist.ints[1]-(grist_cost*tonumber(amount))
+            grist:save() --redundancy redundancy redundancy
+            for i=1,amount do
+                dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit)
+            end
+            grist:save()
         end
     end
     end)
+    grist:save()
 end
 
 utils=require('utils')
@@ -218,4 +229,4 @@ validArgs = validArgs or utils.invert({
 
 args = utils.processArgs({...}, validArgs)
 
-alchemize(args.adventure,args.unit)
+alchemize(args.adventure,df.unit.find(args.unit))

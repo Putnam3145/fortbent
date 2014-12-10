@@ -14,7 +14,7 @@ item_gamemechanic_troll
         [UNIMPROVABLE]
         [MATERIAL_SIZE:1]
         [TILE:36]
-    [ITEM_TOOL:ULTIMATE_REWARD_SBURB]
+    [ITEM_TOOL:ULTIMATE_REWARD_SBURB_NO_ALCHEMIZE]
         [NAME:reward:reward]
         [VALUE:1]
         [SIZE:0]

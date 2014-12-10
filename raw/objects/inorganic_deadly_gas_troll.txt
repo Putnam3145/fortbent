@@ -1,7 +1,7 @@
 inorganic_deadly_gas_troll
 [OBJECT:INORGANIC]
     [INORGANIC:BYPRODUCTA]
-        [USE_MATERIAL_TEMPLATE:STONE_TEMPLATE]
+        [USE_MATERIAL_TEMPLATE:DEADLY_GAS_TEMPLATE]
             [STATE_NAME:ALL_SOLID:dangerous by-product]
             [STATE_ADJ:ALL_SOLID:impossible]
             [STATE_NAME_ADJ:GAS:dangerous by-product]
@@ -17,7 +17,7 @@ inorganic_deadly_gas_troll
                 [CE_COUGH_BLOOD:SEV:100:PROB:100:START:300:PEAK:1000:END:10000]
                 [CE_FEVER:SEV:30:PROB:50:START:200:PEAK:500:END:10000]
     [INORGANIC:BYPRODUCTB]
-        [USE_MATERIAL_TEMPLATE:STONE_TEMPLATE]
+        [USE_MATERIAL_TEMPLATE:DEADLY_GAS_TEMPLATE]
             [STATE_NAME:ALL_SOLID:deadly by-product]
             [STATE_ADJ:ALL_SOLID:impossible]
             [STATE_NAME_ADJ:GAS:deadly by-product]
