@@ -1,6 +1,6 @@
 item_gamemechanic_troll
 [OBJECT:ITEM]
-    [ITEM_TOOL:GRIST]
+    [ITEM_TOOL:GRIST_NO_ALCHEMIZE]
         [NAME:grist:grist]
         [VALUE:1]
         [SIZE:1]

@@ -16,7 +16,7 @@ inorganic_sburb_troll
             [TILE:'?']
             [SOLID_DENSITY:1]
             [MATERIAL_VALUE:1000000]
-    [INORGANIC:ARTIFACT]
+    [INORGANIC:JPEG_ARTIFACT_NO_ALCHEMIZE]
         [USE_MATERIAL_TEMPLATE:STONE_TEMPLATE]
             [STATE_NAME_ADJ:ALL_SOLID:artifact]
             [DISPLAY_COLOR:2:13:1]

@@ -238,7 +238,7 @@ inorganic_metal_troll
             [STATE_NAME_ADJ:GAS:boiling steel folded 50 times]
             [DISPLAY_COLOR:0:7:1]
             [BUILD_COLOR:0:7:1]
-            [MATERIAL_VALUE:30]
+            [MATERIAL_VALUE:1000]
             [SPEC_HEAT:500]
             [MELTING_POINT:12718]
             [BOILING_POINT:14968]

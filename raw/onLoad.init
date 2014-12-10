@@ -62,7 +62,11 @@ modtools/interaction-trigger -suppressDefend -onDefendStr LECheck -command [ for
 
 modtools/reaction-trigger -reactionName VOID_HEROES_CREATE_STUFF -command [ fortbent/void_create -unit \\WORKER_ID ]
 
+modtools/reaction-trigger -reactionName VOID_HEROES_CREATE_STUFF_ADV -command [ fortbent/void_create -unit \\WORKER_ID ]
+
 modtools/reaction-trigger -reactionName ULTIMATE_REWARD_TROLL -command [ gui/hack-wish -all -multi -unit \\WORKER_ID ]
+
+modtools/reaction-trigger -reactionName ULTIMATE_REWARD_TROLL_ADV -command [ gui/hack-wish -all -multi -unit \\WORKER_ID ]
 
 modtools/reaction-trigger -reactionName ECTOBIOLOGY_TROLL -command [ fortbent/ectobiology ]
 
@@ -72,5 +76,6 @@ modtools/projectile-trigger -material CLOCKWORK_MAJYYKS -command [ fortbent/lord
 
 modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL -command [ fortbent/alchemize -unit \\WORKER_ID ]
 
-modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL_ADVENTURE -command [ fortbent/alchemize -unit \\WORKER_ID -adventure ]
+modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL_ADV -command [ fortbent/alchemize -unit \\WORKER_ID -adventure ]
 
+fortbent/grist

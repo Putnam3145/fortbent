@@ -158,7 +158,7 @@ function alchemization_item_filter(itype,subtype,def)
     if usesCreature(itype) then return false end
     if itype==df.item_type.SLAB then return false end
     if def then
-        if def.source_hfid~=-1 or def.id:find('NO_ALCHEMIZE') then return false end
+        if def.source_hfid~=-1 or def.id:find('NO_ALCHEMIZE') or (def.id:find('ZILLY') and grist.ints[2]<1) then return false end
     end
     if dfhack.items.getItemBaseValue(itype,subtype,0,dfhack.matinfo.find('SLATE').index)>grist.ints[1] then return false end
     return true
@@ -166,7 +166,7 @@ end
 
 function alchemization_material_filter(mat,parent,typ,idx)
     if not getMatFilter(itemType)(mat,parent,typ,idx) then return false end
-    if dfhack.items.getItemBaseValue(itemtype,itemsubtype,typ,idx)<grist.ints[1] then
+    if dfhack.items.getItemBaseValue(itemtype,itemsubtype,typ,idx)<grist.ints[1] or def.id:find('NO_ALCHEMIZE') then
         return false
     end
     return true
@@ -182,11 +182,29 @@ function alchemize(adventure,unit)
     end
     script.start(function()
     itemok,itemtype,itemsubtype=showItemPrompt('Choose the item',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
-    local matok,mattype,matindex=showMaterialPrompt('Alchemization','Choose the material',alchemization_material_filter,true,true,true)
-    local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. dfhack.items.getItemBaseValue(itemtype,itemsubtype,mattype,matindex) .. 'grist (you currently have ' .. grist.ints[1] .. ')')
-    if gristok then 
-        grist.ints[1]=grist.ints[1]-dfhack.items.getItemBaseValue(itemtype,itemsubtype,mattype,matindex)
-        dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, creator)
+    local zilly=dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ZILLY')
+    if zilly then
+        local gristok=script.showYesNoPrompt('Alchemization','This will cost 1 zilly grist out of ' .. grist.ints[2] .. '. Ok?')
+        if gristok then
+            grist.ints[2]=grist.ints[2]-1
+            local zilly_mat
+            local subtype=dfhack.items.getSubtypeDef(itemtype,itemsubtype)
+            if subtype.id=='ITEM_WEAPON_TROLL_KATANA_ZILLY' then
+                zilly_mat=dfhack.matinfo.find('UNBREAKABLE_STUFF_TROLL')
+            elseif (df.item_type[itemtype]=='WEAPON' or df.item_type[itemtype]=='TRAPCOMP') and not subtype.flags.HAS_EDGE_ATTACK then
+                zilly_mat=dfhack.matinfo.find('SPECIAL_BLUNT_NO_ALCHEMIZE')
+            else
+                zilly_mat=dfhack.matinfo.find('SPECIAL_SHARP_NO_ALCHEMIZE')
+            end
+            dfhack.items.createItem(itemtype,itemsubtype,zilly_mat.type,zilly_mat.index,unit)
+        end
+    else
+        local matok,mattype,matindex=showMaterialPrompt('Alchemization','Choose the material',alchemization_material_filter,true,true,true)
+        local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. dfhack.items.getItemBaseValue(itemtype,itemsubtype,mattype,matindex) .. 'grist (you currently have ' .. grist.ints[1] .. '). Ok?')
+        if gristok then 
+            grist.ints[1]=grist.ints[1]-dfhack.items.getItemBaseValue(itemtype,itemsubtype,mattype,matindex)
+            dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit)
+        end
     end
     end)
 end

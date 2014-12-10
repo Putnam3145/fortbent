@@ -2,7 +2,7 @@ item_trapcomp_troll
 
 [OBJECT:ITEM]
 
-[ITEM_TRAPCOMP:DICE_CASCADER]
+[ITEM_TRAPCOMP:DICE_CASCADER_ZILLY]
     [NAME:doomsday dice cascader:doomsday dice cascaders]
     [ADJECTIVE:catenative]
     [SIZE:10000]
