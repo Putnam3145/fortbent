@@ -1,7 +1,7 @@
 creature_troll
 [OBJECT:CREATURE]
     [CREATURE:TROLL_ALTERNIA]
-        [DESCRIPTION:A medium-sized gray-skinned creature with two horns from the planet Alternia.]
+        [DESCRIPTION:A medium-sized gray-skinned creature with two horns.]
         [NAME:troll:trolls:trollish]
         [CREATURE_TILE:'T']
         [COLOR:7:0:0]
@@ -604,3 +604,8 @@ creature_troll
                 [CDI:CAN_BE_MUTUAL]
                 [CDI:FREE_ACTION]
                 [CDI:WAIT_PERIOD:4]
+                
+[CREATURE:TROLL_BEFORUS]
+    [COPY_TAGS_FROM:TROLL_ALTERNIA]
+    [APPLY_CREATURE_VARIATION:BEFORAN_TROLL]
+    [PERSONALITY:VIOLENT:0:40:100]

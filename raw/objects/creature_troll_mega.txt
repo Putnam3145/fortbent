@@ -564,7 +564,7 @@ creature_troll_mega
             [CDI:ADV_NAME:Fire your laser]
             [CDI:USAGE_HINT:ATTACK]
             [CDI:BP_REQUIRED:BY_CATEGORY:HEAD]
-            [CDI:MATERIAL:INORGANIC:CLOCKWORK_MAJYYKS:SOLID_GLOB]
+            [CDI:MATERIAL:INORGANIC:CLOCKWORK_MAJYYKS_NO_ALCHEMIZE:SOLID_GLOB]
             [CDI:VERB:unhinge your jaw as you fire a gigantic laser:unhinges his jaw as he fires a gigantic laser:NA]
             [CDI:TARGET:C:LINE_OF_SIGHT]
             [CDI:TARGET_RANGE:C:20]

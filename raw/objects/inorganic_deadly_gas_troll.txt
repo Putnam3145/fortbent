@@ -183,7 +183,7 @@ inorganic_deadly_gas_troll
             [MAT_FIXED_TEMP:15000]
             [BOILING_POINT:10000]
             [PREFIX:NONE]
-    [INORGANIC:CLOCKWORK_MAJYYKS]
+    [INORGANIC:CLOCKWORK_MAJYYKS_NO_ALCHEMIZE]
         [USE_MATERIAL_TEMPLATE:METAL_TEMPLATE]
             [STATE_COLOR:ALL_SOLID:YELLOW] properly red-yellow-blue-green-purple-orange
             [STATE_COLOR:ALL:YELLOW]

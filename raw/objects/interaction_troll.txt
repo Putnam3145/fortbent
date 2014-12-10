@@ -657,7 +657,7 @@ interaction_troll
                     [CDI:USAGE_HINT:ATTACK]
                     [CDI:BP_REQUIRED:BY_CATEGORY:MOUTH]
                     [CDI:VERB:shoot a mouth laser:shoots a mouth laser:NA]
-                    [CDI:MATERIAL:INORGANIC:CLOCKWORK_MAJYYKS:SOLID_GLOB]
+                    [CDI:MATERIAL:INORGANIC:CLOCKWORK_MAJYYKS_NO_ALCHEMIZE:SOLID_GLOB]
                     [CDI:TARGET:C:LINE_OF_SIGHT]
                     [CDI:TARGET_RANGE:C:20]
                     [CDI:MAX_TARGET_NUMBER:C:1]
