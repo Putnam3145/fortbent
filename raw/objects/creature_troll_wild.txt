@@ -822,7 +822,7 @@ creature_troll_wild
                     [CDI:INTERACTION:MATERIAL_EMISSION]
                     [CDI:BP_REQUIRED:BY_CATEGORY:EYE]
                     [CDI:VERB:shoot a mind blast:can't control mindblasts anymore and shoots a mind blast:NA]
-                    [CDI:MATERIAL:LOCAL_CREATURE_MAT:MINDBLAST:SOLID_GLOB]
+                    [CDI:MATERIAL:INORGANIC:MINDBLAST_NO_ALCHEMIZE:SOLID_GLOB]
                     [CDI:TARGET:C:LINE_OF_SIGHT]
                     [CDI:TARGET_RANGE:C:20]
                     [CDI:MAX_TARGET_NUMBER:C:1]
