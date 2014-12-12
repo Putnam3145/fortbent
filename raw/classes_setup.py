@@ -107,7 +107,18 @@ wf.write('\t[USE_MATERIAL_TEMPLATE:STONE_TEMPLATE]\n')
 for i in range(len(creature)):
 	wf.write('\t[SYNDROME]\n')
 	wf.write('\t\t[SYN_NAME:'+creature[i][0]+']\n')
-	wf.write('\t\t[CE_DISPLAY_NAME:NAME:'+creature[i][1].partition(':')[2].partition(']')[0]+':START:0]\n')
+	if creature[i][1].count(':') == 1:
+		name = creature[i][1].split(':')[1].partition(']')[0]
+		wf.write('\t\t[CE_DISPLAY_NAME:NAME:'+name+':'+name+'s:'+name+':START:0]\n')
+	if creature[i][1].count(':') == 2:
+		name = creature[i][1].split(':')[1]
+		plural = creature[i][1].split(':')[2].partition(']')[0]
+		wf.write('\t\t[CE_DISPLAY_NAME:NAME:'+name+':'+plural+':'+name+':START:0]\n')
+	if creature[i][1].count(':') == 3:
+		name = creature[i][1].split(':')[1]
+		plural = creature[i][1].split(':')[2]
+		adjective = creature[i][1].split(':')[3].partition(']')[0]
+		wf.write('\t\t[CE_DISPLAY_NAME:NAME:'+name+':'+plural+':'+adjective+':START:0]\n')
 	wf2.write('modtools/reaction-trigger -reaction CHANGE_CLASS_'+creature[i][0]+' -command [ class-change-class -unit \\WORKER_ID -class '+creature[i][0]+' ]\n')
 	wf3.write('\n[REACTION:CHANGE_CLASS_'+creature[i][0]+']\n')
 	wf3.write('\t[NAME:change class - '+creature[i][1].split(':')[1]+']\n')
