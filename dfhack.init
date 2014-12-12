@@ -185,8 +185,6 @@ soundsense-season
 # write identifying information about the fort to gamelog on world load
 log-region
 
-base/classes
-
 fortbent/claspect_assign
 
 fortbent/godtier_transform
