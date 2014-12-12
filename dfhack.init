@@ -187,10 +187,6 @@ log-region
 
 fortbent/claspect_assign
 
-fortbent/godtier_transform
-
-fortbent/heroic_just
-
 #######################################################
 # Apply binary patches at runtime                     #
 #######################################################

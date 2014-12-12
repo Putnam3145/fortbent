@@ -78,6 +78,10 @@ modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL -command [ fortbent/alch
 
 modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL_ADV -command [ fortbent/alchemize -unit \\WORKER_ID -adventure ]
 
+fortbent/grist
+
 base/classes
 
-fortbent/grist
+fortbent/heroic_just
+
+fortbent/godtier_transform

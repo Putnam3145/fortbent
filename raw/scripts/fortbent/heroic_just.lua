@@ -51,7 +51,7 @@ end
 
 local eventful=require('plugins.eventful')
 
-eventful.enableEvent(eventful.eventType.UNIT_DEATH,1) --requires iterating through all units
+eventful.enableEvent(eventful.eventType.UNIT_DEATH,5) --requires iterating through all units
 
 eventful.onUnitDeath.heroic_or_just_god_tier_death=function(unit_id)
     local unit=df.unit.find(unit)
