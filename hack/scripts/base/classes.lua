@@ -3,14 +3,24 @@
 
 radius = -1
 
-split = require('split')
-events = require "plugins.eventful"
-events.enableEvent(events.eventType.UNIT_DEATH,100)
-filename = dfhack.getDFPath().."/raw/objects/classes.txt"
+local persistTable = require 'persist-table'
+persistTable.GlobalTable.roses = persistTable.GlobalTable.roses or {}
+persistTable.GlobalTable.roses.UnitTable = persistTable.GlobalTable.roses.UnitTable or {}
+
+local split = require('split')
+local events = require "plugins.eventful"
+events.enableEvent(events.eventType.UNIT_DEATH,10)
 local establishclass = require('classes.establish-class')
 local read_file = require('classes.read-file')
 local checkclass = require('classes.requirements-class')
 local checkspell = require('classes.requirements-spell')
+
+local dir = dfhack.getDFPath().."/raw/objects/"
+for _,fname in pairs(dfhack.internal.getDir(dir)) do
+ if split(fname,'_')[1] == 'classes' or fname == 'classes.txt' then
+  read_file(dir..fname)
+ end
+end
 
 function check(unit,unitTarget,radius)
  if radius == -1 and unit.id == unitTarget.id then
@@ -38,12 +48,13 @@ events.onUnitDeath.teleport=function(unit_id)
  killer_id = tonumber(unit.relations.last_attacker_id)
  local unitList = df.global.world.units.active
  if killer_id >=0 then
+  unitKiller = df.unit.find(killer_id)
   for i = 0, #unitList-1,1 do
    local unit = unitList[i]
    if check(unit,unitKiller,radius) then
     kill_id = unit.id
-   --name = dfhack.unit.getVisibleName(unit)
-   --kill_name = dfhack.unit.getVisibleName(df.unit.find(tonumber(kill_id)))
+    --name = dfhack.unit.getVisibleName(unit)
+    --kill_name = dfhack.unit.getVisibleName(df.unit.find(tonumber(kill_id)))
     local unitraws = df.creature_raw.find(unit.race)
     local casteraws = unitraws.caste[unit.caste]
     local unitracename = unitraws.creature_id
@@ -55,49 +66,25 @@ events.onUnitDeath.teleport=function(unit_id)
       exps = tonumber(split(unitclass.value,'_')[2])
      end
     end
-    classes = read_file(filename)
-    establishclass(df.unit.find(tonumber(kill_id)),classes)
-    pers,status = dfhack.persistent.get(tostring(kill_id)..'_current_class')
-    pers.ints[1] = pers.ints[1] + exps
-    pers.ints[2] = pers.ints[2] + exps
-    dfhack.persistent.save({key=tostring(kill_id)..'_current_class',value=pers.value,ints=pers.ints})
-    --print(kill_name..' '..tostring(kill_id)..' killed '..name..' '..tostring(unit_id)..' and earned '..tostring(exps)..' experience. Total experience is '..tostring(pers.ints[2]))
-    if pers.value ~= 'NONE' then
-     cpers,status = dfhack.persistent.get(tostring(kill_id)..'_'..pers.value)
-     clevel = cpers.ints[2]
-     if clevel < classes[pers.value]['LEVELS'] then
-      cexp = tonumber(split(classes[pers.value]['EXP'][clevel+1],']')[1])
-      if pers.ints[1] > cexp then
-       cpers.ints[2] = cpers.ints[2] + 1
-        print('LEVEL UP!! '..pers.value..' LEVEL '..tostring(cpers.ints[2]))
-        if classes[pers.value]['B_PHYS'] then
-         for i,x in pairs(classes[pers.value]['B_PHYS']) do
-          dfhack.run_script('unit/attribute-change',table.unpack({'-unit',tostring(kill_id),'-physical',i,'-fixed','\\'..tostring(tonumber(split(x[cpers.ints[2]+1],']')[1])-tonumber(split(x[cpers.ints[2]],']')[1]))}))
-         end
-        end
-        if classes[pers.value]['B_MENT'] then
-         for i,x in pairs(classes[pers.value]['B_MENT']) do
-          dfhack.run_script('unit/attribute-change',table.unpack({'-unit',tostring(kill_id),'-mental',i,'-fixed','\\'..tostring(tonumber(split(x[cpers.ints[2]+1],']')[1])-tonumber(split(x[cpers.ints[2]],']')[1]))}))
-         end
-        end
-        if classes[pers.value]['B_SKILL'] then
-         for i,x in pairs(classes[pers.value]['B_SKILL']) do
-          dfhack.run_script('unit/skill-change',table.unpack({'-unit',tostring(kill_id),'-skill',i,'-fixed','\\'..tostring(tonumber(split(x[cpers.ints[2]+1],']')[1])-tonumber(split(x[cpers.ints[2]],']')[1]))}))
-         end
-        end
-        if classes[pers.value]['B_TRAIT'] then
-         for i,x in pairs(classes[pers.value]['B_TRAIT']) do
-          dfhack.run_script('unit/trait-change',table.unpack({'-unit',tostring(kill_id),'-trait',i,'-fixed','\\'..tostring(tonumber(split(x[cpers.ints[2]+1],']')[1])-tonumber(split(x[cpers.ints[2]],']')[1]))}))
-         end
-        end
-	    if cpers.ints[2] == classes[pers.value]['LEVELS'] then 
-	     print('REACHED MAX LEVEL FOR CLASS '..pers.value)
-	     if classes[pers.value]['A_UPGRADE'] then dfhack.run_script('classes/change-class',table.unpack({'-unit',tostring(kill_id),'-class',classes[pers.value]['A_UPGRADE']})) end
-	    end
-       end
-      end
-     dfhack.persistent.save({key=tostring(kill_id)..'_'..cpers.value,value=cpers.value,ints=cpers.ints})
-    end
+    establishclass(df.unit.find(tonumber(kill_id)))
+	local unitClasses = persistTable.GlobalTable.roses.UnitTable[tostring(kill_id)]['Classes']
+	local currentClass = persistTable.GlobalTable.roses.UnitTable[tostring(kill_id)]['Classes']['Current']
+	local classes = persistTable.GlobalTable.roses.ClassTable
+    currentClass['CurrentExp'] = tostring(tonumber(currentClass['CurrentExp'])+exps)
+    currentClass['TotalExp'] = tostring(tonumber(currentClass['TotalExp'])+exps)
+    currentClass['SkillExp'] = tostring(tonumber(currentClass['SkillExp'])+exps)
+    --print(kill_name..' '..tostring(kill_id)..' killed '..name..' '..tostring(unit_id)..' and earned '..tostring(exps)..' experience. Total experience is '..persistTable.GlobalTable.roses.UnitTable[tostring(kill_id)]['Classes']['Current']['TotalExp']))
+    if currentClass['Name'] ~= 'None' then
+	 local currentClassName = currentClass['Name']
+     local currentClassLevel = tonumber(unitClasses[currentClassName]['Level'])
+     if currentClassLevel < tonumber(classes[currentClassName]['Levels']) then
+	  classExpLevel = tonumber(split(classes[currentClassName]['Experience'][currentClassLevel+1],']')[1])
+      if tonumber(currentClass['CurrentExp']) > classExpLevel then
+       print('LEVEL UP!! '..currentClassName..' LEVEL '..tostring(tonumber(currentClassLevel)+1))
+	   dfhack.run_script('classes/level-up',table.unpack({'-unit',tostring(kill_id)}))
+	  end
+	 end
+	end
    end
   end
  end

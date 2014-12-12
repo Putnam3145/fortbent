@@ -1,6 +1,7 @@
 
 local split = require('split')
 local utils = require 'utils'
+local persistTable = require 'persist-table'
 
 function getAttrValue(unit,attr,mental)
  if unit.curse.attr_change then
@@ -18,55 +19,74 @@ function getAttrValue(unit,attr,mental)
  end
 end
 
-function checkrequirements(unit,change,classes)
- key = tostring(unit.id)
- yes = true
+function checkrequirements(unit,change)
+ local key = tostring(unit.id)
+ local yes = true
+ local unitClasses = persistTable.GlobalTable.roses.UnitTable[key]['Classes']
+ local unitCounters = persistTable.GlobalTable.roses.UnitTable[key]['Counters']
+ local currentClass = unitClasses['Current']
+ local classes = persistTable.GlobalTable.roses.ClassTable
 -- Check if the unit meets the class and attribute requirements 
- for i,x in pairs(classes[change]['R_CLASS']) do
-  pers,status = dfhack.persistent.get(key..'_'..i)
-  if pers.ints[2] < tonumber(x) then
-   print('Class requirements not met. '..i..' level '..x..' needed. Current level is '..tostring(pers.ints[2]))
+ for _,x in pairs(classes[change]['RequiredClass']._children) do
+  local classCheck = unitClasses[x]
+  local i = classes[change]['RequiredClass'][x]
+  if tonumber(classCheck['Level']) < tonumber(i) then
+   print('Class requirements not met. '..x..' level '..i..' needed. Current level is '..tostring(classCheck['Level']))
    yes = false
   end
  end
- for i,x in pairs(classes[change]['F_CLASS']) do
-  pers,status = dfhack.persistent.get(key..'_'..i)
-  if pers.ints[2] >= tonumber(x) and tonumber(x) ~= 0 then
-   print('Already a member of a forbidden class. '..i)
+ for _,x in pairs(classes[change]['ForbiddenClass']._children) do
+  local classCheck = unitClasses[x]
+  local i = classes[change]['ForbiddenClass'][x]
+  if tonumber(classCheck['Level']) >= tonumber(i) and tonumber(i) ~= 0 then
+   print('Already a member of a forbidden class. '..x)
    yes = false
-  elseif tonumber(x) == 0 and pers.ints[1] > 0 then
-   print('Already a member of a forbidden class. '..i)
+  elseif tonumber(i) == 0 and tonumber(classCheck['Experience']) > 0 then
+   print('Already a member of a forbidden class. '..x)
    yes = false   
   end
  end
- for i,x in pairs(classes[change]['R_COUNTER']) do
-  yes = dfhack.run_script('special\\counters',table.unpack({unit,i,0,'minimum',tonumber(x)}))
- end
- for i,x in pairs(classes[change]['R_PHYS']) do
-  curstat = getAttrValue(unit,i,false)
-  if curstat < tonumber(x) then
-   print('Stat requirements not met. '..x..' '..i..' needed. Current amount is '..tostring(curstat))
+ for _,x in pairs(classes[change]['RequiredCounter']._children) do
+  local i = classes[change]['RequiredCounter'][x]
+  if unitCounters[x] then
+   if tonumber(unitCounters[x]['Value']) < tonumber(x) then
+    print('Counter requirements not met. '..i..x..' needed. Current amount is '..unitCounters[i]['Value'])
+    yes = false
+   end
+  else
+   print('Counter requirements not met. '..i..x..' needed. No current counter on the unit')
    yes = false
   end
  end
- for i,x in pairs(classes[change]['R_SKILL']) do
-  curstat = dfhack.units.getEffectiveSkill(unit,i)
-  if curstat < tonumber(x) then
-   print('Skill requirements not met. '..x..' '..i..' needed. Current amount is '..tostring(curstat))
+ for _,x in pairs(classes[change]['RequiredPhysical']._children) do
+  local currentStat = getAttrValue(unit,x,false)
+  local i = classes[change]['RequiredPhysical'][x]
+  if currentStat < tonumber(i) then
+   print('Stat requirements not met. '..i..' '..x..' needed. Current amount is '..tostring(currentStat))
    yes = false
   end
  end
- for i,x in pairs(classes[change]['R_TRAIT']) do
-  curstat = dfhack.units.getMiscTrait(unit,i)
-  if curstat < tonumber(x) then
-   print('Trait requirements not met. '..x..' '..i..' needed. Current amount is '..tostring(curstat))
+ for _,x in pairs(classes[change]['RequiredMental']._children) do
+  local currentStat = getAttrValue(unit,x,true)
+  local i = classes[change]['RequiredMental'][x]
+  if currentStat < tonumber(i) then
+   print('Stat requirements not met. '..i..' '..x..' needed. Current amount is '..tostring(currentStat))
    yes = false
   end
  end
- for i,x in pairs(classes[change]['R_MENT']) do
-  curstat = getAttrValue(unit,i,true)
-  if curstat < tonumber(x) then
-   print('Stat requirements not met. '..x..' '..i..' needed. Current amount is '..tostring(curstat))
+ for _,x in pairs(classes[change]['RequiredSkill']._children) do
+  local currentSkill = dfhack.units.getEffectiveSkill(unit,x)
+  local i = classes[change]['RequiredSkill'][x]
+  if currentSkill < tonumber(i) then
+   print('Skill requirements not met. '..i..' '..x..' needed. Current amount is '..tostring(currentSkill))
+   yes = false
+  end
+ end
+ for _,x in pairs(classes[change]['RequiredTrait']._children) do
+  local currentTrait = dfhack.units.getMiscTrait(unit,x)
+  local i = classes[change]['RequiredTrait'][x]
+  if currentTrait < tonumber(i) then
+   print('Trait requirements not met. '..i..' '..x..' needed. Current amount is '..tostring(currentTrait))
    yes = false
   end
  end

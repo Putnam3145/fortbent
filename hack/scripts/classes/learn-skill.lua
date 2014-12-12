@@ -2,8 +2,8 @@
 local split = require('split')
 local utils = require 'utils'
 local establishclass = require('classes.establish-class')
-local read_file = require('classes.read-file')
 local checkspell = require('classes.requirements-spell')
+local persistTable = require 'persist-table'
 
 function findUnitSyndrome(unit,syn_id)
  for index,syndrome in ipairs(unit.syndromes.active) do
@@ -37,9 +37,6 @@ function learnspell(unit,spell,classes,upgrade)
  return true
 end
 
-file = dfhack.getDFPath().."/raw/objects/classes.txt"
-classes = read_file(file)
-
 validArgs = validArgs or utils.invert({
  'help',
  'unit',
@@ -49,11 +46,13 @@ local args = utils.processArgs({...}, validArgs)
 
 unit = df.unit.find(tonumber(args.unit))
 
-establishclass(unit,classes)
-yes,upgrade = checkspell(unit,args.spell,classes)
+establishclass(unit)
+yes,upgrade = checkspell(unit,args.spell)
 if yes then 
- success = learnspell(unit,args.spell,classes,upgrade)
+ success = learnspell(unit,args.spell,upgrade)
  if success then
  -- Erase items used for reaction
  end
+else
+ print('Failed to learn spell')
 end
