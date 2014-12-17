@@ -44,8 +44,8 @@ end
 
 local function forceIt()
     for k,v in ipairs(df.global.world.units.active) do
-        for kk,vv in ipairs(v.syndromes.active) do
-            pcall(forcedTransform,v.id,vv.type)
+        for kk,vv in ipairs(v.syndromes.active) do\
+            pcall(function() forcedTransform(v.id,vv.type) end)
         end
     end
 end

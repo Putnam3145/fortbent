@@ -19,7 +19,7 @@ end
 
 local function death_was_final(unit)
     --first we need to determine if the death was due to some action that could be regarded as either heroic or just
-    if death_was_accident([df.incident.find(unit.counters.death_id)]) then return false end
+    if death_was_accident(df.incident.find(unit.counters.death_id)) then return false end
     local is_scared_of_current_combat=false
     local was_not_in_combat=false
     for k,emotion in ipairs(unit.status.current_soul.personality.emotions) do
@@ -54,7 +54,7 @@ local eventful=require('plugins.eventful')
 eventful.enableEvent(eventful.eventType.UNIT_DEATH,5) --requires iterating through all units
 
 eventful.onUnitDeath.heroic_or_just_god_tier_death=function(unit_id)
-    local unit=df.unit.find(unit)
+    local unit=df.unit.find(unit_id)
     if is_god_tier(unit) then
         local heroic_or_just=death_was_heroic_or_just(unit)
         if heroic_or_just then
@@ -67,6 +67,6 @@ eventful.onUnitDeath.heroic_or_just_god_tier_death=function(unit_id)
         end
     elseif is_lord_english(unit) then
         dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,'Lord English does not die.',COLOR_LGREEN)
-        dfhack.run_script('full-heal''-r','-unit',unit.id)
+        dfhack.run_script('full-heal','-r','-unit',unit.id)
     end
 end
