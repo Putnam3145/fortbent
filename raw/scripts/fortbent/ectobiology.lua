@@ -4,22 +4,12 @@
 
 -- where MAKING THIS HAPEN
 
-local function getCitizenList(lovers_only)
-    local citizenTable={}
-    if lovers_only then
-        for k,u in ipairs(df.global.world.units.active) do
-            if dfhack.units.isCitizen(u) and (u.relations.spouse_id~=-1 or u.relations.lover_id~=-1) then
-                table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u)),nil,u})
-            end
-        end
-    else
-        for k,u in ipairs(df.global.world.units.active) do
-            if dfhack.units.isCitizen(u) then
-                table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u)),nil,u})
-            end
-        end
+local function getNumberOfChildren(unit)
+    local children=0
+    for k,v in ipairs(df.historical_figure.find(unit.hist_figure_id).histfig_links) do
+        if df.histfig_hf_link_childst:is_instance(v) then children=children+1 end
     end
-    return citizenTable
+    return children
 end
 
 local function getSpouseOrLover(unit)
@@ -34,6 +24,24 @@ local function getSpouseOrLover(unit)
             end
         end
     end
+end
+
+local function getCitizenList(lovers_only)
+    local citizenTable={}
+    if lovers_only then
+        for k,u in ipairs(df.global.world.units.active) do
+            if dfhack.units.isCitizen(u) and (u.relations.spouse_id~=-1 or u.relations.lover_id~=-1) and u.military.squad_id==-1 then
+                table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u))..(getSpouseOrLover(u) and (df.historical_figure.find(getSpouseOrLover(u)).sex==u.sex and ' (gay)' or (' (straight)')) or (' (unknown)'))..' ('..getNumberOfChildren(u)..' children)',nil,u})
+            end
+        end
+    else
+        for k,u in ipairs(df.global.world.units.active) do
+            if dfhack.units.isCitizen(u) then
+                table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u)),nil,u})
+            end
+        end
+    end
+    return citizenTable
 end
 
 local function getFemaleCasteWithSameMaxAge(unit)
@@ -66,6 +74,7 @@ local function ectobiologize(freeform)
         end
     else
         local ok,name,unit_t=script.showListPrompt("Ectobiology","Choose first genetic material giver.",COLOR_WHITE,citizens)
+        if not ok then return false end
         local unit=unit_t[3]
         local lover=getSpouseOrLover(unit)
         unit.relations.pregnancy_timer=1
