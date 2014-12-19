@@ -467,3 +467,4 @@ body_troll
     [BODYGLOSS:THINKPAN:brain:thinkpan:brains:thinkpans]
     [BODYGLOSS:CANE:weapon:cane:weapons:canes]
     [BODYGLOSS:SWORD:weapon:sword:weapons:swords]
+    [BODYGLOSS:COLLAPSING_AND_EXPANDING_BLADDER_BASED_AQUATIC_VASCULAR_SYSTEM:pump biscuit:collapsing and expanding bladder based aquatic vascular system:pump biscuits:collapsing and expanding bladder based aquatic vascular systems]
