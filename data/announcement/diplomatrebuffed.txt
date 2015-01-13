@@ -1,3 +1,0 @@
-diplomatrebuffed
-[TITLE]Diplomacy Stymied[/TITLE]
-[P]A diplomat has left unhappy.
