@@ -21,14 +21,14 @@ local function death_was_final(unit)
     --first we need to determine if the death was due to some action that could be regarded as either heroic or just
     if death_was_accident(df.incident.find(unit.counters.death_id)) then return false end
     local is_scared_of_current_combat=false
-    local was_not_in_combat=false
+    local is_in_combat=false
     for k,emotion in ipairs(unit.status.current_soul.personality.emotions) do
         if emotion.thought==df.unit_thought_type.Conflict or emotion.thought==df.unit_thought_type.JoinConflict then
-            if (df.global.cur_year_tick-emotion.year_tick)<1200 then was_not_in_combat=true end
+            is_in_combat=is_in_combat or df.global.cur_year_tick-emotion.year_tick<1200
             is_scared_of_current_combat = is_scared_of_current_combat or (emotion.type==df.emotion_type.Terror or emotion.type==df.emotion_type.Fright or emotion.type==df.emotion_type.Shaken or emotion.type==df.emotion_type.Fear or emotion.type==df.emotion_type.Panic)
         end
     end
-    return not (was_not_in_combat or is_scared_of_current_combat)
+    return not ((not is_in_combat) or is_scared_of_current_combat)
 end
 
 local function death_was_just(incident)
