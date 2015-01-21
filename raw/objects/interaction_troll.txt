@@ -313,6 +313,18 @@ interaction_troll
             [IE_IMMEDIATE]
             [SYNDROME]
                 [CE_SKILL_ROLL_ADJUST:PERC:15:PERC_ON:100:START:0:END:500]
+                
+[INTERACTION:LUCK_INCREASE_TROLL_WITCH_OF_LIGHT] "witch of light" is basically an old placeholder now
+        [I_SOURCE:CREATURE_ACTION]
+        [I_TARGET:A:CREATURE]
+            [IT_LOCATION:CONTEXT_CREATURE]
+            [IT_MANUAL_INPUT:friend]
+            [IT_CANNOT_TARGET_IF_ALREADY_AFFECTED]
+        [I_EFFECT:ADD_SYNDROME]
+            [IE_TARGET:A]
+            [IE_IMMEDIATE]
+            [SYNDROME]
+                [CE_SKILL_ROLL_ADJUST:PERC:500:PERC_ON:100:START:0:END:500]
 
 [INTERACTION:DESTROY_LIGHT_TEMPORARY]
         [I_SOURCE:CREATURE_ACTION]
@@ -352,7 +364,18 @@ interaction_troll
             [SYNDROME]
                 [CE_SENSE_CREATURE_CLASS:CLASS:GENERAL_POISON:33:6:8:0]
 
-
+[INTERACTION:ADD_EXTRAVISION_TROLL]
+        [I_SOURCE:CREATURE_ACTION]
+        [I_TARGET:A:CREATURE]
+            [IT_LOCATION:CONTEXT_CREATURE]
+            [IT_MANUAL_INPUT:friend]
+            [IT_CANNOT_TARGET_IF_ALREADY_AFFECTED]
+        [I_EFFECT:ADD_SYNDROME]
+            [IE_TARGET:A]
+            [IE_IMMEDIATE]
+            [SYNDROME]
+                [CE_ADD_TAG:EXTRAVISION:START:0]
+                
 [INTERACTION:TIME_SLOW_DOWN_ENEMY_I]
         [I_SOURCE:CREATURE_ACTION]
         [I_TARGET:A:CREATURE]
