@@ -60,6 +60,10 @@ modtools/interaction-trigger -suppressDefend -onDefendStr doomstave -command [ f
 
 modtools/interaction-trigger -suppressDefend -onDefendStr LECheck -command [ fortbent/lord_english_check -unit \\ATTACKER_ID ]
 
+modtools/interaction-trigger -suppressDefend -onDefendStr ageup -command [ fortbent/age_change -unit \\DEFENDER_ID -kill ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr agedown -command [ fortbent/age_change -unit \\DEFENDER_ID ]
+
 modtools/reaction-trigger -reactionName VOID_HEROES_CREATE_STUFF -command [ fortbent/void_create -unit \\WORKER_ID ]
 
 modtools/reaction-trigger -reactionName VOID_HEROES_CREATE_STUFF_ADV -command [ fortbent/void_create -unit \\WORKER_ID ]
