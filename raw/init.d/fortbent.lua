@@ -39,6 +39,13 @@ repeat_util.scheduleUnlessAlreadyScheduled('Clockwork Majyyks',math.ceil(df.glob
 
 repeat_util.scheduleUnlessAlreadyScheduled('Psiioniic Blast',5,'ticks',mind_blast_color_change)
 
+function onUnload()
+    repeat_util.cancel('Clockwork Majyyks')
+    repeat_util.cancel('Psiioniic Blast')
+end
+
+dfhack.run_command('script',SAVE_PATH..'/raw/fortbent_onload.init')
+
 if not pcall(function() require('plugins.dfusion.friendship') end) then qerror("Friendship couldn't be installed! God tiers will be wonkier than usual.") end
 
 friendship=require('plugins.dfusion.friendship').Friendship
