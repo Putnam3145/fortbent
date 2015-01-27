@@ -44,9 +44,15 @@ modtools/interaction-trigger -suppressDefend -onDefendStr "enrage" -command [ ad
 
 modtools/interaction-trigger -suppressDefend -onDefendStr enjoy -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 50 -subthought 4 ]
 
+modtools/interaction-trigger -suppressDefend -onDefendStr enjoy -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 1000 -subthought 4 ]
+
 modtools/interaction-trigger -suppressDefend -onDefendStr bliss -command [ add-thought -unit \\DEFENDER_ID -emotion Bliss -thought Talked -severity 50 -subthought 4 ]
 
-modtools/interaction-trigger -suppressDefend -onDefendStr agony -command [ add-thought -unit \\DEFENDER_ID -emotion Agony -thought Attacked -severity 50 ]
+modtools/interaction-trigger -suppressDefend -onDefendStr agony -command [ add-thought -unit \\DEFENDER_ID -emotion Agony -thought Attacked -severity 500 ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr agony2 -command [ add-thought -unit \\DEFENDER_ID -emotion Agony -thought Attacked -severity 10000 ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr uninsane -command [ fortbent/uninsane -unit \\DEFENDER_ID ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr superdie -command [ fortbent/lord_english_laser \\DEFENDER_ID ]
 
@@ -63,6 +69,8 @@ modtools/interaction-trigger -suppressDefend -onDefendStr LECheck -command [ for
 modtools/interaction-trigger -suppressDefend -onDefendStr ageup -command [ fortbent/age_change -unit \\DEFENDER_ID -kill ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr agedown -command [ fortbent/age_change -unit \\DEFENDER_ID ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr insane -command [ fortbent/cause_insanity -unit \\DEFENDER_ID ]
 
 modtools/reaction-trigger -reactionName VOID_HEROES_CREATE_STUFF -command [ fortbent/void_create -unit \\WORKER_ID ]
 

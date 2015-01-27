@@ -1,5 +1,5 @@
 local function posIsEqual(pos1,pos2)
-    return not (pos1.x ~= pos2.x or pos1.y ~= pos2.y or pos1.z ~= pos2.z)
+    return pos1.x == pos2.x and pos1.y == pos2.y and pos1.z == pos2.z
 end
 
 local function getUnitHitByProjectile(projectile)
