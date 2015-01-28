@@ -44,13 +44,21 @@ modtools/interaction-trigger -suppressDefend -onDefendStr "enrage" -command [ ad
 
 modtools/interaction-trigger -suppressDefend -onDefendStr enjoy -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 50 -subthought 4 ]
 
-modtools/interaction-trigger -suppressDefend -onDefendStr enjoy -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 1000 -subthought 4 ]
+modtools/interaction-trigger -suppressDefend -onDefendStr enjoy2 -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 1000 -subthought 4 ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr caring -command [ add-thought -unit \\DEFENDER_ID -emotion Caring -thought Talked -severity 100 -subthought 4 ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr caring2 -command [ add-thought -unit \\DEFENDER_ID -emotion Caring -thought Talked -severity 2000 -subthought 4 ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr bliss -command [ add-thought -unit \\DEFENDER_ID -emotion Bliss -thought Talked -severity 50 -subthought 4 ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr agony -command [ add-thought -unit \\DEFENDER_ID -emotion Agony -thought Attacked -severity 500 ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr agony2 -command [ add-thought -unit \\DEFENDER_ID -emotion Agony -thought Attacked -severity 10000 ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr hatred -command [ add-thought -unit \\DEFENDER_ID -emotion Hatred -thought Attacked -severity 1000 ]
+
+modtools/interaction-trigger -suppressDefend -onDefendStr hatred2 -command [ add-thought -unit \\DEFENDER_ID -emotion Hatred -thought Attacked -severity 20000 ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr uninsane -command [ fortbent/uninsane -unit \\DEFENDER_ID ]
 
