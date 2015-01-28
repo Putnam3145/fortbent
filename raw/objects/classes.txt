@@ -2852,7 +2852,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:EUSTRESS_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SEER_OF_MIND]
     [NAME:seer of mind:seers of mind:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2937,7 +2937,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:EUSTRESS_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PAGE_OF_MIND]
     [NAME:page of mind:pages of mind:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2997,7 +2997,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INSANITY_II:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:ROGUE_OF_MIND]
     [NAME:rogue of mind:rogues of mind:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -3024,7 +3024,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:EUSTRESS_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:THIEF_OF_MIND]
     [NAME:thief of mind:thieves of mind:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -3066,7 +3066,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:UNINSANE:6]
         [SPELL_AUTO_LEARN]
-       
+
 [CLASS:BARD_OF_MIND]
     [NAME:bard of mind:bards of mind:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -3093,7 +3093,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INSANITY_II:10]
         [SPELL_AUTO_LEARN]
-       
+
  --rage
 [CLASS:BARD_OF_RAGE]
     [NAME:bard of rage:bards of rage:bard]
