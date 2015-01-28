@@ -63,29 +63,33 @@ function getClass(unit)
     local traits=unit.status.current_soul.personality.traits
     local active=round(traits.ACTIVITY_LEVEL/2)
     local passive=50-active
-    class_pers.HEIR=passive+round(traits.PERSEVERENCE/2) --Equius demands things insistently and John follows instructions even when he thinks they're dumb.
-    class_pers.SEER=passive+round(traits.CURIOUS/2)
-    class_pers.KNIGHT=active+round(traits.BRAVERY/2) --Based more on the archetype of knight than the knights we've seen (Latula, Karkat, Dave)
-    class_pers.WITCH=active+round(traits.CHEER_PROPENSITY/2) --Damara was a happy girl before Meenah broke her, Jade and Feferi need no introduction.
-    class_pers.MAID=active+round(traits.GREGARIOUSNESS/2) --yeah this one's a bit of a stretch but whatever
-    class_pers.PAGE=passive+math.abs(50-traits.CONFIDENCE) --50-trait means that it'll weight it both if they're confident and underconfident.
-    class_pers.PRINCE=active+math.abs(50-traits.VIOLENT) --destroy, violent, meh
-    class_pers.ROGUE=passive+round(traits.FRIENDLINESS/2) --rufioh, nepeta, roxy; yeah, friendliness is a constant there
-    class_pers.THIEF=active+round(traits.GREED/2)
-    class_pers.SYLPH=passive+round(traits.ALTRUISM/2)
-    class_pers.BARD=passive+round(traits.CRUELTY/2) --okay that might be a bit inappropriate, but you gotta work with what you have...
-    class_pers.MAGE=active+round(traits.ABSTRACT_INCLINED/2)
+    local male_lean=unit.sex==0 and 0 or 20
+    local female_lean=unit.sex==1 and 20 or 0
+    local male_exclusive=unit.sex==0 and 0 or 1
+    local female_exclusive=unit.sex==1 and 0 or 1
+    class_pers.HEIR=passive+round(traits.PERSEVERENCE/2)+male_lean --Equius demands things insistently and John follows instructions even when he thinks they're dumb.
+    class_pers.SEER=passive+round(traits.CURIOUS/2)+female_lean
+    class_pers.KNIGHT=active+round(traits.BRAVERY/2)+male_lean --Based more on the archetype of knight than the knights we've seen (Latula, Karkat, Dave)
+    class_pers.WITCH=(active+round(traits.CHEER_PROPENSITY/2)+20)*female_exclusive --Damara was a happy girl before Meenah broke her, Jade and Feferi need no introduction.
+    class_pers.MAID=(active+round(traits.GREGARIOUSNESS/2)+20)*female_exclusive --yeah this one's a bit of a stretch but whatever
+    class_pers.PAGE=passive+math.abs(50-traits.CONFIDENCE)+male_lean --50-trait means that it'll weight it both if they're confident and underconfident.
+    class_pers.PRINCE=(active+math.abs(50-traits.VIOLENT)+20)*male_exclusive --destroy, violent, meh
+    class_pers.ROGUE=passive+round(traits.FRIENDLINESS/2)+female_lean --rufioh, nepeta, roxy; yeah, friendliness is a constant there
+    class_pers.THIEF=active+round(traits.GREED/2)+female_lean
+    class_pers.SYLPH=passive+round(traits.ALTRUISM/2)+female_lean
+    class_pers.BARD=(passive+round(traits.CRUELTY/2)+20)*male_exclusive --okay that might be a bit inappropriate, but you gotta work with what you have...
+    class_pers.MAGE=active+round(traits.ABSTRACT_INCLINED/2)+male_lean
     --wow look at that I actually managed 6 active and 6 passive classes
     local total_weight=0
-    for k,v in ipairs(class_pers) do
+    for k,v in pairs(class_pers) do
         total_weight=total_weight+v
     end
     local balance=100/total_weight
-    for k,v in ipairs(class_pers) do
+    for k,v in pairs(class_pers) do
         v=round(v*balance)
     end
     local raffle={}
-    for k,v in ipairs(class_pers) do
+    for k,v in pairs(class_pers) do
         for i=(#raffle+1),(#raffle+1+v) do
             raffle[i]=k
         end
@@ -98,9 +102,11 @@ function makeClaspect(unit,unitidx)
     local aspect=aspects[creatureAspect]
     local class=getClass(unit)
     aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'RAGE' --rage default
-	if assignClaspect(unit,aspect,class) then
+	local worked,err=assignClaspect(unit,aspect,class)
+    if worked then
 		return creatureAspect
 	end
+    print(err)
 	return false
 end
 
