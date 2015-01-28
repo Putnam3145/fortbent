@@ -1,24 +1,34 @@
 -- Assigns claspects based on personality, attributes etc.
 aspects={
-	"BREATH_1", --1
-	"LIGHT_1",
-	"TIME_1",
-	"SPACE_1",
-	"LIFE_1",
-	"HOPE_1",
-	"VOID_1",
-	"HEART_1",
-	"BLOOD_1",
-	"DOOM_1",
-	"MIND_1",
-	"RAGE_1"}
-
+	"BREATH", --1
+	"LIGHT",
+	"TIME",
+	"SPACE",
+	"LIFE",
+	"HOPE",
+	"VOID",
+	"HEART",
+	"BLOOD",
+	"DOOM",
+	"MIND",
+	"RAGE"}
+    
 syndromeUtil=require('syndrome-util')
 
 rng=dfhack.random.new()
 
-function assignClaspect(unit,aspect)
-	return pcall(function() dfhack.run_script('classes/change-class','-unit',unit.id,'-class',aspect) end)
+function assignClaspect(unit,aspect,class)
+	return pcall(function() 
+        dfhack.run_script('classes/change-class','-unit',unit.id,'-class',class..'_OF_'..aspect)
+        if unit.hist_figure_id then
+            local hist_figure=df.historical_figure.find(unit.hist_figure_id)
+            if hist_figure.info and hist_figure.info.kills then
+                for k,v in pairs(hist_figure.info.kills.killed_count) do
+                    pcall(function() dfhack.run_script('classes/add-experience','-unit',unit.id,'-amount',v) end)
+                end
+            end
+        end
+    end)
 end
 
 function unitAlreadyHasClaspect(unit)
@@ -43,19 +53,52 @@ function unitDoesntNeedClaspect(unit)
 	return not creatureIsSburbable(unit) or unitAlreadyHasClaspect(unit)
 end
 
+function round(num) --http://lua-users.org/wiki/SimpleRound though adjusted because it'll never be fed a number less than 0
+    return math.floor(num+.5) 
+end
+
+function getClass(unit)
+    --it's a silly personality test
+    local class_pers={}
+    local traits=unit.status.current_soul.personality.traits
+    local active=round(traits.ACTIVITY_LEVEL/2)
+    local passive=50-active
+    class_pers.HEIR=passive+round(traits.PERSEVERENCE/2) --Equius demands things insistently and John follows instructions even when he thinks they're dumb.
+    class_pers.SEER=passive+round(traits.CURIOUS/2)
+    class_pers.KNIGHT=active+round(traits.BRAVERY/2) --Based more on the archetype of knight than the knights we've seen (Latula, Karkat, Dave)
+    class_pers.WITCH=active+round(traits.CHEER_PROPENSITY/2) --Damara was a happy girl before Meenah broke her, Jade and Feferi need no introduction.
+    class_pers.MAID=active+round(traits.GREGARIOUSNESS/2) --yeah this one's a bit of a stretch but whatever
+    class_pers.PAGE=passive+math.abs(50-traits.CONFIDENCE) --50-trait means that it'll weight it both if they're confident and underconfident.
+    class_pers.PRINCE=active+math.abs(50-traits.VIOLENT) --destroy, violent, meh
+    class_pers.ROGUE=passive+round(traits.FRIENDLINESS/2) --rufioh, nepeta, roxy; yeah, friendliness is a constant there
+    class_pers.THIEF=active+round(traits.GREED/2)
+    class_pers.SYLPH=passive+round(traits.ALTRUISM/2)
+    class_pers.BARD=passive+round(traits.CRUELTY/2) --okay that might be a bit inappropriate, but you gotta work with what you have...
+    class_pers.MAGE=active+round(traits.ABSTRACT_INCLINED/2)
+    --wow look at that I actually managed 6 active and 6 passive classes
+    local total_weight=0
+    for k,v in ipairs(class_pers) do
+        total_weight=total_weight+v
+    end
+    local balance=100/total_weight
+    for k,v in ipairs(class_pers) do
+        v=round(v*balance)
+    end
+    local raffle={}
+    for k,v in ipairs(class_pers) do
+        for i=(#raffle+1),(#raffle+1+v) do
+            raffle[i]=k
+        end
+    end
+    return raffle[rng:random(#raffle)+1]
+end
+
 function makeClaspect(unit,unitidx)
-	if df.global.gamemode==1 and unitidx==0 then
-		local script = require('gui.script')
-        script.start(function()
-		local lok,aspect_num,aspect=script.showListPrompt('Aspect selection','Which aspect do you want to pick?',COLOR_WHITE,aspects)
-        assignClaspect(unit,aspect.text)
-        end)
-        return aspect
-	end
 	local creatureAspect = rng:random(13)+1
     local aspect=aspects[creatureAspect]
-    aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'RAGE_1' --rage default
-	if assignClaspect(unit,aspect) then
+    local class=getClass(unit)
+    aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'RAGE' --rage default
+	if assignClaspect(unit,aspect,class) then
 		return creatureAspect
 	end
 	return false
