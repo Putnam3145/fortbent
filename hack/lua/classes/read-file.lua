@@ -179,7 +179,7 @@ function read_file(path)
     classes[x[1]]['Spells'][spell]['Cost'] = split(split(totdat[j],':')[2],']')[1]
    elseif split(test,':')[1] == '[SPELL_EXP_GAIN' then
     classes[x[1]]['Spells'][spell]['ExperienceGain'] = split(split(totdat[j],':')[2],']')[1]
-   elseif split(test,':')[1] == '[SPELL_AUTO_LEARN' then
+   elseif split(test,':')[1] == '[SPELL_AUTO_LEARN]' then
     classes[x[1]]['Spells'][spell]['AutoLearn'] = 'true'
 --   else
 --    print('Unrecognized token in classes.txt '..totdat[j]..' line '..tostring(j))

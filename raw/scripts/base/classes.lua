@@ -16,7 +16,7 @@ local checkclass = require('classes.requirements-class')
 local checkspell = require('classes.requirements-spell')
 
 function classesAreNotAlreadyLoaded()
-    return (not persistTable.GlobalTable.roses) or (not persistTable.GlobalTable.roses.ClassTable)
+    return (not persistTable.GlobalTable.roses.ClassTable) or #persistTable.GlobalTable.roses.ClassTable._children<1
 end
 
 local dir = dfhack.getDFPath().."/raw/objects/"
