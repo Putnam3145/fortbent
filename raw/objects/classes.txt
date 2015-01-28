@@ -1433,7 +1433,7 @@
     [BONUS_PHYS:ENDURANCE:1:500:1000:1500:2500:4000:6000:9000:12500:16500:24000]
 
 [CLASS:MAGE_OF_LIFE]
-    [NAME:seer of life:seers of life:seer]
+    [NAME:mage of life:mages of life:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [BONUS_SKILL:PLANT:1:2:2:2:2:3:5:8:13:20]
@@ -1529,7 +1529,7 @@
         [SPELL_AUTO_LEARN]
 
 [CLASS:MAID_OF_HOPE]
-    [NAME:heir of hope:heirs of hope:heir]
+    [NAME:maid of hope:maids of hope:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [BONUS_MENT:WILLPOWER:0:1000:3000:3000:3000:3000:3000:3000:3000:3000:3000]
@@ -1697,8 +1697,8 @@
     [BONUS_PHYS:ENDURANCE:1:500:1000:1500:2500:4000:6000:9000:12500:16500:24000]
     [BONUS_SKILL:PERSUASION:1:3:4:5:6:7:8:9:10:12:15]
 
-[CLASS:SEER_OF_HOPE]
-    [NAME:seer of hope:seers of hope:seer]
+[CLASS:MAGE_OF_HOPE]
+    [NAME:mage of hope:mages of hope:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [BONUS_MENT:WILLPOWER:0:1000:2000:3000:4000:5000:6000:7000:8000:9000:10000]
@@ -2735,7 +2735,7 @@
         [SPELL_AUTO_LEARN]
 
 [CLASS:THIEF_OF_DOOM]
-    [NAME:rogue of doom:rogues of doom:rogue]
+    [NAME:thief of doom:thieves of doom:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:REDUCE_FORCE_SELF_I:1]
@@ -3231,7 +3231,7 @@
         [SPELL_AUTO_LEARN]
         
 [CLASS:PAGE_OF_RAGE]
-    [NAME:maid of rage:maids of rage:maid]
+    [NAME:page of rage:pages of rage:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:ENRAGE_I:3]
