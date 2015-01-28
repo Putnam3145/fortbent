@@ -34,13 +34,13 @@ modtools/interaction-trigger -suppressDefend -onDefendStr "hopeless_III" -comman
 
 modtools/interaction-trigger -suppressDefend -onDefendStr "hopeless_IV" -command [ add-thought -unit \\DEFENDER_ID -emotion Hopelessness -thought Attacked -severity 100000 ]
 
-modtools/interaction-trigger -suppressDefend -onDefendStr "eustress" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount -5 ]
+modtools/interaction-trigger -suppressDefend -onDefendStr "eustress" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount -30 ]
 
-modtools/interaction-trigger -suppressDefend -onDefendStr "distress" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount 25 ]
+modtools/interaction-trigger -suppressDefend -onDefendStr "distress" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount 500 ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr "distress_2" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount 500000 ]
 
-modtools/interaction-trigger -suppressDefend -onDefendStr "enrage" -command [ add-thought -unit \\DEFENDER_ID -emotion Rage -thought Attacked -severity 50 ]
+modtools/interaction-trigger -suppressDefend -onDefendStr "enrage" -command [ add-thought -unit \\DEFENDER_ID -emotion Rage -thought Attacked -severity 500 ]
 
 modtools/interaction-trigger -suppressDefend -onDefendStr enjoy -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 50 -subthought 4 ]
 

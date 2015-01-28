@@ -25,7 +25,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:WINDY_HASTE_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SEER_OF_BREATH]
     [NAME:seer of breath:seers of breath:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -40,7 +40,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:WINDY_BULLET_V:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:KNIGHT_OF_BREATH]
     [NAME:knight of breath:knights of breath:knight]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -67,7 +67,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:WINDY_DELAY_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:WITCH_OF_BREATH]
     [NAME:witch of breath:witches of breath:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -121,7 +121,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:BREATH_EXPLODE_A_BODY_I:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PAGE_OF_BREATH]
     [NAME:page of breath:pages of breath:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -152,9 +152,9 @@
         [SPELL_AUTO_LEARN]
     [SPELL:BREATH_EXPLODE_A_BODY_I:10]
         [SPELL_AUTO_LEARN]
-    [SPELL:BREATH_RENDER_BREATHLESS_II:10]  
+    [SPELL:BREATH_RENDER_BREATHLESS_II:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PRINCE_OF_BREATH]
     [NAME:prince of breath:princes of breath:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -181,7 +181,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:BREATH_RENDER_BREATHLESS_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:ROGUE_OF_BREATH]
     [NAME:rogue of breath:rogues of breath:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -208,7 +208,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:BREATH_RENDER_BREATHLESS_II:10]
         [SPELL_AUTO_LEARN]
-       
+
 [CLASS:THIEF_OF_BREATH]
     [NAME:thief of breath:thieves of breath:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -235,7 +235,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:BREATH_RENDER_BREATHLESS_II:10]
         [SPELL_AUTO_LEARN]
-       
+
 [CLASS:SYLPH_OF_BREATH]
     [NAME:sylph of breath:sylphs of breath:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -282,7 +282,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:BREATH_RENDER_BREATHLESS_II:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAGE_OF_BREATH]
     [NAME:mage of breath:mages of breath:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -299,9 +299,9 @@
         [SPELL_AUTO_LEARN]
     [SPELL:BREATH_RENDER_BREATHLESS_II:10]
         [SPELL_AUTO_LEARN]
-        
+
  --light
- 
+
 [CLASS:HEIR_OF_LIGHT]
     [NAME:heir of light:heirs of light:heir]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -328,7 +328,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_LUCK_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SEER_OF_LIGHT]
     [NAME:seer of light:seers of light:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -347,7 +347,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_LUCK_IV:10]
         [SPELL_AUTO_LEARN]
- 
+
 [CLASS:KNIGHT_OF_LIGHT]
     [NAME:knight of light:knights of light:knight]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -374,7 +374,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_LUCK_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:WITCH_OF_LIGHT]
     [NAME:witch of light:witches of light:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -401,7 +401,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:PERMANENT_BLIND_III:10]
         [SPELL_AUTO_LEARN]
- 
+
 [CLASS:MAID_OF_LIGHT]
     [NAME:maid of light:maids of light:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -430,7 +430,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:DECREASE_LUCK_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PAGE_OF_LIGHT]
     [NAME:page of light:pages of light:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -463,7 +463,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TEMPORARY_BLIND_III:10]
         [SPELL_AUTO_LEARN]
- 
+
 [CLASS:PRINCE_OF_LIGHT]
     [NAME:prince of light:princes of light:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -519,7 +519,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_LUCK_IV:10]
         [SPELL_AUTO_LEARN]
-       
+
 [CLASS:THIEF_OF_LIGHT]
     [NAME:thief of light:thieves of light:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -566,7 +566,7 @@
     [SPELL:HEAL_FULL_II:9]
         [SPELL_AUTO_LEARN]
     [BONUS_MENT:ANALYTICAL_ABILITY:0:1000:2000:2000:2000:2000:2000:2000:5000:5000:10000]
-    
+
 [CLASS:BARD_OF_LIGHT]
     [NAME:bard of light:bards of light:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -595,7 +595,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:DECREASE_LUCK_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAGE_OF_LIGHT]
     [NAME:mage of light:mages of light:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -617,9 +617,9 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_LUCK_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
  --time
- 
+
 [CLASS:HEIR_OF_TIME]
     [NAME:heir of time:heirs of time:heir]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -640,7 +640,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SPEED_UP_FRIEND_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SEER_OF_TIME]
     [NAME:seer of time:seers of time:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -678,7 +678,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SLOW_DOWN_ENEMY_V:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:WITCH_OF_TIME]
     [NAME:witch of time:witches of time:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -705,7 +705,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SLOW_DOWN_ENEMY_V:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAID_OF_TIME]
     [NAME:maid of time:maids of time:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -724,7 +724,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SLOW_DOWN_ENEMY_V:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PAGE_OF_TIME]
     [NAME:page of time:pages of time:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -753,7 +753,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_AGE_ENEMIES_PAGE:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PRINCE_OF_TIME]
     [NAME:prince of time:princes of time:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -780,7 +780,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SPEED_UP_SELF:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:ROGUE_OF_TIME]
     [NAME:rogue of time:rogues of time:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -801,7 +801,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SPEED_UP_FRIEND_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:THIEF_OF_TIME]
     [NAME:thief of time:thieves of time:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -822,7 +822,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SPEED_UP_SELF:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SYLPH_OF_TIME]
     [NAME:sylph of time:sylphs of time:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -842,7 +842,7 @@
     [SPELL:HEAL_FULL_II:9]
         [SPELL_AUTO_LEARN]
     [BONUS_PHYS:AGILITY:0:1000:2000:2000:2000:2000:2000:2000:5000:5000:10000]
-    
+
 [CLASS:BARD_OF_TIME]
     [NAME:bard of time:bards of time:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -869,7 +869,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TELEPORT:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAGE_OF_TIME]
     [NAME:mage of time:mages of time:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -888,9 +888,9 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_SLOW_DOWN_ENEMY_IV:10]
         [SPELL_AUTO_LEARN]
-    
+
  --space
- 
+
 [CLASS:HEIR_OF_SPACE]
     [NAME:heir of space:heirs of space:heir]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -919,7 +919,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_ARMS_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
- 
+
 [CLASS:SEER_OF_SPACE]
     [NAME:seer of space:seers of space:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -964,7 +964,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_HEAD_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:WITCH_OF_SPACE]
     [NAME:witch of space:witches of space:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -993,7 +993,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_HEAD_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAID_OF_SPACE]
     [NAME:maid of space:maids of space:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1022,7 +1022,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_HEAD_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PAGE_OF_SPACE]
     [NAME:page of space:pages of space:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1053,7 +1053,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHRINK_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PRINCE_OF_SPACE]
     [NAME:prince of space:princes of space:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1082,7 +1082,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_HEAD_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:ROGUE_OF_SPACE]
     [NAME:rogues of space:rogues of space:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1140,7 +1140,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_HEAD_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SYLPH_OF_SPACE]
     [NAME:sylph of space:sylphs of space:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1152,7 +1152,7 @@
     [BONUS_SKILL:SET_BONE:0:1:3:5:7:9:11:13:15:17:20]
     [SPELL:HEAL_MILD_I:0]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:BARD_OF_SPACE]
     [NAME:bard of space:bards of space:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1168,7 +1168,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_HEAD_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAGE_OF_SPACE]
     [NAME:mage of space:mages of space:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1187,9 +1187,9 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHRINK_III:10]
         [SPELL_AUTO_LEARN]
-        
+
         --life
-        
+
 [CLASS:HEIR_OF_LIFE]
     [NAME:heir of life:heirs of life:heir]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1220,7 +1220,7 @@
     [SPELL:GO_GOD_TIER_LIFE:6]
         [SPELL_AUTO_LEARN]
 
-    
+
 [CLASS:KNIGHT_OF_LIFE]
     [NAME:knight of life:knights of life:knight]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1236,7 +1236,7 @@
     [SPELL:GO_GOD_TIER_LIFE:6]
         [SPELL_AUTO_LEARN]
     [BONUS_PHYS:STRENGTH:0:1000:1000:2000:3000:3000:5000:7000:8000:9000:10000]
-    
+
 [CLASS:WITCH_OF_LIFE]
     [NAME:witch of life:witches of life:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1340,7 +1340,7 @@
     [SPELL:DESTROY_LIFE_IV:10]
         [SPELL_AUTO_LEARN]
     [BONUS_PHYS:STRENGTH:0:0:0:0:0:0:0:2000:2000:2000:2000]
-        
+
 [CLASS:ROGUE_OF_LIFE]
     [NAME:rogue of life:rogues of life:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1398,7 +1398,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:HEAL_FULL_I:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SYLPH_OF_LIFE]
     [NAME:sylph of life:sylphs of life:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1431,7 +1431,7 @@
         [SPELL_AUTO_LEARN]
     [BONUS_PHYS:STRENGTH:1:500:1000:1500:2500:4000:6000:9000:12500:16500:24000]
     [BONUS_PHYS:ENDURANCE:1:500:1000:1500:2500:4000:6000:9000:12500:16500:24000]
-    
+
 [CLASS:MAGE_OF_LIFE]
     [NAME:seer of life:seers of life:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1446,7 +1446,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_LIFE:6]
         [SPELL_AUTO_LEARN]
-    
+
  --hope
 [CLASS:HEIR_OF_HOPE]
     [NAME:heir of hope:heirs of hope:heir]
@@ -1469,7 +1469,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:GIVE_FRIENDS_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SEER_OF_HOPE]
     [NAME:seer of hope:seers of hope:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1483,7 +1483,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHOOT_WITH_HOPE_III:8]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:KNIGHT_OF_HOPE]
     [NAME:knight of hope:knights of hope:knight]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1500,7 +1500,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHOOT_WITH_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:WITCH_OF_HOPE]
     [NAME:witch of hope:witches of hope:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1527,7 +1527,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHOOT_WITH_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAID_OF_HOPE]
     [NAME:heir of hope:heirs of hope:heir]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1549,7 +1549,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:GIVE_ENEMIES_HOPELESSNESS_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PAGE_OF_HOPE]
     [NAME:page of hope:pages of hope:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1581,7 +1581,7 @@
     [SPELL:GIVE_FRIENDS_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
     [BONUS_MENT:WILLPOWER:1:3:9:27:81:243:729:2187:6561:19683:59049]
- 
+
 [CLASS:PRINCE_OF_HOPE]
     [NAME:prince of hope:princes of hope:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1605,7 +1605,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHOOT_WITH_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
- 
+
 [CLASS:ROGUE_OF_HOPE]
     [NAME:rogue of hope:rogues of hope:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1632,7 +1632,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHOOT_WITH_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:THIEF_OF_HOPE]
     [NAME:thief of hope:thieves of hope:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1659,7 +1659,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:GIVE_FRIENDS_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:SYLPH_OF_HOPE]
     [NAME:sylph of hope:sylphs of hope:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1686,7 +1686,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHOOT_WITH_HOPE_III:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:BARD_OF_HOPE]
     [NAME:bard of hope:bards of hope:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1696,7 +1696,7 @@
     [BONUS_MENT:WILLPOWER:1:500:1000:1500:2500:4000:6000:9000:12500:16500:24000]
     [BONUS_PHYS:ENDURANCE:1:500:1000:1500:2500:4000:6000:9000:12500:16500:24000]
     [BONUS_SKILL:PERSUASION:1:3:4:5:6:7:8:9:10:12:15]
-    
+
 [CLASS:SEER_OF_HOPE]
     [NAME:seer of hope:seers of hope:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1713,9 +1713,9 @@
         [SPELL_AUTO_LEARN]
     [SPELL:SHOOT_WITH_HOPE_IV:10]
         [SPELL_AUTO_LEARN]
-   
+
  --void
- 
+
 [CLASS:HEIR_OF_VOID]
     [NAME:heir of void:heirs of void:heir]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1728,7 +1728,7 @@
     [BONUS_SKILL:SNEAK:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_SKILL:MELEE_COMBAT:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_PHYS:STRENGTH:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
-    
+
 [CLASS:SEER_OF_VOID]
     [NAME:seer of void:seers of void:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1755,7 +1755,7 @@
     [BONUS_SKILL:SNEAK:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_SKILL:MELEE_COMBAT:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_PHYS:STRENGTH:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
-    
+
 [CLASS:WITCH_OF_VOID]
     [NAME:witch of void:witches of void:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1786,7 +1786,7 @@
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_IV]
     [BONUS_SKILL:MAGIC_NATURE:0:0:0:0:0:0:0:0:0:0:15]
 
- 
+
 [CLASS:MAID_OF_VOID]
     [NAME:maid of void:maids of void:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1801,7 +1801,7 @@
     [BONUS_SKILL:SNEAK:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_SKILL:MELEE_COMBAT:0:0:2:2:5:8:8:8:10:10:13]
     [BONUS_PHYS:STRENGTH:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
- 
+
 [CLASS:PAGE_OF_VOID]
     [NAME:page of void:pages of void:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1824,11 +1824,11 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REPLACE_ARMS_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
-    [SPELL:REPLACE_LEGS_WITH_SPACE:10]  
+    [SPELL:REPLACE_LEGS_WITH_SPACE:10]
         [SPELL_AUTO_LEARN]
     [SPELL:TIME_AGE_ENEMIES_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:PRINCE_OF_VOID]
     [NAME:prince of void:princes of void:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1840,7 +1840,7 @@
     [BONUS_PHYS:TOUGHNESS:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
     [BONUS_PHYS:ENDURANCE:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
     [BONUS_SKILL:MAGIC_NATURE:0:0:0:0:0:0:5:5:15:15]
- 
+
 [CLASS:ROGUE_OF_VOID]
     [NAME:rogue of void:rogues of void:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1854,7 +1854,7 @@
     [BONUS_SKILL:DODGING:0:0:3:6:9:12:12:12:12:12:15]
     [BONUS_SKILL:SNEAK:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_SKILL:MAGIC_NATURE:0:0:0:0:0:0:5:5:15:15]
-    
+
 [CLASS:THIEF_OF_VOID]
     [NAME:thief of void:thieves of void:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1868,7 +1868,7 @@
     [BONUS_SKILL:DODGING:0:0:3:6:9:12:12:12:12:12:15]
     [BONUS_SKILL:SNEAK:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_SKILL:MAGIC_NATURE:0:0:0:0:0:0:5:5:15:15]
-    
+
 [CLASS:SYLPH_OF_VOID]
     [NAME:sylph of void:sylphs of void:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1881,7 +1881,7 @@
     [SPELL:GO_GOD_TIER_VOID:6]
         [SPELL_AUTO_LEARN]
     [BONUS_SKILL:MAGIC_NATURE:0:0:0:0:0:0:5:5:15:15]
-    
+
 [CLASS:BARD_OF_VOID]
     [NAME:bard of void:bards of void:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1893,7 +1893,7 @@
     [BONUS_PHYS:TOUGHNESS:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
     [BONUS_PHYS:ENDURANCE:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
     [BONUS_PHYS:AGILITY:0:1000:3000:5000:7000:9000:12000:14000:16000:18000:20000]
-    
+
 [CLASS:MAGE_OF_VOID]
     [NAME:mage of void:mages of void:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1907,7 +1907,7 @@
     [BONUS_SKILL:DODGING:0:0:3:6:9:12:12:12:12:12:15]
     [BONUS_SKILL:SNEAK:0:0:3:3:6:9:9:9:12:12:15]
     [BONUS_SKILL:SITUATIONAL_AWARENESS:0:1:2:3:4:5:7:9:11:13:15]
-    
+
  --heart
 
 [CLASS:HEIR_OF_HEART]
@@ -1941,7 +1941,7 @@
     [SPELL:INSANITY_I:9]
         [SPELL_AUTO_LEARN]
     [BONUS_MENT:SOCIAL_AWARENESS:0:500:500:800:1000:1000:1000:3000:5000:5000:5000]
-    [BONUS_MENT:EMPATHY:0:500:500:800:1000:1000:1000:3000:5000:5000:5000]    
+    [BONUS_MENT:EMPATHY:0:500:500:800:1000:1000:1000:3000:5000:5000:5000]
 
 [CLASS:KNIGHT_OF_HEART]
     [NAME:knight of heart:knights of heart:knight]
@@ -1966,7 +1966,7 @@
     [SPELL:AGONY_V:10]
         [SPELL_AUTO_LEARN]
     [BONUS_SKILL:DISCIPLINE:1:3:3:3:3:3:3:3:3:8:8]
-    
+
 [CLASS:WITCH_OF_HEART]
     [NAME:witch of heart:witches of heart:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -1993,7 +1993,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:AGONY_V:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:MAID_OF_HEART]
     [NAME:maid of heart:maids of heart:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2015,7 +2015,7 @@
     [SPELL:INSANITY_II:10]
         [SPELL_AUTO_LEARN]
     [BONUS_SKILL:DISCIPLINE:3:3:3:5:7:7:7:9:11:13:15]
-    
+
 [CLASS:PAGE_OF_HEART]
     [NAME:page of heart:pages of heart:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2048,7 +2048,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INSANITY_II:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:PRINCE_OF_HEART]
     [NAME:prince of heart:princes of heart:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2062,7 +2062,7 @@
     [SPELL:DEATTRIBUTE_I:4]
         [SPELL_AUTO_LEARN]
     [SPELL:DESKILL_II:5]
-        [SPELL_AUTO_LEARN]      
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_HEART:6]
         [SPELL_AUTO_LEARN]
     [SPELL:DEATTRIBUTE_II:6]
@@ -2075,7 +2075,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:AGONY_V:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:ROGUE_OF_HEART]
     [NAME:rogue of heart:rogues of heart:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2102,7 +2102,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:AGONY_V:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:THIEF_OF_HEART]
     [NAME:thief of heart:thieves of heart:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2129,7 +2129,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:AGONY_V:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:SYLPH_OF_HEART]
     [NAME:sylph of heart:sylphs of heart:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2158,7 +2158,7 @@
     [SPELL:DEATTRIBUTE_I:4]
         [SPELL_AUTO_LEARN]
     [SPELL:DESKILL_II:5]
-        [SPELL_AUTO_LEARN]      
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_HEART:6]
         [SPELL_AUTO_LEARN]
     [SPELL:INSANITY_I:6]
@@ -2171,7 +2171,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:AGONY_V:10]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:MAGE_OF_HEART]
     [NAME:mage of heart:mages of heart:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2185,8 +2185,8 @@
     [SPELL:AGONY_V:9]
         [SPELL_AUTO_LEARN]
     [BONUS_MENT:SOCIAL_AWARENESS:0:500:500:800:1000:1000:1000:2500:4000:4000:4000]
-    [BONUS_MENT:EMPATHY:0:500:500:800:1000:1000:1000:2500:4000:4000:4000]    
-    
+    [BONUS_MENT:EMPATHY:0:500:500:800:1000:1000:1000:2500:4000:4000:4000]
+
  --blood
 [CLASS:HEIR_OF_BLOOD]
     [NAME:heir of blood:heirs of blood:heir]
@@ -2216,7 +2216,7 @@
         [SPELL_AUTO_LEARN]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_III]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_IV]
-        
+
 [CLASS:SEER_OF_BLOOD]
     [NAME:seer of blood:seers of blood:seer]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2228,7 +2228,7 @@
     [BONUS_SKILL:PROSE:0:1:3:5:7:9:12:14:16:18:20]
     [SPELL:GO_GOD_TIER_BLOOD:6]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:KNIGHT_OF_BLOOD]
     [NAME:knight of blood:knights of blood:knight]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2259,7 +2259,7 @@
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_IV]
     [SPELL:CARING_V:10]
         [SPELL_AUTO_LEARN]
- 
+
 [CLASS:WITCH_OF_BLOOD]
     [NAME:witch of blood:witches of blood:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2290,7 +2290,7 @@
         [SPELL_AUTO_LEARN]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_III]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_IV]
- 
+
 [CLASS:MAID_OF_BLOOD]
     [NAME:maid of blood:maids of blood:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2321,7 +2321,7 @@
         [SPELL_AUTO_LEARN]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_III]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_IV]
-        
+
 [CLASS:PAGE_OF_BLOOD]
     [NAME:page of blood:pages of blood:page]
     [EXP:10:15:20:25:30:100:150:200:250:325]
@@ -2372,7 +2372,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:TEAR_OUT_SOUL:10]
         [SPELL_AUTO_LEARN]
- 
+
 [CLASS:PRINCE_OF_BLOOD]
     [NAME:prince of blood:princes of blood:prince]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2399,7 +2399,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:REMOVE_BLOOD_IV:10]
         [SPELL_AUTO_LEARN]
-   
+
 [CLASS:ROGUE_OF_BLOOD]
     [NAME:rogue of blood:rogues of blood:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2426,7 +2426,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:HATRED_V:10]
         [SPELL_AUTO_LEARN]
-   
+
 [CLASS:THIEF_OF_BLOOD]
     [NAME:thief of blood:thieves of blood:thief]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2457,7 +2457,7 @@
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_IV]
     [SPELL:HATRED_V:10]
         [SPELL_AUTO_LEARN]
-   
+
 [CLASS:SYLPH_OF_BLOOD]
     [NAME:sylph of blood:sylphs of blood:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2476,7 +2476,7 @@
         [SPELL_AUTO_LEARN]
     [BONUS_MENT:EMPATHY:0:1000:2000:2000:2000:2000:2000:5000:10000:10000:10000]
     [BONUS_SKILL:PACIFY:0:1000:2000:2000:2000:2000:2000:5000:10000:10000:10000]
-   
+
 [CLASS:BARD_OF_BLOOD]
     [NAME:bard of blood:bards of blood:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2509,7 +2509,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:INSANITY_I:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:MAGE_OF_BLOOD]
     [NAME:mage of blood:mages of blood:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2521,32 +2521,32 @@
         [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_BLOOD:6]
         [SPELL_AUTO_LEARN]
-    
+
  --doom
 [CLASS:HEIR_OF_DOOM]
     [NAME:heir of doom:heirs of doom:heir]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:STAVE_DOOM_I:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_FRIENDS:2]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:STAVE_DOOM_II:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_ENEMIES:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:HEAL_MILD_I:5]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DETECT_LORD_ENGLISH:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:HEAL_MILD_III:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_I:8]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:HEAL_FULL_I:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_II:10]
         [SPELL_AUTO_LEARN]
 
@@ -2561,7 +2561,7 @@
     [BONUS_SKILL:DODGING:0:0:3:5:7:9:12:14:16:18:20]
     [BONUS_SKILL:SITUATIONAL_AWARENESS:0:0:3:5:7:9:12:14:16:18:20]
     [BONUS_MENT:KINESTHETIC_SENSE:0:0:1500:2500:3500:4500:6000:7000:8000:9000:10000]
-  
+
 [CLASS:KNIGHT_OF_DOOM]
     [NAME:knight of doom:knights of doom:knight]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2577,7 +2577,7 @@
     [SPELL:DOOM_ENEMIES_I:5]
         [SPELL_AUTO_LEARN]
     [SPELL:DETECT_LORD_ENGLISH:6]
-        [SPELL_AUTO_LEARN] 
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_III:7]
@@ -2588,7 +2588,7 @@
         [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:WITCH_OF_DOOM]
     [NAME:witch of doom:witches of doom:witch]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2596,15 +2596,15 @@
     [SPELL:INCREASE_FORCE_ENEMY_I:1]
         [SPELL_AUTO_LEARN]
     [SPELL:STAVE_DOOM_I:1]
-        [SPELL_AUTO_LEARN]  
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_II:3]
         [SPELL_AUTO_LEARN]
     [SPELL:STAVE_DOOM_II:4]
-        [SPELL_AUTO_LEARN]  
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_I:5]
         [SPELL_AUTO_LEARN]
     [SPELL:DETECT_LORD_ENGLISH:6]
-        [SPELL_AUTO_LEARN] 
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_III:7]
@@ -2615,34 +2615,34 @@
         [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_III:10]
         [SPELL_AUTO_LEARN]
-  
+
 [CLASS:MAID_OF_DOOM]
     [NAME:maid of doom:maids of doom:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:INCREASE_FORCE_ENEMY_I:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_FRIENDS:2]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_II:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_ENEMIES:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_III:5]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DETECT_LORD_ENGLISH:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_IV:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_I:8]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_V:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_II:10]
         [SPELL_AUTO_LEARN]
-  
+
 [CLASS:PAGE_OF_DOOM]
     [NAME:page of doom:pages of doom:page]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2650,21 +2650,21 @@
     [SPELL:INCREASE_FORCE_ENEMY_I:4]
         [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_FRIENDS:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_ENEMIES:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_II:5]
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_III:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DETECT_LORD_ENGLISH:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
         [SPELL_AUTO_LEARN]
     [SPELL:STAVE_DOOM_I:7]
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_IV:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_I:8]
         [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_II:8]
@@ -2674,7 +2674,7 @@
     [SPELL:DOOM_ENEMIES_III:9]
         [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_V:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_IV:10]
         [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_V:10]
@@ -2685,67 +2685,67 @@
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:INCREASE_FORCE_ENEMY_I:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_FRIENDS:2]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_II:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_I:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_III:5]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_II:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_IV:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_III:8]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_V:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_IV:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:ROGUE_OF_DOOM]
     [NAME:rogue of doom:rogues of doom:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:STAVE_DOOM_I:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_FRIENDS:2]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:STAVE_DOOM_II:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_ENEMIES:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_I:5]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DETECT_LORD_ENGLISH:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:HEAL_MILD_III:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_II:8]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:HEAL_FULL_I:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_III:10]
         [SPELL_AUTO_LEARN]
-        
+
 [CLASS:THIEF_OF_DOOM]
     [NAME:rogue of doom:rogues of doom:rogue]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:REDUCE_FORCE_SELF_I:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_I:2]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:REDUCE_FORCE_SELF_II:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_ENEMIES:4]
-        [SPELL_AUTO_LEARN] 
+        [SPELL_AUTO_LEARN]
     [SPELL:REDUCE_FORCE_SELF_III:5]
         [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_I:6]
@@ -2753,14 +2753,14 @@
     [SPELL:GO_GOD_TIER_DOOM:6]
         [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_II:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_III:8]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_V:9]
         [SPELL_AUTO_LEARN]
     [SPELL:DOOM_ENEMIES_IV:10]
-        [SPELL_AUTO_LEARN]    
-    
+        [SPELL_AUTO_LEARN]
+
 [CLASS:SYLPH_OF_DOOM]
     [NAME:sylph of doom:sylphs of doom:sylph]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2783,36 +2783,36 @@
         [SPELL_AUTO_LEARN]
     [SPELL:HEAL_FULL_II:9]
         [SPELL_AUTO_LEARN]
-    
+
 [CLASS:BARD_OF_DOOM]
     [NAME:bard of doom:bards of doom:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:INCREASE_FORCE_ENEMY_I:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_FRIENDS:2]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_II:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DEUNDEAD_ENEMIES:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_III:5]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:REDUCE_FORCE_SELF_III:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_DOOM:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_IV:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:REDUCE_FORCE_SELF_IV:8]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:INCREASE_FORCE_ENEMY_V:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:REDUCE_FORCE_SELF_V:10]
         [SPELL_AUTO_LEARN]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_IV]
         [SPELL_UPGRADE:REDUCE_FORCE_SELF_III]
-    
+
 [CLASS:MAGE_OF_DOOM]
     [NAME:mage of doom:mages of doom:mage]
     [EXP:10:15:20:25:30:100:150:200:250:300]
@@ -2828,55 +2828,57 @@
     [BONUS_SKILL:DODGING:0:0:3:5:6:8:11:13:15:17:19]
     [BONUS_SKILL:SITUATIONAL_AWARENESS:0:0:3:5:6:8:11:13:15:17:19]
     [BONUS_MENT:KINESTHETIC_SENSE:0:0:1500:2500:3000:4000:5500:6500:7500:8500:9500]
-    
+
  --mind
+
 [CLASS:MAID_OF_MIND]
     [NAME:maid of mind:maids of mind:maid]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:EUSTRESS_SELF:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [BONUS_MENT:ANALYTICAL_ABILITY:0:0:1000:1000:1000:1000:1000:1000:5000:5000:5000]
     [SPELL:EUSTRESS_I:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DISTRESS_I:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DISTRESS_II:5]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:EUSTRESS_I:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:MIND_GOD_TIER:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DISTRESS_III:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:DISTRESS_IV:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:EUSTRESS_III:10]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
+
  --rage
 [CLASS:BARD_OF_RAGE]
     [NAME:bard of rage:bards of rage:bard]
     [EXP:10:15:20:25:30:100:150:200:250:300]
     [LEVELS:10]
     [SPELL:ENRAGE_I:1]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:ENRAGE_II:2]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:BLISS_I:3]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:ENRAGE_III:4]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:ENRAGE_IV:5]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:GO_GOD_TIER_RAGE:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:ENRAGE_V:6]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:BLISS_II:7]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:ENRAGE_VI:8]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:BLISS_III:9]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
     [SPELL:ENRAGE_VII:10]
-        [SPELL_AUTO_LEARN]    
+        [SPELL_AUTO_LEARN]
