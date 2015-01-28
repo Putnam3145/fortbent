@@ -15,9 +15,13 @@ local read_file = require('classes.read-file')
 local checkclass = require('classes.requirements-class')
 local checkspell = require('classes.requirements-spell')
 
+function classesAreNotAlreadyLoaded()
+    return (not persistTable.GlobalTable.roses) or (not persistTable.GlobalTable.roses.ClassTable)
+end
+
 local dir = dfhack.getDFPath().."/raw/objects/"
 for _,fname in pairs(dfhack.internal.getDir(dir)) do
- if split(fname,'_')[1] == 'classes' or fname == 'classes.txt' then
+ if split(fname,'_')[1] == 'classes' or fname == 'classes.txt' and classesAreNotAlreadyLoaded() then
   read_file(dir..fname)
  end
 end
