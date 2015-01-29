@@ -47,4 +47,12 @@ local function gristTorrent()
     grist:save()
 end
 
+local function experienceTorrent()
+    for k,v in ipairs(df.global.world.units.active) do
+        pcall(function() dfhack.run_script('classes/add-experience','-unit',v.id,'-amount',1) end)
+    end
+end
+
 dfhack.timeout(7,'days',function() require('repeat-util').scheduleUnlessAlreadyScheduled('GristTorrent',7,'days',gristTorrent) end)
+
+dfhack.timeout(21,'days',function() require('repeat-util').scheduleUnlessAlreadyScheduled('ExperienceTorrent',21,'days',experienceTorrent) end)
