@@ -389,7 +389,8 @@
 [SPELL:GIVE_VISION]
     [CDI:INTERACTION:ADD_EXTRAVISION_TROLL]
     [CDI:ADV_NAME:use this on yourself so you can see stuff through walls]
-    [CDI:TARGET:A:GREETING]
+    [CDI:TARGET:A:LINE_OF_SIGHT]
+    [CDI:USAGE_HINT:GREETING]
     [CDI:FREE_ACTION]
     [CDI:WAIT_PERIOD:100]
     
