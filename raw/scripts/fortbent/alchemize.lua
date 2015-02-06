@@ -210,8 +210,13 @@ function alchemize(adventure,unit)
         if gristok and amountok then 
             grist.ints[1]=grist.ints[1]-(grist_cost*tonumber(amount))
             grist:save() --redundancy redundancy redundancy
-            for i=1,amount do
-                dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit)
+            if df.item_type.attrs[itemtype].is_stackable then
+                local proper_item=df.item.find(dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit))
+                proper_item:setStackSize(amount)
+            else
+                for i=1,amount do
+                    dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit)
+                end
             end
             grist:save()
         end
