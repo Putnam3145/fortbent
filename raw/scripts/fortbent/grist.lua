@@ -42,7 +42,7 @@ local function gristTorrent()
     local grist=dfhack.persistent.save({key='GRIST_'..civ_id})
     local rng=dfhack.random.new()
     local torrent_amount=math.min(500,#civ.hist_figures)
-    grist.ints[1]=grist.ints[1]+torrent_amount --each hist figure gets two grist a day. Now it's log.
+    grist.ints[1]=grist.ints[1]+torrent_amount
     dfhack.gui.showAnnouncement('You have torrented ' .. torrent_amount .. ' grist. You now have ' .. grist.ints[1] .. ' grist available.',COLOR_GREEN,true)
     grist:save()
 end
