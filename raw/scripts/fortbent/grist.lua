@@ -49,7 +49,7 @@ end
 
 local function experienceTorrent()
     for k,v in ipairs(df.global.world.units.active) do
-        pcall(function() dfhack.run_script('classes/add-experience','-unit',v.id,'-amount',1) end)
+        dfhack.timeout(k+1,'ticks',function() pcall(function() dfhack.run_script('classes/add-experience','-unit',v.id,'-amount',1) end) end)
     end
 end
 
