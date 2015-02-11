@@ -44,7 +44,7 @@ function onUnload()
     repeat_util.cancel('Psiioniic Blast')
 end
 
-dfhack.run_command('script',SAVE_PATH..'/raw/fortbent_onload.init')
+dfhack.run_command('script',SAVE_PATH..'/raw/fortbent_onload.txt')
 
 if not pcall(function() require('plugins.dfusion.friendship') end) then qerror("Friendship couldn't be installed! God tiers will be wonkier than usual.") end
 
