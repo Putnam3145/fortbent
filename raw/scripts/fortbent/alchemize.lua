@@ -1,26 +1,3 @@
-function getGenderString(gender)
- local genderStr
- if gender==0 then
-  genderStr=string.char(12)
- elseif gender==1 then
-  genderStr=string.char(11)
- else
-  return ""
- end
- return string.char(40)..genderStr..string.char(41)
-end
- 
-function getCreatureList()
- local crList={}
- for k,cr in ipairs(df.global.world.raws.creatures.alphabetic) do
-  for kk,ca in ipairs(cr.caste) do
-   local str=ca.caste_name[0]
-   str=str..' '..getGenderString(ca.gender)
-   table.insert(crList,{str,nil,ca})
-  end
- end
- return crList
-end
 
 function getMatFilter(itemtype)
   local itemTypes={
@@ -103,16 +80,6 @@ function getRestrictiveMatFilter(itemType)
  return itemTypes[df.item_type[itemType]] or itemTypes.INSTRUMENT
 end
  
-function qualityTable()
- return {{'None'},
- {'-Well-crafted-'},
- {'+Finely-crafted+'},
- {'*Superior*'},
- {string.char(240)..'Exceptional'..string.char(240)},
- {string.char(15)..'Masterwork'..string.char(15)}
- }
-end
- 
 local script=require('gui.script')
  
 function showItemPrompt(text,item_filter,hide_none)
@@ -144,24 +111,14 @@ function showMaterialPrompt(title, prompt, filter, inorganic, creature, plant) -
  
  return script.wait()
 end
- 
-function usesCreature(itemtype)
- local typesThatUseCreatures={REMAINS=true,FISH=true,FISH_RAW=true,VERMIN=true,PET=true,EGG=true,CORPSE=true,CORPSEPIECE=true}
- return typesThatUseCreatures[df.item_type[itemtype]]
-end
- 
-function getCreatureRaceAndCaste(caste)
- return df.global.world.raws.creatures.list_creature[caste.index],df.global.world.raws.creatures.list_caste[caste.index]
-end
 
 function alchemization_item_filter(itype,subtype,def) 
-    if usesCreature(itype) then return false end
-    if itype==df.item_type.SLAB or itype==df.item_type.BOOK then return false end
-    if def then
-        if def.source_hfid~=-1 or def.id:find('NO_ALCHEMIZE') or (def.id:find('ZILLY') and grist.ints[2]<1) then return false end
-    end
     if dfhack.items.getItemBaseValue(itype,subtype,0,dfhack.matinfo.find('SLATE').index)>grist.ints[1] then return false end
-    return true
+    if def then
+        if (def.id:find('ZILLY') and grist.ints[2]>0) then return true end
+    end
+    if itype==df.item_type.BOULDER or itype==df.item_type.WOOD or itype==df.item_type.PLANT or itype==df.item_type.ROUGH then return true end
+    return false
 end
 
 function alchemization_material_filter(mat,parent,typ,idx)
@@ -180,7 +137,7 @@ function alchemize(adventure,unit)
     end
     --print(grist)
     script.start(function()
-    itemok,itemtype,itemsubtype=showItemPrompt('Choose the item',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
+    itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     if not itemok then return end
     local zilly=dfhack.items.getSubtypeCount(itemtype)>-1 and dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ZILLY')
     if zilly then

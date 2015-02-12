@@ -29,6 +29,8 @@ eventful.onUnitDeath.grist=function(unit_id)
     local victim=df.unit.find(unit_id)
     local victim_grist_value,zilly_value=getGristValue(victim)
     local grist=dfhack.persistent.save({key='GRIST_'..df.historical_figure.find(df.incident.find(victim.counters.death_id).killer_hfid).civ_id})
+    if grist.ints[1]<0 then grist.ints[1]=0 end
+    if grist.ints[2]<0 then grist.ints[2]=0 end
     grist.ints[1]=grist.ints[1]+victim_grist_value
     grist.ints[2]=grist.ints[2]+zilly_value
     grist:save()
@@ -41,15 +43,21 @@ local function gristTorrent()
     local civ=df.historical_entity.find(civ_id)
     local grist=dfhack.persistent.save({key='GRIST_'..civ_id})
     local rng=dfhack.random.new()
-    local torrent_amount=math.min(500,#civ.hist_figures)
+    local torrent_amount=rng:random(5,math.min(1000,#civ.hist_figures))
+    if grist.ints[1]<0 then grist.ints[1]=0 end
+    if grist.ints[2]<0 then grist.ints[2]=0 end
     grist.ints[1]=grist.ints[1]+torrent_amount
     dfhack.gui.showAnnouncement('You have torrented ' .. torrent_amount .. ' grist. You now have ' .. grist.ints[1] .. ' grist available.',COLOR_GREEN,true)
     grist:save()
 end
 
 local function experienceTorrent()
+    local timeout_tick=1
     for k,v in ipairs(df.global.world.units.active) do
-        dfhack.timeout(k+1,'ticks',function() pcall(function() dfhack.run_script('classes/add-experience','-unit',v.id,'-amount',1) end) end)
+        if dfhack.units.isCitizen(v) then
+            dfhack.timeout(math.floor(timeout_tick),'ticks',function() pcall(function() dfhack.run_script('classes/add-experience','-unit',v.id,'-amount',1) end) end)
+            timeout_tick=timeout_tick+.5
+        end
     end
 end
 
