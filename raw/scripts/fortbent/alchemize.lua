@@ -116,6 +116,7 @@ function alchemization_item_filter(itype,subtype,def)
     if dfhack.items.getItemBaseValue(itype,subtype,0,dfhack.matinfo.find('SLATE').index)>grist.ints[1] then return false end
     if def then
         if (def.id:find('ZILLY') and grist.ints[2]>0) then return true end
+        if def.id:find('ARTIFACT_GRIST') then return true end
     end
     if itype==df.item_type.BOULDER or itype==df.item_type.WOOD or itype==df.item_type.PLANT or itype==df.item_type.ROUGH then return true end
     return false
@@ -140,6 +141,7 @@ function alchemize(adventure,unit)
     itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     if not itemok then return end
     local zilly=dfhack.items.getSubtypeCount(itemtype)>-1 and dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ZILLY')
+    local artifact=dfhack.items.getSubtypeCount(itemtype)>-1 and dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ARTIFACT_GRIST')
     if zilly then
         local gristok=script.showYesNoPrompt('Alchemization','This will cost 1 zilly grist out of ' .. grist.ints[2] .. '. Ok?')
         if gristok then
@@ -155,6 +157,17 @@ function alchemize(adventure,unit)
                 zilly_mat=dfhack.matinfo.find('SPECIAL_SHARP_NO_ALCHEMIZE')
             end
             dfhack.items.createItem(itemtype,itemsubtype,zilly_mat.type,zilly_mat.index,unit)
+            grist:save()
+        end
+    elseif artifact then
+        local artifact_mat=dfhack.matinfo.find('JPEG_ARTIFACT_NO_ALCHEMIZE')
+        local grist_cost=dfhack.items.getItemBaseValue(itemtype,itemsubtype,artifact_mat.type,artifact_mat.index)
+        repeat amountok,amount=script.showInputPrompt('Alchemization','How many do you want?',COLOR_LIGHTGREEN) until (tonumber(amount)>0 or not amountok)
+        local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. grist_cost*tonumber(amount) .. ' grist (you currently have ' .. grist.ints[1] .. '). Ok?')
+        if gristok then
+            grist.ints[1]=grist.ints[1]-grist_cost
+            grist:save()
+            dfhack.items.createItem(itemtype,itemsubtype,artifact_mat.type,artifact_mat.index)
             grist:save()
         end
     else
