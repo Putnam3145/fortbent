@@ -161,14 +161,13 @@ function alchemize(adventure,unit)
         end
     elseif artifact then
         local artifact_mat=dfhack.matinfo.find('JPEG_ARTIFACT_NO_ALCHEMIZE')
-        local grist_cost=dfhack.items.getItemBaseValue(itemtype,itemsubtype,artifact_mat.type,artifact_mat.index)
         repeat amountok,amount=script.showInputPrompt('Alchemization','How many do you want?',COLOR_LIGHTGREEN) until (tonumber(amount)>0 or not amountok)
-        local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. grist_cost*tonumber(amount) .. ' grist (you currently have ' .. grist.ints[1] .. '). Ok?')
+        local grist_cost=dfhack.items.getItemBaseValue(itemtype,itemsubtype,artifact_mat.type,artifact_mat.index)*tonumber(amount)
+        local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. grist_cost .. ' grist (you currently have ' .. grist.ints[1] .. '). Ok?')
         if gristok then
             grist.ints[1]=grist.ints[1]-grist_cost
             grist:save()
             dfhack.items.createItem(itemtype,itemsubtype,artifact_mat.type,artifact_mat.index,unit)
-            grist:save()
         end
     else
         local matok,mattype,matindex=showMaterialPrompt('Alchemization','Choose the material',alchemization_material_filter,true,true,true)
