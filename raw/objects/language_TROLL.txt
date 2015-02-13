@@ -1201,7 +1201,7 @@ language_TROLL
 	[T_WORD:MISERY:ayajya]
 	[T_WORD:MIST:artana]
 	[T_WORD:MITE:dithar]
-	[T_WORD:MOB:croopa]
+	[T_WORD:MOB:stacia]
 	[T_WORD:MODEST:dehana]
 	[T_WORD:MOIST:rasido]
 	[T_WORD:MOLD:abeena]
