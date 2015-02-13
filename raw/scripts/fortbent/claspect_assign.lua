@@ -72,7 +72,7 @@ function getClass(unit)
     class_pers.KNIGHT=active+round(traits.BRAVERY/2)+male_lean --Based more on the archetype of knight than the knights we've seen (Latula, Karkat, Dave)
     class_pers.WITCH=(active+round(traits.CHEER_PROPENSITY/2)+20)*female_exclusive --Damara was a happy girl before Meenah broke her, Jade and Feferi need no introduction.
     class_pers.MAID=(active+round(traits.GREGARIOUSNESS/2)+20)*female_exclusive --yeah this one's a bit of a stretch but whatever
-    class_pers.PAGE=passive+math.abs(50-traits.CONFIDENCE)+male_lean --50-trait means that it'll weight it both if they're confident and underconfident.
+    class_pers.PAGE=passive+math.abs(50-traits.CONFIDENCE)+male_lean --50-trait means that it'll weigh it both if they're confident and underconfident.
     class_pers.PRINCE=(active+math.abs(50-traits.VIOLENT)+20)*male_exclusive --destroy, violent, meh
     class_pers.ROGUE=passive+round(traits.FRIENDLINESS/2)+female_lean --rufioh, nepeta, roxy; yeah, friendliness is a constant there
     class_pers.THIEF=active+round(traits.GREED/2)+female_lean
@@ -110,12 +110,12 @@ function makeClaspect(unit,unitidx)
 	return false
 end
 
+local pauseCounter=0
 
 dfhack.onStateChange.claspect = function(code)
-	local pauseCounter=0
-	if code==SC_WORLD_LOADED then
-		dfhack.timeout(1,'ticks',monthlyClaspectAssign)
-	end
+    if code==SC_WORLD_LOADED then
+        assignAllClaspects()
+    end
 	if code==SC_PAUSED then
 		pauseCounter=pauseCounter+1
 		if pauseCounter>=10 then
@@ -133,9 +133,4 @@ function assignAllClaspects()
 	end
 end
 
-function monthlyClaspectAssign()
-	assignAllClaspects()
-	dfhack.timeout(1,'months',monthlyClaspectAssign)
-end
-
-if ... == "force" then assignAllClaspects() end
+require('repeat-util').scheduleUnlessAlreadyScheduled('Claspect Assignment',28,'days',gristTorrent)

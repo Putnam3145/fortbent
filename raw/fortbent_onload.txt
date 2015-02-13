@@ -104,4 +104,6 @@ base/classes
 
 fortbent/heroic_just
 
+fortbent/claspect_assign
+
 fortbent/godtier_transform
