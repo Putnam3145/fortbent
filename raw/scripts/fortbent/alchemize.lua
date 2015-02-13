@@ -113,11 +113,11 @@ function showMaterialPrompt(title, prompt, filter, inorganic, creature, plant) -
 end
 
 function alchemization_item_filter(itype,subtype,def) 
-    if dfhack.items.getItemBaseValue(itype,subtype,0,dfhack.matinfo.find('SLATE').index)>grist.ints[1] then return false end
     if def then
         if (def.id:find('ZILLY') and grist.ints[2]>0) then return true end
         if def.id:find('ARTIFACT_GRIST') then return true end
     end
+    if dfhack.items.getItemBaseValue(itype,subtype,0,dfhack.matinfo.find('SLATE').index)>grist.ints[1] then return false end
     if itype==df.item_type.BOULDER or itype==df.item_type.WOOD or itype==df.item_type.PLANT or itype==df.item_type.ROUGH then return true end
     return false
 end
@@ -167,7 +167,7 @@ function alchemize(adventure,unit)
         if gristok then
             grist.ints[1]=grist.ints[1]-grist_cost
             grist:save()
-            dfhack.items.createItem(itemtype,itemsubtype,artifact_mat.type,artifact_mat.index)
+            dfhack.items.createItem(itemtype,itemsubtype,artifact_mat.type,artifact_mat.index,unit)
             grist:save()
         end
     else
