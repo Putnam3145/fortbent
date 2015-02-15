@@ -122,6 +122,16 @@ function alchemization_item_filter(itype,subtype,def)
     return false
 end
 
+function adventure_item_filter(itype,subtype,def)
+    if usesCreature(itype) then return false end
+    if itype==df.item_type.SLAB or itype==df.item_type.BOOK then return false end
+    if def then
+        if def.source_hfid~=-1 or def.id:find('NO_ALCHEMIZE') or (def.id:find('ZILLY') and grist.ints[2]<1) then return false end
+    end
+    if dfhack.items.getItemBaseValue(itype,subtype,0,dfhack.matinfo.find('SLATE').index)>grist.ints[1] then return false end
+    return true
+end
+
 function alchemization_material_filter(mat,parent,typ,idx)
     if not getMatFilter(itemtype)(mat,parent,typ,idx) then return false end
     if dfhack.items.getItemBaseValue(itemtype,itemsubtype,typ,idx)>grist.ints[1] or mat.id:find('NO_ALCHEMIZE') then
@@ -131,13 +141,15 @@ function alchemization_material_filter(mat,parent,typ,idx)
 end
 
 function alchemize(adventure,unit)
+    script.start(function()
     if adventure then
         grist=dfhack.persistent.save({key='GRIST_'..df.global.world.units.active[0].civ_id})
+        unit=df.global.world.units.active[0]
+        itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',adventure_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     else
         grist=dfhack.persistent.save({key='GRIST_'..df.global.ui.civ_id})
-    end
+        itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to    end
     --print(grist)
-    script.start(function()
     itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     if not itemok then return end
     local zilly=dfhack.items.getSubtypeCount(itemtype)>-1 and dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ZILLY')
