@@ -146,6 +146,7 @@ function alchemize(adventure,unit)
         unit=df.global.world.units.active[0]
         itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',adventure_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     else
+        if not unit then qerror('Unit required!') return end
         grist=dfhack.persistent.save({key='GRIST_'..df.global.ui.civ_id})
         itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     end
@@ -215,4 +216,4 @@ validArgs = validArgs or utils.invert({
 
 args = utils.processArgs({...}, validArgs)
 
-alchemize(args.adventure,df.unit.find(args.unit))
+alchemize(args.adventure,args.unit and df.unit.find(args.unit) or nil)
