@@ -150,8 +150,6 @@ function alchemize(adventure,unit)
         grist=dfhack.persistent.save({key='GRIST_'..df.global.ui.civ_id})
         itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     end
-    --print(grist)
-    itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     if not itemok then return end
     local zilly=dfhack.items.getSubtypeCount(itemtype)>-1 and dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ZILLY')
     local artifact=dfhack.items.getSubtypeCount(itemtype)>-1 and dfhack.items.getSubtypeDef(itemtype,itemsubtype).id:find('ARTIFACT_GRIST')
