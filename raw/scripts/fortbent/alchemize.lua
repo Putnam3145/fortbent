@@ -1,4 +1,3 @@
-
 function getMatFilter(itemtype)
   local itemTypes={
    SEEDS=function(mat,parent,typ,idx)
@@ -148,7 +147,8 @@ function alchemize(adventure,unit)
         itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',adventure_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     else
         grist=dfhack.persistent.save({key='GRIST_'..df.global.ui.civ_id})
-        itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to    end
+        itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
+    end
     --print(grist)
     itemok,itemtype,itemsubtype=showItemPrompt('Choose item ('..grist.ints[1]..' grist remaining)',alchemization_item_filter,true) --global variables groooaaaaan but the way the filters work I have to
     if not itemok then return end
