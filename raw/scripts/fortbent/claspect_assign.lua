@@ -133,4 +133,4 @@ function assignAllClaspects()
 	end
 end
 
-require('repeat-util').scheduleUnlessAlreadyScheduled('Claspect Assignment',28,'days',gristTorrent)
+require('repeat-util').scheduleUnlessAlreadyScheduled('Claspect Assignment',28,'days',assignAllClaspects)
