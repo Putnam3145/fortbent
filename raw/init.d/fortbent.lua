@@ -46,14 +46,6 @@ end
 
 dfhack.run_command('script',SAVE_PATH..'/raw/fortbent_onload.txt')
 
-if not pcall(function() require('plugins.dfusion.friendship') end) then
-    print("Friendship couldn't be installed! God tiers will be wonkier than usual.") 
-else
-    friendship=require('plugins.dfusion.friendship').Friendship
-
-    friendship:install({'TROLL_ALTERNIA','TROLL_ALTERNIA','TROLL_BEFORUS','HUMAN','HUMAN_HERO_OF_BREATH','HUMAN_HERO_OF_LIGHT','HUMAN_HERO_OF_TIME','HUMAN_HERO_OF_SPACE','HUMAN_HERO_OF_LIFE','HUMAN_HERO_OF_HOPE','HUMAN_HERO_OF_VOID','HUMAN_HERO_OF_HEART','HUMAN_HERO_OF_BLOOD','HUMAN_HERO_OF_MIND','HUMAN_HERO_OF_RAGE','HUMAN_HERO_OF_DOOM','TROLL_HERO_OF_BREATH','TROLL_HERO_OF_LIGHT','TROLL_HERO_OF_TIME','TROLL_HERO_OF_SPACE','TROLL_HERO_OF_LIFE','TROLL_HERO_OF_HOPE','TROLL_HERO_OF_VOID','TROLL_HERO_OF_HEART','TROLL_HERO_OF_BLOOD','TROLL_HERO_OF_MIND','TROLL_HERO_OF_RAGE','TROLL_HERO_OF_DOOM'})
-end
-
 local eraseReport = function(unit,report)
  for i,v in ipairs(unit.reports.log.Combat) do
   if v == report then
