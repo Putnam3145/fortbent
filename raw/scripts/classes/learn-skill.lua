@@ -14,7 +14,7 @@ function findUnitSyndrome(unit,syn_id)
  return nil
 end
 
-function learnspell(unit,spell,classes,upgrade)
+function learnspell(unit,spell,upgrade)
  local syndrome
  for _,syn in ipairs(df.global.world.raws.syndromes.all) do
   if syn.syn_name == spell then
