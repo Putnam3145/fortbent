@@ -1,58 +1,39 @@
-
-local split = require('split')
 local utils = require 'utils'
-local establishclass = require('classes.establish-class')
-local checkspell = require('classes.requirements-spell')
-local persistTable = require 'persist-table'
-
-function findUnitSyndrome(unit,syn_id)
- for index,syndrome in ipairs(unit.syndromes.active) do
-  if syndrome['type'] == syn_id then
-   return syndrome
-  end
- end
- return nil
-end
-
-function learnspell(unit,spell,upgrade)
- local syndrome
- for _,syn in ipairs(df.global.world.raws.syndromes.all) do
-  if syn.syn_name == spell then
-   syndrome = syn
-   break
-  end
- end
- oldsyndrome = findUnitSyndrome(unit,syndrome.id)
- if oldsyndrome then
-  print('Already knows this spell')
-  return false
- end
- if upgrade then
-  dfhack.run_script('modtools/add-syndrome',table.unpack({'-target',tostring(unit.id),'-syndrome',spell}))
-  dfhack.run_script('modtools/add-syndrome',table.unpack({'-target',tostring(unit.id),'-syndrome',upgrade,'-eraseAll'}))
- else
-  dfhack.run_script('modtools/add-syndrome',table.unpack({'-target',tostring(unit.id),'-syndrome',spell}))
- end
- print(spell..' learned successfully!')
- return true
-end
 
 validArgs = validArgs or utils.invert({
  'help',
  'unit',
  'spell',
+ 'override',
+ 'verbose'
 })
 local args = utils.processArgs({...}, validArgs)
 
-unit = df.unit.find(tonumber(args.unit))
+if args.unit and tonumber(args.unit) then
+ unit = df.unit.find(tonumber(args.unit))
+else
+ print('No unit declared')
+ return
+end
 
-establishclass(unit)
-yes,upgrade = checkspell(unit,args.spell)
-if yes then 
- success = learnspell(unit,args.spell,upgrade)
+if args.spell then
+ spell = args.spell
+else
+ print('No spell declared')
+ return
+end
+
+verbose = false
+if args.verbose then verbose = true end
+
+if args.override then
+ yes = true
+else
+ yes = dfhack.script_environment('functions/class').checkRequirementsSpell(unit,spell,verbose)
+end
+if yes then
+ success = dfhack.script_environment('functions/class').changeSpell(unit,spell,'add',verbose)
  if success then
  -- Erase items used for reaction
  end
-else
- print('Failed to learn spell')
 end

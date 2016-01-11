@@ -1,10 +1,10 @@
---unit/attribute-change.lua v2.0
+--unit/resistance-change.lua v2.0
 
 local utils = require 'utils'
 
 validArgs = validArgs or utils.invert({
  'help',
- 'attribute',
+ 'resistance',
  'fixed',
  'percent',
  'set',
@@ -24,8 +24,43 @@ if args.help then -- Help declaration
    -unit id
      REQUIRED
      id of the target unit
-   -attribute ATTRIBUTE_ID
-     attribute(s) to be changed
+   -resistance RESISTANCE_ID
+     resistance(s) to be changed
+     valid arguments:
+      PHYSICAL:ALL
+      PHYSICAL:BLUNT
+      PHYSICAL:PIERCE
+      PHYSICAL:SLASH
+      MAGICAL:ALL
+      MAGICAL:ELEMENTAL:ALL
+      MAGICAL:ELEMENTAL:FIRE
+      MAGICAL:ELEMENTAL:WATER
+      MAGICAL:ELEMENTAL:AIR
+      MAGICAL:ELEMENTAL:EARTH
+      MAGICAL:ELEMENTAL:SMOKE
+      MAGICAL:ELEMENTAL:ICE
+      MAGICAL:ELEMENTAL:STORM
+      MAGICAL:ELEMENTAL:METAL
+      MAGICAL:ARCANE:ALL
+      MAGICAL:ARCANE:FORCE
+      MAGICAL:ARCANE:TIME
+      MAGICAL:ARCANE:SPACE
+      MAGICAL:ARCANE:AEGIS
+      MAGICAL:MENTAL:ALL
+      MAGICAL:MENTAL:ILLUSION
+      MAGICAL:MENTAL:THOUGHT
+      MAGICAL:MENTAL:EMOTION
+      MAGICAL:MENTAL:MIND
+      MAGICAL:NATURE:ALL
+      MAGICAL:NATURE:ANIMAL
+      MAGICAL:NATURE:PLANT
+      MAGICAL:NATURE:GROUND
+      MAGICAL:NATURE:SPIRIT
+      MAGICAL:DIVINE:ALL
+      MAGICAL:DIVINE:LIGHT
+      MAGICAL:DIVINE:DARK
+      MAGICAL:DIVINE:VOID
+      MAGICAL:DIVINE:SHADOW
    -fixed #                                \
      change attribute by fixed amount      |
    -percent #                              |
@@ -66,15 +101,13 @@ end
 track = nil
 if args.track then track = 'track' end
 
-for i,attribute in ipairs(args.attribute) do
- if df.physical_attribute_type[attribute] then
-  current = unit.body.physical_attrs[attribute].value
- elseif df.mental_attribute_type[attribute] then
-  current = unit.status.current_soul.mental_attrs[attribute].value
- else
-  print('Invalid attribute id')
-  return
+for i,resistance in ipairs(args.resistance) do
+ array = split(resistance,':')
+ for i,entry in pairs(array) do
+  array[i] = string.lower(entry):gsub("^%l",string.upper)
  end
+ resistance = "Resistances"..table.concat(array,':')
+ current = dfhack.script_environment('functions/misc').getCounter("UNIT:"..resistance..":Base",unit.id)
  if args.fixed then
   change = tonumber(value[i])
  elseif args.percent then
@@ -86,7 +119,7 @@ for i,attribute in ipairs(args.attribute) do
   print('No method for change defined')
   return
  end
- dfhack.script_environment('functions/unit').changeAttribute(unit,attribute,change,dur,track)
+ dfhack.script_environment('functions/unit').changeResistance(unit,resistance,change,dur,track)
 end
 if args.announcement then
 --add announcement information

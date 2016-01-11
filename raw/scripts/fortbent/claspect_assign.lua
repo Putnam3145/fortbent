@@ -53,7 +53,7 @@ function unitDoesntNeedClaspect(unit)
 	return not creatureIsSburbable(unit) or unitAlreadyHasClaspect(unit)
 end
 
-function round(num) --http://lua-users.org/wiki/SimpleRound though adjusted because it'll never be fed a number less than 0
+function round(num)
     return math.floor(num+.5) 
 end
 
