@@ -18,7 +18,7 @@ modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL_ADV -command [ fortbent/
 
 fortbent/grist
 
-base/roses-init
+base/roses-init -classSystem
 
 fortbent/heroic_just
 

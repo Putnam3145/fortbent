@@ -423,7 +423,7 @@ end
 
 function changeSkill(unit,skill,change,dur,track)
  -- Add/Subtract given amount from declared skill of a unit.
-
+ local utils=require('utils')
  if tonumber(unit) then
   unit = df.unit.find(tonumber(unit))
  end

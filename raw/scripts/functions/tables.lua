@@ -442,7 +442,6 @@ function makeClassTable()
      end
     elseif test == '[SPELL' then
      spell = array[2]
-     spells[spell] = spell
      class.Spells[spell] = {}
      spells = class.Spells[spell]
      spells.RequiredLevel = array[3]
@@ -823,7 +822,7 @@ function makeUnitTable(unit)
  end
 
  unitTable.Skills = {}
- for i = 0,117,1 do
+ for i = 0,134,1 do
   skill = df.job_skill[i]
   unitTable.Skills[skill] = {}
   unitTable.Skills[skill].Base = tostring(0)

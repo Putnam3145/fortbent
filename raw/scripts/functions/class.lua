@@ -117,7 +117,7 @@ function changeClass(unit,change,verbose)
  -- Add Spells and Abilities
  for _,spell in ipairs(classes[currentClass.Name].Spells._children) do
   local spellTable = classes[currentClass.Name].Spells[spell]
-  if (tonumber(spellTable.RequiredLevel) <= currentClassLevel) and spellTable.AutoLearn then
+  if (tonumber(spellTable.RequiredLevel) <= tonumber(currentClassLevel)) and spellTable.AutoLearn then
    unitTable.Spells[spell] = '1'
   end
   if unitTable.Spells[spell] == '1' then

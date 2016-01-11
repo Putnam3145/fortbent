@@ -22,6 +22,7 @@ persistTable.GlobalTable.roses.EntityTable = persistTable.GlobalTable.roses.Enti
 persistTable.GlobalTable.roses.CommandDelay = persistTable.GlobalTable.roses.CommandDelay or {}
 persistTable.GlobalTable.roses.EnvironmentDelay = persistTable.GlobalTable.roses.EnvironmentDelay or {}
 persistTable.GlobalTable.roses.CounterTable = persistTable.GlobalTable.roses.CounterTable or {}
+persistTable.GlobalTable.roses.SpellTable = persistTable.GlobalTable.roses.SpellTable or {}
 if not persistTable.GlobalTable.roses.GlobalTable then dfhack.script_environment('functions/tables').makeGlobalTable() end
 
 local function civilizationNotAlreadyLoaded()
