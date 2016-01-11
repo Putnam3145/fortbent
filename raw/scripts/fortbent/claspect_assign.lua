@@ -53,7 +53,7 @@ function unitDoesntNeedClaspect(unit)
 	return not creatureIsSburbable(unit) or unitAlreadyHasClaspect(unit)
 end
 
-function round(num) --http://lua-users.org/wiki/SimpleRound though adjusted because it'll never be fed a number less than 0
+function round(num)
     return math.floor(num+.5) 
 end
 
@@ -101,7 +101,7 @@ function makeClaspect(unit,unitidx)
 	local creatureAspect = rng:random(13)+1
     local aspect=aspects[creatureAspect]
     local class=getClass(unit)
-    aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'RAGE' --rage default
+    aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'LIGHT' --light default
 	local worked,err=assignClaspect(unit,aspect,class)
     if worked then
 		return creatureAspect

@@ -1,93 +1,11 @@
---wrapper_test.lua v0.1
-isSelected = require('wrapper.isSelected')
-getValue = require('wrapper.getValue')
-local split = require('split')
 local utils = require 'utils'
-
-function permute(tab)
- math.randomseed()
- math.random()
- n = #tab
- for i = 1, n do
-  local j = math.random(i, n)
-  tab[i], tab[j] = tab[j], tab[i]
- end
- return tab
-end
-function callback(script)
- return function (delayTrigger)
-  dfhack.run_script(script[1],select(2,table.unpack(script)))
- end
-end
-
-function scriptRun(args)
- maxtargets = tonumber(args.maxtargets) or 0
- delay = tonumber(args.delay) or 0
- 
- for count = 0, tonumber(args.chain) or 0, 1 do
-  unit1 = df.unit.find(tonumber(args.unitSource))
-  if count == 0 then unit2 = unit1 end
-  if count == 0 then unit3 = df.unit.find(tonumber(args.unitTarget)) end
-  if count > 0 then unit2 = unit3 end
-  if count > 0 then unit3 = ctargets[math.random(1,#ctargets)] end
-  local selected,targetList,unitSelf,verbose,announcement = isSelected(unit1,unit2,unit3,args,count)
-
-  local targets = {}
-  local nn = 1
-  if maxtargets == 0 then
-   for i,x in ipairs(targetList) do
-    if selected[i] then
-     targets[nn] = x
-     nn = nn + 1
-    end
-   end
-  else
-   local temptargets = {}
-   for i,x in ipairs(targetList) do
-    if selected[i] then
-     temptargets[nn] = x
-     nn = nn + 1
-    end
-   end
-   if maxtargets > #temptargets then maxtargets = #temptargets end
-   temptargets = permute(temptargets)
-   for i = 1,maxtargets,1 do
-    targets[i] = temptargets[i]    
-   end
-  end
-  ctargets = targets
-  if args.center then targets = {unit3} end
-  printall(targets)
-  for j,y in ipairs(targets) do
-   script = {}
-   for k,z in ipairs(args.script) do
-    if z == '!TARGET' then 
-	 script[k] = y.id
-    elseif z == '!LOCATION' then 
-	 script[k] = y.pos
-    elseif z == '!SOURCE' then 
-	 script[k] = unit1.id
-	elseif z == '!CENTER' then 
-	 script[k] = unit2.id
-    elseif z == '!VALUE' then 
-	 script[k] = getValue(selected,targetList,unitSelf,y,args.value)
-	else 
-	 script[k] = z
-	end
-   end
-   if delay == 0 then 
-    dfhack.run_script(script[1],select(2,table.unpack(script)))
-   else
-    dfhack.timeout(delay,'ticks',callback(script))
-   end
-  end
- end
-end
 
 validArgs = validArgs or utils.invert({
  'help',
- 'unitTarget',
  'unitSource',
+ 'unitTarget',
+ 'locTarget',
+ 'locCheck',
  'script',
  'chain',
  'value',
@@ -95,33 +13,165 @@ validArgs = validArgs or utils.invert({
  'delay',
  'radius',
  'target',
- 'aclass',
- 'acreature',
- 'asyndrome',
- 'atoken',
+ 'rclass',
+ 'rcreature',
+ 'rsyndrome',
+ 'rtoken',
+ 'rnoble',
+ 'rprofession',
+ 'rentity',
  'iclass',
  'icreature',
  'isyndrome',
  'itoken',
- 'physical',
- 'mental',
- 'skills',
- 'traits',
- 'age',
- 'speed',
- 'noble',
- 'profession',
- 'entity',
+ 'inoble',
+ 'iprofession',
+ 'ientity',
+ 'maxphysical',
+ 'maxmental',
+ 'maxskills',
+ 'maxtraits',
+ 'maxage',
+ 'maxspeed',
+ 'minphysical',
+ 'minmental',
+ 'minskills',
+ 'mintraits',
+ 'minage',
+ 'minspeed',
  'reflect',
  'silence',
- 'counters',
- 'plan',
- 'self',
- 'verbose',
- 'los',
  'center',
 })
 local args = utils.processArgs({...}, validArgs)
 
-scriptRun(args)
+if not args.script then
+ print('No script provided to run')
+ return
+end
+if not string.find(args.script[1],' ') then args.script = {table.concat(args.script, ' ')} end
 
+if args.unitSource and tonumber(args.unitSource) and df.unit.find(tonumber(args.unitSource)) then
+ source = df.unit.find(tonumber(args.unitSource))
+else
+ print('No valid source unit declared')
+ return
+end
+
+-- Check if the casting unit is silenced
+if args.silence then
+ if dfhack.script_environment('functions/unit').checkClass(source,args.silence) then
+  print('unit is prevented from using interaction (SILENCED)')
+  return
+ end
+end
+
+args.chain = tonumber(args.chain) or 0
+args.maxTargets = tonumber(args.maxTargets) or 0
+args.delay = tonumber(args.delay) or 0
+ 
+if ((args.unitTarget and tonumber(args.unitTarget) and df.unit.find(tonumber(args.unitTarget))) or args.center) and not args.locTarget then
+ center = target
+
+ if args.center then
+  center = source
+ end
+
+ for count = 0, args.chain, 1 do
+  if count >= 0 then
+ -- Step 1: Check for reflection
+   if args.reflect then
+    if dfhack.script_environment('functions/unit').checkClass(target,args.reflect) then
+     save = source
+     source = center
+     center = save
+    end
+   end
+ -- Step 2: Determine targets based on location and spell target
+   targetList,n = dfhack.script_environment('functions/wrapper').checkLocation(center,args.radius)
+   targetList,n = dfhack.script_environment('functions/wrapper').checkTarget(source,targetList,args.target)
+ -- Step 3: Determine eligible targets from list based on age/speed/attributes/skills/etc...
+   selected = {}
+   for n,unit in pairs(targetList) do
+    selected[n] = dfhack.script_environment('functions/wrapper').isSelected(source,unit,args)
+   end
+ -- Step 4: Pick targets from eligible list (between 1 and args.maxTargets)
+   targets,i = {},0
+   for n,unit in pairs(targetList) do
+    if selected[n] then
+     i = i + 1
+     targets[i] = unit
+    end
+   end
+   if i == 0 then return end
+   if args.maxTargets == 0 or args.maxTargets >= i then
+    targets = targets
+   else
+    targets = dfhack.script_environment('functions/misc').permute(targets)
+    targets = {selected(#targets-args.maxTargets+1,table.unpack(targets))}
+   end
+ -- Step 5: Run Scripts
+   for _,unit in ipairs(targets) do
+    for _,script in ipairs(args.script) do
+     script = script:gsub('\\TARGET',tostring(unit.id))
+     script = script:gsub('\\SOURCE',tostring(source.id))
+     script = script:gsub('\\CENTER',tostring(center.id))
+     if args.value then
+      if type(args.value) ~= 'table' then args.value = {args.value} end
+      for n,equation in pairs(args.value) do
+       script = script:gsub('\\VALUE_'..tostring(n),dfhack.script_environment('functions/wrapper').getValue(equation,unit,source,center,targetList,selected))
+      end
+     end
+     if args.delay == 0 then
+      dfhack.run_command(script)
+     else
+      dfhack.script_environment('persist-delay').delayCommand(script)
+     end
+    end
+   end
+   center = targets[1]
+  end
+ end
+elseif args.locTarget then
+ if args.unitTarget and tonumber(args.unitTarget) and df.unit.find(tonumber(args.unitTarget)) then
+  center = df.unit.find(tonumber(args.unitTarget))
+ else
+  center = source
+ end
+ if type(args.locTarget) == 'table' then
+  if args.radius then
+   positions = dfhack.script_environment('functions/map').getFillPosition(args.locTarget,args.radius)
+  else
+   positions = {{x=args.locTarget[1],y=args.locTarget[2],z=args.locTarget[3]}}
+  end
+ elseif tonumber(args.locTarget) then
+  if args.radius then
+   positions = dfhack.script_environment('functions/map').getFillPosition(df.unit.find(tonumber(args.locTarget)).pos,args.radius)
+  else
+   positions = {df.unit.find(tonumber(args.locTarget)).pos}
+  end
+ elseif type(args.locTarget) == 'string' then
+  positions = dfhack.script_environment('functions/map').getPositionPlan(args.locTarget,center,source)
+ end
+ if args.locCheck == 'unit' then
+ elseif args.locCheck == 'tile' then
+ end
+ for _,pos in ipairs(positions) do
+  for _,script in ipairs(args.script) do
+   script = script:gsub('\\LOCATION',"[ "..tostring(pos.x).." "..tostring(pos.y).." "..tostring(pos.z).." ]")
+   script = script:gsub('\\TARGET',"[ "..tostring(center.pos.x).." "..tostring(center.pos.y).." "..tostring(center.pos.z).." ]")
+   script = script:gsub('\\SOURCE',"[ "..tostring(source.pos.x).." "..tostring(source.pos.y).." "..tostring(source.pos.z).." ]")
+   if args.value then
+    if type(args.value) ~= 'table' then args.value = {args.value} end
+    for n,equation in pairs(args.value) do
+     script = script:gsub('\\VALUE_'..tostring(n),dfhack.script_environment('functions/wrapper').getValue(equation,unit,source,center,targetList,selected))
+    end
+   end
+   if args.delay == 0 then
+    dfhack.run_command(script)
+   else
+    dfhack.script_environment('persist-delay').delayCommand(script)
+   end
+  end
+ end
+end

@@ -818,7 +818,7 @@ creature_troll_wild
             [SYN_AFFECTED_CLASS:PSYCHIC]
             [SYN_NAME:mind honey killitude]
             [SYN_INGESTED]
-                [CE_CAN_DO_INTERACTION:START:0]
+                [CE_CAN_DO_INTERACTION:START:0:END:300:DWF_STRETCH:4]
                     [CDI:ADV_NAME:Shoot with psychic energy]
                     [CDI:INTERACTION:MATERIAL_EMISSION]
                     [CDI:BP_REQUIRED:BY_CATEGORY:EYE]

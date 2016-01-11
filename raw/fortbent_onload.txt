@@ -1,85 +1,3 @@
-modtools/interaction-trigger -onDefendStr heals -command [ full-heal -unit \\DEFENDER_ID ]
-
-modtools/interaction-trigger -onDefendStr heal -command [ full-heal -unit \\DEFENDER_ID ]
-
-modtools/interaction-trigger -onDefendStr teleports -command [ fortbent/teleport_dest -unit \\DEFENDER_ID ]
-
-modtools/interaction-trigger -suppressAttack -onAttackStr teleports -command [ fortbent/teleport_dest -unit \\ATTACKER_ID ]
-
-modtools/interaction-trigger -onDefendStr die -command [ fortbent/lord_english_laser \\DEFENDER_ID yes ]
-
-modtools/interaction-trigger -onDefendStr dies -command [ fortbent/lord_english_laser \\DEFENDER_ID yes ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr newlife -command [ fortbent/auto_life -unit \\DEFENDER_ID ]
-
-modtools/interaction-trigger -onAttackStr "uses heal I" -command [ classes/add-experience -unit \\ATTACKER_ID -amount 1 ]
-
-modtools/interaction-trigger -onAttackStr "use heal I" -command [ classes/add-experience -unit \\ATTACKER_ID -amount 1 ]
-
-modtools/interaction-trigger -onAttackStr "uses heal II" -command [ classes/add-experience -unit \\ATTACKER_ID -amount 1 ]
-
-modtools/interaction-trigger -onAttackStr "use heal II" -command [ classes/add-experience -unit \\ATTACKER_ID -amount 1 ]
-
-modtools/interaction-trigger -onAttackStr "uses heal III" -command [ classes/add-experience -unit \\ATTACKER_ID -amount 1 ]
-
-modtools/interaction-trigger -onAttackStr "use heal III" -command [ classes/add-experience -unit \\ATTACKER_ID -amount 1 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "hopefill" -command [ add-thought -unit \\DEFENDER_ID -emotion Hope -thought Talked -severity 100 -subthought 4 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "hopeless_I" -command [ add-thought -unit \\DEFENDER_ID -emotion Hopelessness -thought Attacked -severity 100 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "hopeless_II" -command [ add-thought -unit \\DEFENDER_ID -emotion Hopelessness -thought Attacked -severity 500 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "hopeless_III" -command [ add-thought -unit \\DEFENDER_ID -emotion Hopelessness -thought Attacked -severity 1000 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "hopeless_IV" -command [ add-thought -unit \\DEFENDER_ID -emotion Hopelessness -thought Attacked -severity 100000 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "eustress" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount -30 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "distress" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount 500 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "distress_2" -command [ fortbent/stress-change -unit \\DEFENDER_ID -adjust -amount 500000 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr "enrage" -command [ add-thought -unit \\DEFENDER_ID -emotion Rage -thought Attacked -severity 500 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr enjoy -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 50 -subthought 4 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr enjoy2 -command [ add-thought -unit \\DEFENDER_ID -emotion Joy -thought Talked -severity 1000 -subthought 4 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr caring -command [ add-thought -unit \\DEFENDER_ID -emotion Caring -thought Talked -severity 100 -subthought 4 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr caring2 -command [ add-thought -unit \\DEFENDER_ID -emotion Caring -thought Talked -severity 2000 -subthought 4 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr bliss -command [ add-thought -unit \\DEFENDER_ID -emotion Bliss -thought Talked -severity 50 -subthought 4 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr agony -command [ add-thought -unit \\DEFENDER_ID -emotion Agony -thought Attacked -severity 500 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr agony2 -command [ add-thought -unit \\DEFENDER_ID -emotion Agony -thought Attacked -severity 10000 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr hatred -command [ add-thought -unit \\DEFENDER_ID -emotion Hatred -thought Attacked -severity 1000 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr hatred2 -command [ add-thought -unit \\DEFENDER_ID -emotion Hatred -thought Attacked -severity 20000 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr uninsane -command [ fortbent/uninsane -unit \\DEFENDER_ID ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr superdie -command [ fortbent/lord_english_laser \\DEFENDER_ID ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr deskill -command [ fortbent/witch_of_heart_deskill \\DEFENDER_ID ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr deattribute -command [ fortbent/witch_of_heart_deattribute \\DEFENDER_ID ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr bloodloss -command [ fortbent/remove_blood -unit \\DEFENDER_ID -amount 2 ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr doomstave -command [ fortbent/stave_doom -unit \\DEFENDER_ID ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr LECheck -command [ fortbent/lord_english_check -unit \\ATTACKER_ID ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr ageup -command [ fortbent/age_change -unit \\DEFENDER_ID -kill ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr agedown -command [ fortbent/age_change -unit \\DEFENDER_ID ]
-
-modtools/interaction-trigger -suppressDefend -onDefendStr insane -command [ fortbent/cause_insanity -unit \\DEFENDER_ID ]
-
 modtools/reaction-trigger -reactionName VOID_HEROES_CREATE_STUFF -command [ fortbent/void_create -unit \\WORKER_ID ]
 
 modtools/reaction-trigger -reactionName VOID_HEROES_CREATE_STUFF_ADV -command [ fortbent/void_create -unit \\WORKER_ID ]
@@ -100,7 +18,7 @@ modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL_ADV -command [ fortbent/
 
 fortbent/grist
 
-base/classes
+base/roses-init -classSystem
 
 fortbent/heroic_just
 
