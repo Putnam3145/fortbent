@@ -51,12 +51,12 @@ events.onUnitDeath.mainFunction=function(target_id)
   killTable = roses.GlobalTable.Kills
   if killer_id >= 0 then
    killTable[killer_creature_name] = killTable[killer_creature_name] or {}
-   killTable.Total = tostring(killTable.Total + 1)
+   killTable.Total = killTable.Total and tostring(killTable.Total + 1) or '1'
    killTable[killer_creature_name][killer_caste_name] = killTable[killer_creature_name][killer_caste_name] or '0'
    killTable[killer_creature_name][killer_caste_name] = tostring(killTable[killer_creature_name][killer_caste_name] + 1)
   end
   deathTable = roses.GlobalTable.Deaths
-  deathTable.Total = tostring(deathTable.Total + 1)
+  deathTable.Total = deathTable.Total and tostring(deathTable.Total + 1) or '1'
   deathTable[target_creature_name] = deathTable[target_creature_name] or {}
   deathTable[target_creature_name][target_caste_name] = deathTable[target_creature_name][target_caste_name] or '0'
   deathTable[target_creature_name][target_caste_name] = tostring(deathTable[target_creature_name][target_caste_name] + 1)
