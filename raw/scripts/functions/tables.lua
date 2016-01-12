@@ -486,7 +486,7 @@ function makeEntityTable(entity)
  end
  key = tostring(civid)
  entity = civid>-1 and df.historical_entity.find(civid) or entity
- if type(entity)=='number' then return end
+ if type(entity)~='userdata' then return end
 
  local persistTable = require 'persist-table'
  local key = tostring(entity.id)
