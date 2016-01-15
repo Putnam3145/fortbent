@@ -110,7 +110,7 @@ function makeClaspect(unit,unitidx)
 	return false
 end
 
-local pauseCounter=0
+local pauseCounter=8
 
 dfhack.onStateChange.claspect = function(code)
     if code==SC_WORLD_LOADED then
