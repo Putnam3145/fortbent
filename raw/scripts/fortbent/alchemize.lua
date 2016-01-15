@@ -188,7 +188,7 @@ function alchemize(adventure,unit)
         repeat amountok,amount=script.showInputPrompt('Alchemization','How many do you want? (up to '..maximum..')',COLOR_LIGHTGREEN) until (tonumber(amount)<maximum+1 or not amountok)
         local gristok=script.showYesNoPrompt('Alchemization','This will cost ' .. grist_cost*tonumber(amount) .. ' grist (you currently have ' .. grist.ints[1] .. '). Ok?')
         if gristok and amountok then 
-            grist.ints[1]=grist.ints[1]-(grist_cost*tonumber(amount))
+            grist.ints[1]=grist.ints[1]-math.max(0,(grist_cost*tonumber(amount))) --0 so that sord....s can't be made for infinite grist like i have now
             grist:save() --redundancy redundancy redundancy
             if df.item_type.attrs[itemtype].is_stackable then
                 local proper_item=df.item.find(dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit))
