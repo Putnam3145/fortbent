@@ -1,6 +1,7 @@
 Putnam:
 * The vast majority of the mod's game content, except where explicitly said otherwise here or in pertinent raws.
-* Performed the opening cover pieces (English, Penumbra Phantasm, proper credits for original works below).
+* Performed the opening cover of English.
+* Arranged/Played [Penumbra Fortasm](https://dl.dropboxusercontent.com/u/13790475/Penumbra%20Fortasm.ogg), the theme played during opening cutscene
 * Edited opening animation.
 
 narhiril: 
@@ -61,7 +62,7 @@ Kristian Michael "Dacen" Anderson and Eston "silence" Schweickart:
 [Toby "Radiation" Fox](http://undertale.com/):
 * The theme in the "Beyond Quality" splash, "[English](http://homestuck.bandcamp.com/track/english)".
 * The BLEAT at the end of the splash.
-* The theme used during the opening animation, Penumbra Phantasm.
+* Original composer for the song "Penumbra Fortasm" is based on, "Penumbra Phantasm" (unreleased, Fortasm based on [this](https://soundcloud.com/geminisuns/penumbra-phantasm-live-2012)).
 * The HONK effect at the end of the opening animation.  
 
 [DFHack](https://github.com/DFHack/dfhack):
@@ -69,6 +70,7 @@ Kristian Michael "Dacen" Anderson and Eston "silence" Schweickart:
 
 [Bay 12 Games](http://bay12games.com/):
 * Made the game this mod is made in.
+* Chords in Penumbra Fortasm from Dwarf Fortress song_game.ogg.
 
 [Andrew Hussie](http://mspaintadventures.com/):
 * Made the comic this mod is based on.
