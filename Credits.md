@@ -53,10 +53,10 @@ Kristian Michael "Dacen" Anderson and Eston "silence" Schweickart:
 * Post-v6.1 in-game music, "[Crystalguitarthemums](http://unofficialmspafans.bandcamp.com/track/crystalguitarthemums)".  
 
 [sidewalkbanana](http://sidewalkbanana.bandcamp.com/):
-* Post-v6.1 pre-1.3.0 title music, "[SBURBan Prelude [Main Menu]]"(http://unofficialmspafans.bandcamp.com/track/sburban-prelude-main-menu).  
+* Post-v6.1 pre-1.3.0 title music, "[SBURBan Prelude (Main Menu)](http://unofficialmspafans.bandcamp.com/track/sburban-prelude-main-menu)."
 
 [David Ellis (A Lunatic's Daydream)](url=http://alunaticsdaydream.tumblr.com/):
-& [A Study In Skaia](http://unofficialmspafans.bandcamp.com/track/a-study-in-skaia), the post-1.3.0 title music.
+* [A Study In Skaia](http://unofficialmspafans.bandcamp.com/track/a-study-in-skaia), the post-1.3.0 title music.
 
 [Toby "Radiation" Fox](http://undertale.com/):
 * The theme in the "Beyond Quality" splash, "[English](http://homestuck.bandcamp.com/track/english)[/url]".
