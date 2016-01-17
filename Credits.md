@@ -29,7 +29,7 @@ Aqizzar:
 * Inspiration and such; made an older troll mod.
 
 MaskedClaus:
-& Fairybovine.  
+* Fairybovine.  
 
 Meph:
 * Mothergrub/imperial drone modding concept, now defunct.  
