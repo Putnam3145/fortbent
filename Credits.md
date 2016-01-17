@@ -59,7 +59,7 @@ Kristian Michael "Dacen" Anderson and Eston "silence" Schweickart:
 * [A Study In Skaia](http://unofficialmspafans.bandcamp.com/track/a-study-in-skaia), the post-1.3.0 title music.
 
 [Toby "Radiation" Fox](http://undertale.com/):
-* The theme in the "Beyond Quality" splash, "[English](http://homestuck.bandcamp.com/track/english)[/url]".
+* The theme in the "Beyond Quality" splash, "[English](http://homestuck.bandcamp.com/track/english)".
 * The BLEAT at the end of the splash.
 * The theme used during the opening animation, Penumbra Phantasm.
 * The HONK effect at the end of the opening animation.  
