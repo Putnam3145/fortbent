@@ -410,7 +410,7 @@ creature_troll_mega
                 [MULTIPLY_VALUE:50]
     [CREATURE:LORD_ENGLISH]
         [OUTSIDER_CONTROLLABLE]
-        [DESCRIPTION:A huge indestructible time-traveling cherub with green skin and gigantic muscles, who once played a dead session of Sburb and won. He is nigh unkillable through any normal means. He likes to play games, Sburb among them.]
+        [DESCRIPTION:A huge indestructible time-traveling cherub with green skin and gigantic muscles, who once played a dead session of Sburb and won. He is nigh unkillable through any normal means. He likes to play games.]
         [NAME:Cherubic Lord of Time:Cherubic Lords of Time:cherub]
         [CASTE_NAME:Cherubic Lord of Time:Cherubic Lords of Time:cherub]
         [CREATURE_TILE:'L']
@@ -479,7 +479,7 @@ creature_troll_mega
         [MENT_ATT_RANGE:SPATIAL_SENSE:5000:5000:5000:5000:5000:5000:5000]
         [MENT_ATT_RANGE:MUSICALITY:5000:5000:5000:5000:5000:5000:5000] http://jitmakesstuff.tumblr.com/post/11993603170/lord-english-plays-some-organ-music-for-the
         [MENT_ATT_RANGE:EMPATHY:0:0:0:0:0:0:0] HEE HEE HOO HOO HA HA.
-        [MENT_ATT_RANGE:ANALYTICAL_ABILITY:251:300:310:320:330:340:400] He has some problems learning things.
+        [MENT_ATT_RANGE:ANALYTICAL_ABILITY:5000:5000:5000:5000:5000:5000:5000] Part rad-as-hell computer shades.
         [CREATURE_CLASS:UNCONDITIONAL_IMMORTALITY]
         [SKILL_LEARN_RATES:20]
         [NATURAL_SKILL:DISCIPLINE:20]
@@ -576,7 +576,7 @@ creature_troll_mega
             [CDI:VERB:unhinge your jaw as you fire a gigantic laser:unhinges his jaw as he fires a gigantic laser:NA]
             [CDI:TARGET:C:LINE_OF_SIGHT]
             [CDI:TARGET_RANGE:C:20]
-            [CDI:WAIT_PERIOD:1200]
+            [CDI:WAIT_PERIOD:200]
         [CAN_DO_INTERACTION:MATERIAL_EMISSION]
             [CDI:ADV_NAME:Fire your rifle]
             [CDI:USAGE_HINT:ATTACK]
