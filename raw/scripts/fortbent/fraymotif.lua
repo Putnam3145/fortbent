@@ -4,6 +4,10 @@ fraymotifAffects={}
 
 fraymotifModifiers={}
 
+fraymotifNames={}
+
+fraymotifAdjectives={}
+
 local claspects=dfhack.script_environment('fortbent/claspects')
 
 for k,v in ipairs(claspects.aspects) do
@@ -15,7 +19,7 @@ for k,v in ipairs(claspects.aspects) do
 end
 
 fraymotifEffects.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
-    if affectType='unit' then
+    if affectType=='unit' then
         local duration=100 --how long, in ticks, it ought to last
         local damage=10 --how much damage it ought to do; also applies to emotion severity and projectile speed.
         local tickRate=50 --how often the effect should tick within the duration.
@@ -32,7 +36,7 @@ fraymotifEffects.GENERIC=function(attacker,defender,modifiers,affectType,special
             defender.body.blood_count=defender.body.blood_count-damage
         end
     end
-    if affectType='soul' then
+    if affectType=='soul' then
         local duration=100 --how long, in ticks, it ought to last
         local damage=10 --how much damage it ought to do; also applies to emotion severity and projectile speed.
         local tickRate=50 --how often the effect should tick within the duration.
@@ -52,7 +56,7 @@ fraymotifEffects.GENERIC=function(attacker,defender,modifiers,affectType,special
 end
 
 fraymotifEffects.BREATH.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
-    if affectType='unit' then
+    if affectType=='unit' then
         local speed=100 --how long it'll take to fully change the temperature
         local reduction=30 --degrees in Fahrenheit/urists of change in temperature
         for k,v in ipairs(modifiers) do
@@ -73,7 +77,7 @@ fraymotifEffects.BREATH.GENERIC=function(attacker,defender,modifiers,affectType,
                 unitFuncs.changeBody(defender,k,'temperature',-reduction,0)
             end
         end
-    elseif affectType=='soul'
+    elseif affectType=='soul' then
         local unitFuncs=dfhack.script_environment('functions/unit')
         local duration=1000
         local reduction=500
@@ -87,7 +91,7 @@ fraymotifEffects.BREATH.GENERIC=function(attacker,defender,modifiers,affectType,
 end
 
 fraymotifEffects.LIGHT.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
-    if affectType='unit' then
+    if affectType=='unit' then
         local speed=100 --how long it'll take to fully change the temperature
         local addition=30 --degrees in Fahrenheit/urists of change in temperature
         for k,v in ipairs(modifiers) do
@@ -108,7 +112,7 @@ fraymotifEffects.LIGHT.GENERIC=function(attacker,defender,modifiers,affectType,s
                 unitFuncs.changeBody(defender,k,'temperature',addition,0)
             end
         end
-    elseif affectType=='soul'
+    elseif affectType=='soul' then
         local unitFuncs=dfhack.script_environment('functions/unit')
         local duration=1000
         local reduction=500
@@ -484,6 +488,8 @@ fraymotifNames.MIND.GENERIC={'brainy','trauma'}
 
 fraymotifAdjectives.MIND.GENERIC={'mindful','freudian','compulsive','cognitive','punishing','synaptic'}
 
+fraymotifAdjectives.MIND.GENERIC.HEART={}
+
   fraymotifAdjectives.MIND.GENERIC.HEART.GENERIC='Mindflay'
   
   fraymotifAdjectives.MIND.SEER=fraymotifAdjectives.MIND.GENERIC
@@ -702,21 +708,22 @@ fraymotifAffects.RAGE.GENERIC=function(attacker,defender,effect,modifiers)
     end)
 end
 
-for k,v in pairs(fraymotifEffects) do
+for k,v in ipairs(claspects.aspects) do
     for kk,vv in ipairs(claspects.classes) do
-        v[vv]=v[vv] or v['GENERIC'] or fraymotifEffects['GENERIC']
-        fraymotifAffects[k][vv]=fraymotifAffects[k][vv] or fraymotifEffects[k]['GENERIC'] fraymotifAffects['GENERIC']
-        fraymotifModifiers[k][vv]=fraymotifModifiers[k][vv] or fraymotifModifiers[k]['GENERIC'] or fraymotifModifiers['GENERIC']
-        fraymotifNames[k][vv]=fraymotifNames[k][vv] or fraymotifNames[k]['GENERIC'] or fraymotifNames['GENERIC']
-        fraymotifNames[k][vv]['GENERIC']=fraymotifNames[k][vv]['GENERIC'] or fraymotifNames[k]['GENERIC'] or fraymotifNames['GENERIC']
+        fraymotifEffects[v][vv]=fraymotifEffects[v][vv] or fraymotifEffects[v]['GENERIC'] or fraymotifEffects['GENERIC']
+        fraymotifAffects[v][vv]=fraymotifAffects[v][vv] or fraymotifAffects[v]['GENERIC'] or fraymotifAffects['GENERIC']
+        fraymotifModifiers[v][vv]=fraymotifModifiers[v][vv] or fraymotifModifiers[v]['GENERIC'] or fraymotifModifiers['GENERIC']
+        fraymotifNames[v][vv]=fraymotifNames[v][vv] or fraymotifNames[v]['GENERIC'] or fraymotifNames['GENERIC']
+        fraymotifNames[v][vv]['GENERIC']=fraymotifNames[v][vv]['GENERIC'] or fraymotifNames[v]['GENERIC'] or fraymotifNames['GENERIC']
         for kkk,vvv in ipairs(claspects.aspects) do
-            fraymotifNames[k][vv][vvv]['GENERIC']=fraymotifNames[k][vv][vvv]['GENERIC'] or fraymotifNames[k]['GENERIC'] or fraymotifNames['GENERIC']
+            fraymotifNames[v][vv][vvv]=fraymotifNames[v][vv][vvv] or {}
+            fraymotifNames[v][vv][vvv]['GENERIC']=fraymotifNames[v][vv][vvv]['GENERIC'] or fraymotifNames[v]['GENERIC'] or fraymotifNames['GENERIC']
             for kkkk,vvvv in ipairs(claspects.classes) do --what the fuck
-                fraymotifNames[k][vv][vvv][vvvv]=fraymotifNames[k][vv][vvv][vvvv] or fraymotifNames[k][vv][vvv]['GENERIC'] --is this even readable to anyone, i can barely read it and i'm writing it
-                --since this'll NEED documentation down the road due to all the goddamn "v"s: k is aspect names, vv is classes, vvv is nested aspect names, vvvv is nested class names, so I can name special fraymotifs.
+                fraymotifNames[v][vv][vvv][vvvv]=fraymotifNames[v][vv][vvv][vvvv] or fraymotifNames[v][vv][vvv]['GENERIC'] --is this even readable to anyone, i can barely read it and i'm writing it
+                --since this'll NEED documentation down the road due to all the goddamn "v"s: v is aspect names, vv is classes, vvv is nested aspect names, vvvv is nested class names, so I can name special fraymotifs.
                 --also i can't believe I actually need this monstrous 4D for loop here
             end
         end
-        fraymotifAdjectives[k][vv]=fraymotifAdjectives[k][vv] or fraymotifAdjectives[k]['GENERIC'] or fraymotifAdjectives['GENERIC']
+        fraymotifAdjectives[v][vv]=fraymotifAdjectives[v][vv] or fraymotifAdjectives[v]['GENERIC'] or fraymotifAdjectives['GENERIC']
     end
 end
