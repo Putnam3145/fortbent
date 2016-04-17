@@ -26,7 +26,7 @@ function environmentDelay(ticks,environment,functions,arguments)
  local persistDelay = persistTable.GlobalTable.roses.EnvironmentDelay
  local number = #persistDelay._children
  persistDelay[tostring(number+1)] = {}
- persistDelay[tostring(number+1)].ID = id
+ persistDelay[tostring(number+1)].ID = tostring(id)
  persistDelay[tostring(number+1)].Tick = tostring(runTick)
  persistDelay[tostring(number+1)].Environment = environment
  persistDelay[tostring(number+1)].Function = functions
