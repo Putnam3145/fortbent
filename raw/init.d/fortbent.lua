@@ -35,7 +35,7 @@ end
 
 local repeat_util=require('repeat-util')
 
-repeat_util.scheduleUnlessAlreadyScheduled('Clockwork Majyyks',math.ceil(df.global.enabler.gfps/15),'frames',clockwork_majyyks_color_change)
+repeat_util.scheduleUnlessAlreadyScheduled('Clockwork Majyyks',math.ceil(df.global.enabler.gfps/15),'frames',clockwork_majyyks_color_change) --EPILEPSY: the magic number on the left (15 by default) is the FPS of the clockwork majyyks scroll effect. You can reduce it to manageable levels by lowering that number or remove it entirely by removing this line.
 
 repeat_util.scheduleUnlessAlreadyScheduled('Psiioniic Blast',5,'ticks',mind_blast_color_change)
 
@@ -57,7 +57,7 @@ end
 
 local eventful=require('plugins.eventful')
 
-local attackStrFuncs={}
+local attackStrFuncs={} --table lookups are O(1), if elseif chains are O(n). This matters with the sheer amount of these things I have.
 
 attackStrFuncs['teleports']=function(attackVerb,defendVerb,attackerId,defenderId,attackReportId,defendReportId)
     dfhack.run_script('fortbent/teleport_dest','-unit',attackerId)
@@ -166,7 +166,98 @@ defendStrFuncs['insane']=function(attackVerb,defendVerb,attackerId,defenderId,at
     eraseReport(df.unit.find(defenderId),df.report.find(defendReportId))
 end
 
---local bothStrFuncs={}
+local bothStrFuncs={}
+
+local function getClaspect(unit)
+    for k,c_syn in ipairs(unit.syndromes.active) do
+        local raw_syn=df.syndrome.find(c_syn.type)
+        for kk,syn_class in ipairs(raw_syn.syn_class) do
+            if syn_class.value=='IS_SBURBED' then
+                local claspect=raw_syn.syn_name
+                local of_numbers={claspect:find('_OF_')}
+                local className=claspect:sub(0,of_numbers[1]-1)
+                local aspectName=claspect:sub(of_numbers[2]+1,-1)
+                return {class=className,aspect=aspectName}
+            end
+        end
+	end
+    return nil
+end
+
+bothStrFuncs['many-person fraymotif/many-person fraymotif']=function(attackVerb, defendVerb, attackerId, defenderId, attackReportId, defendReportId)
+    local fraymotifInfo=dfhack.persistent.save({key='FRAYMOTIF_PREPARED/'..attackerId,value='true'})
+    for i=0,6 do --screw it 3 people is not enough
+        if fraymotifInfo.ints[i]<1 then
+            fraymotifInfo.ints[i]=defenderId
+            return true
+        end
+    end
+    return false
+end
+
+local function getFraymotiferInfo(persistentStorage)
+    if not persistentStorage or persistentStorage.value~='true' then return false end
+    local fraymotiferInfo={}
+    fraymotiferInfo.primary=df.unit.find(tonumber(persistentStorage.key:sub(persistentStorage.key:find('/')+1,-1))) --yeah seriously
+    fraymotiferInfo.secondary=df.unit.find(persistentStorage.ints[0])
+    fraymotiferInfo.tertiary={}
+    for i=1,6 do
+        if persistentStorage.ints[i]>0 then
+            table.insert(fraymotiferInfo.tertiary,df.unit.find(persistentStorage.ints[i]))
+        end
+    end
+    persistentStorage:delete()
+    return fraymotiferInfo
+end
+
+local fraymotifs=dfhack.script_environment('fortbent/fraymotif')
+
+bothStrFuncs['uses a fraymotif/gets hit by a fraymotif']=function(attackVerb, defendVerb, attackerId, defenderId, attackReportId, defendReportId)
+    local fraymotiferInfo=getFraymotiferInfo(dfhack.persistent.get('FRAYMOTIF_PREPARED/'..attackerId))
+    if not fraymotiferInfo then return false end
+    --[[
+    First fraymotif artist (the key in the persist, the attacker here) determines the affect (i.e shape) of the fraymotif.
+    Second fraymotif artist (ints[0]) determines the effect of the fraymotif.
+    Third-eighth fraymotif artists (ints[1]-ints[6]) add modifiers. Algorithm for that should be fairly self-explanatory.
+    ]]
+    local fraymotifInfo={}
+    local primaryClaspect=getClaspect(fraymotiferInfo.primary)
+    local secondaryClaspect=getClaspect(fraymotiferInfo.secondary)
+    local tertiaryClaspects={}
+    for k,v in ipairs(fraymotiferInfo.tertiary) do
+        table.insert(tertiaryClaspects,getClaspect(v))
+    end
+    local fraymotifAffect=fraymotifs.fraymotifAffects[primaryClaspect.aspect][primaryClaspect.class]
+    local fraymotifEffect=fraymotifs.fraymotifEffects[secondaryClaspect.aspect][secondaryClaspect.class]
+    local fraymotifString=''
+    local fraymotifStringUnfinished=true
+    if type(fraymotifs.fraymotifNames[primaryClaspect.aspect][primaryClaspect.class][secondaryClaspect.aspect][secondaryClaspect.class])=='string' then --oh my god
+        fraymotifStringFinished=false
+        fraymotifString=fraymotifs.fraymotifNames[primaryClaspect.aspect][primaryClaspect.class][secondaryClaspect.aspect][secondaryClaspect.class] --oh. oh wow.
+    end
+    if fraymotifStringUnfinished then 
+        fraymotifString=fraymotifs.fraymotifNames[primaryClaspect.aspect][primaryClaspect.class]..fraymotifs.fraymotifNames[secondaryClaspect.aspect][secondaryClaspect.class]
+    end
+    local fraymotifModifiers={}
+    if fraymotifStringUnfinished then 
+        for k,v in ipairs(tertiaryClaspects) do
+            table.insert(fraymotifModifiers,fraymotifs.fraymotifModifiers[v.aspect][v.class])
+            fraymotifString=fraymotifs.fraymotifAdjectives[v.aspect][v.class]..' '..fraymotifString
+        end
+    else
+        for k,v in ipairs(tertiaryClaspects) do
+            table.insert(fraymotifModifiers,fraymotifs.fraymotifModifiers[v.aspect][v.class])
+        end
+    end
+    fraymotifAffect(fraymotiferInfo.primary,df.unit.find(defenderId),fraymotifEffect,fraymotifModifiers)
+    local reportNum=dfhack.gui.makeAnnouncement(df.announcement_type.INTERACTION_ACTOR,copyall(fraymotiferInfo.primary.pos),'Fraymotif! ' .. fraymotifString..'!',COLOR_LIGHTBLUE)
+    dfhack.gui.addCombatReport(fraymotiferInfo.primary,0,reportNum)
+    dfhack.gui.addCombatReport(fraymotiferInfo.secondary,0,reportNum)
+    for k,v in ipairs(fraymotiferInfo.tertiary) do
+        dfhack.gui.addCombatReport(v,0,reportNum)
+    end
+end
+
 
 eventful.onInteraction.fortbent_stuff=function(attackVerb, defendVerb, attackerId, defenderId, attackReportId, defendReportId)
     local attackStr=attackVerb or ''
@@ -175,8 +266,8 @@ eventful.onInteraction.fortbent_stuff=function(attackVerb, defendVerb, attackerI
     if attackFunc then attackFunc(attackVerb,defendVerb,attackerId,defenderId,attackReportId,defendReportId) end
     local defendFunc=defendStrFuncs[defendStr]
     if defendFunc then defendFunc(attackVerb,defendVerb,attackerId,defenderId,attackReportId,defendReportId) end
-    --[[local bothFunc=bothStrFuncs[attackStr..'/'..defendStr]
-    if bothFunc then bothFunc(attackVerb,defendVerb,attackerId,defenderId,attackReportId,defendReportId) end]]
+    local bothFunc=bothStrFuncs[attackStr..'/'..defendStr]
+    if bothFunc then bothFunc(attackVerb,defendVerb,attackerId,defenderId,attackReportId,defendReportId) end
 end
 
 local stateEvents={}
