@@ -1,3 +1,4 @@
+modtools/reaction-trigger -reaction LEARN_FRAYMOTIF -command [ class-learn-spell -unit \WORKER_ID -spell FRAYMOTIF ]
 modtools/reaction-trigger -reaction LEARN_GO_GOD_TIER_BREATH -command [ class-learn-spell -unit \WORKER_ID -spell GO_GOD_TIER_BREATH ]
 modtools/reaction-trigger -reaction LEARN_WINDY_BULLET_I -command [ class-learn-spell -unit \WORKER_ID -spell WINDY_BULLET_I ]
 modtools/reaction-trigger -reaction LEARN_WINDY_BULLET_II -command [ class-learn-spell -unit \WORKER_ID -spell WINDY_BULLET_II ]

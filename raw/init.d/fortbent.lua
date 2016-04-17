@@ -184,36 +184,24 @@ local function getClaspect(unit)
     return nil
 end
 
-bothStrFuncs['many-person fraymotif/many-person fraymotif']=function(attackVerb, defendVerb, attackerId, defenderId, attackReportId, defendReportId)
-    local fraymotifInfo=dfhack.persistent.save({key='FRAYMOTIF_PREPARED/'..attackerId,value='true'})
-    for i=0,6 do --screw it 3 people is not enough
-        if fraymotifInfo.ints[i]<1 then
-            fraymotifInfo.ints[i]=defenderId
-            return true
-        end
-    end
-    return false
-end
-
-local function getFraymotiferInfo(persistentStorage)
-    if not persistentStorage or persistentStorage.value~='true' then return false end
-    local fraymotiferInfo={}
-    fraymotiferInfo.primary=df.unit.find(tonumber(persistentStorage.key:sub(persistentStorage.key:find('/')+1,-1))) --yeah seriously
-    fraymotiferInfo.secondary=df.unit.find(persistentStorage.ints[0])
-    fraymotiferInfo.tertiary={}
-    for i=1,6 do
-        if persistentStorage.ints[i]>0 then
-            table.insert(fraymotiferInfo.tertiary,df.unit.find(persistentStorage.ints[i]))
-        end
-    end
-    persistentStorage:delete()
-    return fraymotiferInfo
-end
-
 local fraymotifs=dfhack.script_environment('fortbent/fraymotif')
 
 bothStrFuncs['uses a fraymotif/gets hit by a fraymotif']=function(attackVerb, defendVerb, attackerId, defenderId, attackReportId, defendReportId)
-    local fraymotiferInfo=getFraymotiferInfo(dfhack.persistent.get('FRAYMOTIF_PREPARED/'..attackerId))
+    eraseReport(df.unit.find(attackerId),df.report.find(attackReportId))
+    eraseReport(df.unit.find(defenderId),df.report.find(defendReportId))
+    local fraymotiferInfo={}
+    fraymotiferInfo.tertiary={}
+    local attacker=df.unit.find(attackerId)
+    local targetList,numFound=wrapper.checkLocation(attacker,{5,5,5})
+    local allies,num_civ=wrapper.checkTarget(attacker,targetList,'civ')
+    fraymotiferInfo.primary=attacker
+    for k,v in ipairs(allies) do
+        if fraymotiferInfo.secondary then
+            fraymotiferInfo.secondary=v
+        else
+            table.insert(fraymotiferInfo.tertiary,v)
+        end
+    end
     if not fraymotiferInfo then return false end
     --[[
     First fraymotif artist (the key in the persist, the attacker here) determines the affect (i.e shape) of the fraymotif.
@@ -241,7 +229,8 @@ bothStrFuncs['uses a fraymotif/gets hit by a fraymotif']=function(attackVerb, de
     local fraymotifModifiers={}
     if fraymotifStringUnfinished then 
         for k,v in ipairs(tertiaryClaspects) do
-            table.insert(fraymotifModifiers,fraymotifs.fraymotifModifiers[v.aspect][v.class])
+            local adjectiveToUse=(k%6)+1
+            table.insert(fraymotifModifiers,fraymotifs.fraymotifModifiers[v.aspect][v.class][adjectiveToUse])
             fraymotifString=fraymotifs.fraymotifAdjectives[v.aspect][v.class]..' '..fraymotifString
         end
     else
