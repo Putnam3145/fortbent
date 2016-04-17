@@ -66,7 +66,7 @@ eventful.onUnitDeath.heroic_or_just_god_tier_death=function(unit_id)
             dfhack.run_script('full-heal','-r','-unit',unit.id)
         end
     elseif is_lord_english(unit) then
-        dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,'Lord English does not die.',COLOR_LGREEN)
+        dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,'Not heroic nor just; revival!',COLOR_LGREEN)
         dfhack.run_script('full-heal','-r','-unit',unit.id)
     end
 end
