@@ -1,6 +1,21 @@
+local function can_god_tier(unit)
+    local active_syndromes=unit.syndromes.active
+    for _,c_syndrome in ipairs(active_syndromes) do
+        local syndrome_classes=df.syndrome.find(c_syndrome.type).syn_class
+        for _,synclass in ipairs(syndrome_classes) do
+            if synclass.value == "CAN_GO_GOD_TIER" then return true end
+        end
+    end
+    return false
+end
+
 local function is_god_tier(unit)
-    for k,v in ipairs(df.creature_raw.find(unit.race).caste[unit.caste].creature_class) do
-        if v.value=='GOD_TIER' then return true end
+    local active_syndromes=unit.syndromes.active
+    for _,c_syndrome in ipairs(active_syndromes) do
+        local syndrome_classes=df.syndrome.find(c_syndrome.type).syn_class
+        for _,synclass in ipairs(syndrome_classes) do
+            if synclass.value == "GOD_TIER" then return true end
+        end
     end
     return false
 end
@@ -14,7 +29,7 @@ end
 
 local function death_was_accident(incident)
     local death_cause=df.death_type[incident.death_cause]
-    return not (death_cause=='SHOT' or death_cause=='BLEED' or death_cause=='STRUCK_DOWN' or death_cause=='DRAGONFIRE' or death_cause=='FIRE' or death_cause=='MURDER' or death_cause=='TRAP' or death_cause=='QUIT' or death_cause=='DRAIN_BLOOD') or incident.killer==-1
+    return incident.killer==-1 or not (death_cause=='SHOT' or death_cause=='BLEED' or death_cause=='STRUCK_DOWN' or death_cause=='DRAGONFIRE' or death_cause=='FIRE' or death_cause=='MURDER' or death_cause=='TRAP' or death_cause=='QUIT' or death_cause=='DRAIN_BLOOD')
 end
 
 local function death_was_final(unit)
@@ -37,7 +52,7 @@ local function death_was_just(incident)
         if df.histfig_entity_link_enemyst:is_instance(entity_link) then
             total_enemy_amount=total_enemy_amount+1
         end
-        if df.histfig_entity_link_criminalst:is_instance(entity_link) then
+        if df.histfig_entity_link_criminalst:is_instance(entity_link) then --kind of a dumb workaround until i can figure out how to determine a murderer
             return true
         end
         if total_enemy_amount>5 then return true end
@@ -68,5 +83,10 @@ eventful.onUnitDeath.heroic_or_just_god_tier_death=function(unit_id)
     elseif is_lord_english(unit) then
         dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,'Not heroic nor just; revival!',COLOR_LGREEN)
         dfhack.run_script('full-heal','-r','-unit',unit.id)
+    elseif can_god_tier(unit) then
+        local ann_string=dfhack.TranslateName(dfhack.units.getVisibleName(unit)) .. " is going god tier!"
+        dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,ann_string,COLOR_YELLOW)
+        dfhack.run_script('full-heal','-r','-unit',unit.id)
+        dfhack.run_script('add-syndrome','-syndrome','god tier','-target',unit.id)
     end
 end
