@@ -42,13 +42,20 @@ end
 
 debugScript=false
 
+local sburbableRaces={ --why didn't i think of this sooner??
+    HUMAN=true,
+    TROLL_ALTERNIA=true,
+    DWARF=true,
+    ELF=true,
+    SAIYAN=true, --adding more is zero risk
+    FOUNDATION=true,
+    GNOME_CIV=true,
+    SUCCUBUS=true --masterwork is the only mod that isn't mine i have around lol
+}
+
 function creatureIsSburbable(unit)
-    for k,entity in ipairs(df.global.world.raws.entities) do
-        for kk,creature_id in entity.creature_ids do
-            if creature_id==unit.race then return true end
-        end
-    end
-    return false
+    local race_id=df.creature_raw.find(unit.race).creature_id
+    return sburbableRaces[race_id]
 end
 
 function unitDoesntNeedClaspect(unit)
