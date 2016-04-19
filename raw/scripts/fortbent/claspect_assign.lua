@@ -43,10 +43,12 @@ end
 debugScript=false
 
 function creatureIsSburbable(unit)
-	for k,class in ipairs(df.creature_raw.find(unit.race).caste[unit.caste].creature_class) do
-		if string.find(class.value,"SBURB") then return true end
-	end
-	return false
+    for k,entity in ipairs(df.global.world.raws.entities) do
+        for kk,creature_id in entity.creature_ids do
+            if creature_id==unit.race then return true end
+        end
+    end
+    return false
 end
 
 function unitDoesntNeedClaspect(unit)
