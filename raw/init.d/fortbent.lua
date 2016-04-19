@@ -192,6 +192,7 @@ bothStrFuncs['uses a fraymotif/gets hit by a fraymotif']=function(attackVerb, de
     local fraymotiferInfo={}
     fraymotiferInfo.tertiary={}
     local attacker=df.unit.find(attackerId)
+    local wrapper=dfhack.script_environment('functions/wrapper')
     local targetList,numFound=wrapper.checkLocation(attacker,{5,5,5})
     local allies,num_civ=wrapper.checkTarget(attacker,targetList,'civ')
     fraymotiferInfo.primary=attacker
