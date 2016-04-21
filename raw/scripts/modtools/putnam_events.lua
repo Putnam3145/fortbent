@@ -104,9 +104,9 @@ last_check_time=last_check_time or {year=df.global.cur_year,year_tick=df.global.
 setmetatable(last_check_time,df_date)
 
 local function checkEmotions()
-    for k,unit in ipairs(df.global.world.active)
+    for k,unit in ipairs(df.global.world.units.active) do
         if unit.status.current_soul then
-            for _,emotion in ipairs(unit.status.current_soul.personality.emotions)
+            for _,emotion in ipairs(unit.status.current_soul.personality.emotions) do
                 local emotion_date={year=emotion.year,year_tick=emotion.year_tick}
                 setmetatable(emotion_date,df_date)
                 if emotion_date>=last_check_time then
@@ -116,12 +116,12 @@ local function checkEmotions()
         end
     end
     last_check_time.year=df.global.cur_year
-    last_check_time.year_tick=df.global.year_tick
+    last_check_time.year_tick=df.global.cur_year_tick
 end
 
 eventTypes={
-    ON_RELATIONSHIP_UPDATE={name='relationCheck',func=checkRelationshipUpdates)
-    ON_ACTION={name='onAction',func=checkForActions)
+    ON_RELATIONSHIP_UPDATE={name='relationCheck',func=checkRelationshipUpdates},
+    ON_ACTION={name='onAction',func=checkForActions},
     ON_EMOTION={name='onEmotion',func=checkEmotions}
 }
 

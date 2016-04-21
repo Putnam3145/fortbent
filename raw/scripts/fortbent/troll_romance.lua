@@ -136,7 +136,7 @@ end
 putnamEvents.onRelationshipUpdate.troll_romance=function(histfig1_id,histfig2_id,relationship_type,old_value,new_value)
     local histfig1=df.historical_figure.find(histfig1_id)
     local hasMoirailAlready=hasCustomRelationship(histfig1,'MOIRAIL')
-    if not hasMoirailAlready and relationship_type==1 and new_value>=80 and then
+    if not hasMoirailAlready and relationship_type==1 and new_value>=80 then
         local histfig2=df.historical_figure.find(histfig2_id)
         local unit1=df.unit.find(histfig1.unit_id)
         local hasLoverAlready=unit1.relations.lover_id~=-1 or unit1.relations.spouse_id~=-1
@@ -169,6 +169,41 @@ local function getDistance(pos1,pos2)
     return math.sqrt(((pos1.x*2)-(pos2.x*2))^2+((pos1.y*2)-(pos2.y*2))^2+((pos1.z*3)-(pos2.z*3))^2)
 end
 
+local function getMoirailFeelingsJamEmotion(unit)
+    local traits=unit.status.current_soul.personality.traits
+    local approved_traits={
+        LOVE_PROPENSITY='LOVE',
+        STRESS_VULNERABILITY='RELIEF',
+        HOPEFUL='OPTIMISM',
+        CHEER_PROPENSITY='GAIETY',
+        GENERIC='EMPATHY',
+        DUTIFULNESS='SATISFACTION',
+        FRIENDLINESS='TENDERNESS',
+        PRIDE='PRIDE' --wowee we're getting into uncharted territory
+    }
+    local approved_inverse_traits={
+        CHEER_PROPENSITY='GRATITUDE',
+        STRESS_VULNERABILITY='EXCITEMENT'
+    }
+    local maxSoFar=0
+    local bestTrait='GENERIC'
+    local inverse=false
+    for k,v in pairs(traits) do
+        if (v>maxSoFar and approved_traits[k]) or (100-v>maxSoFar and approved_inverse_traits[k]) then
+            if v<maxSoFar then
+                maxSoFar=100-v
+                bestTrait=k
+                inverse=true
+            else
+                maxSoFar=v
+                bestTrait=k
+                inverse=false
+            end
+        end
+    end
+    return inverse and approved_inverse_traits[k] or approved_traits[k] or 'EMPATHY'
+end
+
 putnamEvents.onEmotion.troll_romance=function(unit,emotion)
     local thought=df.unit_thought_type[emotion.thought]
     if thought=='Argument' then
@@ -191,8 +226,10 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
         local hist_fig=df.historical_figure.find(unit.hist_figure_id)
         local moirail=hasCustomRelationship(hist_fig,'MOIRAIL')
         if moirail then
-            if getDistance(df.unit.find(df.historical_figure.find(moirail).unit_id).pos,unit.pos)<30 then
+            local moirailUnit=df.unit.find(df.historical_figure.find(moirail).unit_id)
+            if getDistance(moirailUnit.pos,unit.pos)<30 then
                 dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(unit),'-severity',500,'-unit',unit.id)
+                dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(moirailUnit),'-severity',500,'-unit',unit.id)
             end
         end
     end
