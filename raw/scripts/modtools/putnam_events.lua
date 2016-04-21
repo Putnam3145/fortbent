@@ -55,20 +55,21 @@ onRelationshipUpdate=onRelationshipUpdate or dfhack.event.new()
 
 current_relations_checked=current_relations_checked or {}
 
-local function checkRelationshipUpdates()
+local function checkRelationshipUpdates() --todo: ignore this, it doesn't actually work for what i'm doing lol
     for k,v in ipairs(df.global.world.units.active) do
         local histfig=df.historical_figure.find(v.hist_figure_id)
-        if not histfig or not histfig.info or not histfig.info.relationships then return end
-        current_relations_checked[v.hist_figure_id]=current_relations_checked[v.hist_figure_id] or {}
-        for kk,relationship in ipairs(histfig.info.relationships.list) do
-            current_relations_checked[v.hist_figure_id][relationship.histfig_id]=current_relations_checked[v.hist_figure_id][relationship.histfig_id] or {}
-            local thisHistFigRelations=current_relations_checked[v.hist_figure_id][relationship.histfig_id]
-            for relation_type_index,relation_type in ipairs(relationship.anon_3) do
-                thisHistFigRelations[relation_type]=thisHistFigRelations[relation_type] or relationship.anon_4[relation_type_index]
-                if thisHistFigRelations[relation_type]~=relationship.anon_4[relation_type_index] then
-                    onRelationshipUpdate(v.hist_figure_id,relationship.histfig_id,relation_type,thisHistFigRelations[relation_type],relationship.anon_4[relation_type_index])
-                    --onRelationshipUpdate.example=function(histfig1_id,histfig2_id,relationship_type,old_value,new_value)
-                    thisHistFigRelations[relation_type]=relationship.anon_4[relation_type_index]
+        if not (not histfig or not histfig.info or not histfig.info.relationships) then
+            current_relations_checked[v.hist_figure_id]=current_relations_checked[v.hist_figure_id] or {}
+            for kk,relationship in ipairs(histfig.info.relationships.list) do
+                current_relations_checked[v.hist_figure_id][relationship.histfig_id]=current_relations_checked[v.hist_figure_id][relationship.histfig_id] or {}
+                local thisHistFigRelations=current_relations_checked[v.hist_figure_id][relationship.histfig_id]
+                for relation_type_index,relation_type in ipairs(relationship.anon_3) do
+                    thisHistFigRelations[relation_type]=thisHistFigRelations[relation_type] or relationship.anon_4[relation_type_index]
+                    if thisHistFigRelations[relation_type]~=relationship.anon_4[relation_type_index] then
+                        onRelationshipUpdate(v.hist_figure_id,relationship.histfig_id,relation_type,thisHistFigRelations[relation_type],relationship.anon_4[relation_type_index])
+                        --onRelationshipUpdate.example=function(histfig1_id,histfig2_id,relationship_type,old_value,new_value)
+                        thisHistFigRelations[relation_type]=relationship.anon_4[relation_type_index]
+                    end
                 end
             end
         end

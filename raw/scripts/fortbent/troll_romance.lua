@@ -52,7 +52,7 @@ function RelationsOverlay:onShow()
     self.overrides={}
     for k,relation_hf in ipairs(self._native.parent.relation_hf) do
         for kk,overrideId in ipairs(overrideIds) do
-            if relation_hf.id==overrideId.id then print(kk) table.insert(self.overrides,{line=k,str=overrideId.str}) end
+            if relation_hf.id==overrideId.id then table.insert(self.overrides,{line=k,str=overrideId.str}) end
         end
     end
 end
@@ -163,8 +163,6 @@ putnamEvents.onRelationshipUpdate.troll_romance=function(histfig1_id,histfig2_id
     end
 end
 
-putnamEvents.enableEvent(putnamEvents.eventTypes.ON_RELATIONSHIP_UPDATE,20)
-
 local function getDistance(pos1,pos2)
     return math.sqrt(((pos1.x*2)-(pos2.x*2))^2+((pos1.y*2)-(pos2.y*2))^2+((pos1.z*3)-(pos2.z*3))^2)
 end
@@ -208,21 +206,23 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
     local thought=df.unit_thought_type[emotion.thought]
     if thought=='Argument' then
         local hist_fig=df.historical_figure.find(unit.hist_figure_id)
-        local hist_fig2=df.historical_figure.find(df.unit.find(emotion.subthought).hist_figure_id)
-        local isKismesisArgument,kismesisStrength=adjustRelationship(hist_fig,hist_fig2,'KISMESIS',1)
-        if isKismesisArgument then
-            dfhack.run_script('fortbent/add-thought','-thought','arguing with a kismesis','-emotion','AROUSAL','-severity',kismesisStrength*4,'-unit',unit.id) --http://goo.gl/8WOPP 
-        end
-        local auspistice=hasCustomRelationship(hist_fig,'AUSPISTICE')
-        local auspistice2=hasCustomRelationship(hist_fig2,'AUSPISTICE')
-        if auspistice==auspistice2 then
-            if getDistance(df.unit.find(df.historical_figure.find(auspistice).unit_id).pos,unit.pos)<30 then
-                dfhack.run_script('fortbent/add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
-                dfhack.run_script('fortbent/add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',auspistice.unit_id)
+        if emotion.subthought~=-1 then
+            local hist_fig2=df.historical_figure.find(emotion.subthought)
+            local isKismesisArgument,kismesisStrength=adjustRelationship(hist_fig,hist_fig2,'KISMESIS',1)
+            if isKismesisArgument then
+                dfhack.run_script('fortbent/add-thought','-thought','arguing with a kismesis','-emotion','AROUSAL','-severity',kismesisStrength*4,'-unit',unit.id) --http://goo.gl/8WOPP 
+            end
+            local auspistice=hasCustomRelationship(hist_fig,'AUSPISTICE')
+            local auspistice2=hasCustomRelationship(hist_fig2,'AUSPISTICE')
+            if auspistice==auspistice2 then
+                if getDistance(df.unit.find(df.historical_figure.find(auspistice).unit_id).pos,unit.pos)<30 then
+                    dfhack.run_script('fortbent/add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
+                    dfhack.run_script('fortbent/add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',auspistice.unit_id)
+                end
             end
         end
     end
-    if df.emotion_type.attrs[emotion.type].divider>0 and unit.status.current_soul.stress_level>1000 then
+    if df.emotion_type.attrs[emotion.type].divider>0 and unit.status.current_soul.personality.stress_level>1000 then
         local hist_fig=df.historical_figure.find(unit.hist_figure_id)
         local moirail=hasCustomRelationship(hist_fig,'MOIRAIL')
         if moirail then
@@ -235,4 +235,6 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
     end
 end
 
-putnamEvents.enableEvent(putnamEvents.eventTypes.ON_EMOTION,10)
+putnamEvents.enableEvent(putnamEvents.eventTypes.ON_EMOTION,1)
+
+putnamEvents.enableEvent(putnamEvents.eventTypes.ON_RELATIONSHIP_UPDATE,1)
