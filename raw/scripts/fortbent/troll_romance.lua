@@ -27,7 +27,7 @@ end
 
 local custom_relation_types={}
 
-custom_relation_types[413]={name='Moirail',color_fg=COLOR_RED,color_bg=COLOR_BLACK}
+custom_relation_types[413]={name='Moirail',color_fg=COLOR_LIGHTRED,color_bg=COLOR_BLACK}
 
 custom_relation_types[612]={name='Kismesis',color_fg=COLOR_BLACK,color_bg=COLOR_GREY}
 
@@ -53,6 +53,11 @@ function RelationsOverlay:onShow()
     end
     self.overrides={}
     for k,relation_hf in ipairs(self._native.parent.relation_hf) do
+        for kk,histfig_link in ipairs(histfig.histfig_links) do
+            if (df.histfig_hf_link_loverst:is_instance(histfig_link) or df.histfig_hf_link_spousest:is_instance(histfig_link)) and relation_hf.id==histfig_link.target_hf then
+                table.insert(self.overrides,{line=k,str={name='Matesprit',color_fg=COLOR_RED,color_bg=COLOR_BLACK}})
+            end
+        end
         for kk,overrideId in ipairs(overrideIds) do
             if relation_hf.id==overrideId.id then table.insert(self.overrides,{line=k,str=overrideId.str}) end
         end
