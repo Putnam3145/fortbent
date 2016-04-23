@@ -22,6 +22,7 @@ descriptor_shape_troll
     [ADJ:captchalogue]
     [ADJ:tarot]
     [ADJ:playing]
+	[TILE:254]
 
 [SHAPE:SPADE]
     [NAME:spades:spades]
@@ -39,7 +40,8 @@ descriptor_shape_troll
     [ADJ:queen of]
     [ADJ:king of]
     [ADJ:ace of]
-    
+    [TILE:6]
+	
 [SHAPE:DIAMOND_TROLL]
     [NAME:diamonds:diamonds]
     [ADJ:red]
@@ -56,7 +58,8 @@ descriptor_shape_troll
     [ADJ:queen of]
     [ADJ:king of]
     [ADJ:ace of]
-
+	[TILE:4]
+	
 [SHAPE:CLUBS]
     [NAME:clubs:clubs]
     [ADJ:black]
@@ -73,7 +76,8 @@ descriptor_shape_troll
     [ADJ:queen of]
     [ADJ:king of]
     [ADJ:ace of]
-
+	[TILE:5]
+	
 [SHAPE:HEART]
     [NAME:hearts:hearts]
     [ADJ:red]
@@ -90,32 +94,41 @@ descriptor_shape_troll
     [ADJ:queen of]
     [ADJ:king of]
     [ADJ:ace of]
-
+	[TILE:3]
+	
 [SHAPE:413]
     [NAME:413:413]
+	[TILE:'4']
 [SHAPE:612]
     [NAME:612:612]
+	[TILE:'6']
 [SHAPE:1025]
     [NAME:1025:1025]
-[SHAPE:1111]
-    [NAME:1111:1111]
-    
+	[TILE:'2']
+[SHAPE:111111]
+    [NAME:111111:111111]
+    [TILE:'1']
 [SHAPE:SWEET_BRO]
     [NAME:sweet bro:sweet bros]
-
+	[TILE:'u']
 [SHAPE:HELLA_JEFF]
     [NAME:hella jeff:hella jeffs]
-    
+    [TILE:'y']
 [SHAPE:NANCHO_PARTY]
     [NAME:nancho party:nancho parties]
-    
+    [TILE:31]
+[SHAPE:THOOTH_FAIRY]
+	[NAME:thooth fairy:thooth fairies]
+	[TILE:253]
+	'nuff said.
+	
 [SHAPE:SPORTS]
     [NAME:sport:sports]
-    
+    [TILE:145]
 [SHAPE:BARACK_OBAMA]
     [NAME:BARACK obana:BARACKs obana]
     [ADJ:econonmy of]
-    
+    [TILE:'U']
 [SHAPE:HERO_OF_TIME]
     [NAME:time:time]
     [ADJ:witch of]
@@ -133,7 +146,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:15]
 [SHAPE:HERO_OF_BREATH]
     [NAME:breath:breath]
     [ADJ:witch of]
@@ -151,7 +164,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:247]
 [SHAPE:HERO_OF_DOOM]
     [NAME:doom:doom]
     [ADJ:witch of]
@@ -169,7 +182,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:253]
 [SHAPE:HERO_OF_HEART]
     [NAME:heart:heart]
     [ADJ:witch of]
@@ -187,7 +200,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:3]
 [SHAPE:HERO_OF_BLOOD]
     [NAME:blood:blood]
     [ADJ:witch of]
@@ -205,7 +218,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:47]
 [SHAPE:HERO_OF_SPACE]
     [NAME:space:space]
     [ADJ:witch of]
@@ -223,7 +236,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:250]
 [SHAPE:HERO_OF_MIND]
     [NAME:mind:mind]
     [ADJ:witch of]
@@ -241,7 +254,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+    [TILE:232]
 [SHAPE:HERO_OF_LIGHT]
     [NAME:light:light]
     [ADJ:witch of]
@@ -259,7 +272,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:'*']
 [SHAPE:HERO_OF_VOID]
     [NAME:void:void]
     [ADJ:witch of]
@@ -277,7 +290,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:250]
 [SHAPE:HERO_OF_RAGE]
     [NAME:rage:rage]
     [ADJ:witch of]
@@ -295,7 +308,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:33]
 [SHAPE:HERO_OF_HOPE]
     [NAME:hope:hope]
     [ADJ:witch of]
@@ -313,7 +326,7 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:29]
 [SHAPE:HERO_OF_LIFE]
     [NAME:life:life]
     [ADJ:witch of]
@@ -331,6 +344,6 @@ descriptor_shape_troll
     [ADJ:lord of]
     [ADJ:muse of]
     [ADJ:waste of]
-
+	[TILE:243]
 [SHAPE:SKAIA]
     [NAME:great hero:skaia] Singular skaia would be odd
