@@ -133,6 +133,16 @@ local function getMutualRelation(histfig1,histfig2,relationship_type)
     return greatest_mutual_relationship.fig,greatest_mutual_relationship.value
 end
 
+local function getAllRelations(histfig,relationship_type)
+    local relations={}
+    for k,v in ipairs(histfig.info.relationships.list) do
+        for kk,vv in ipairs(v.anon_3) do
+            if vv==relation_type then table.insert(relations,df.historical_figure.find(v.histfig_id)) end
+        end
+    end
+    return relations
+end
+
 putnamEvents.onRelationshipUpdate.troll_romance=function(histfig1_id,histfig2_id,relationship_type,old_value,new_value)
     local histfig1=df.historical_figure.find(histfig1_id)
     local hasMoirailAlready=hasCustomRelationship(histfig1,'MOIRAIL')
@@ -202,39 +212,120 @@ local function getMoirailFeelingsJamEmotion(unit)
     return inverse and approved_inverse_traits[k] or approved_traits[k] or 'EMPATHY'
 end
 
+function getMoirailCompatibility(unit1,unit2)
+    local personality1=unit1.status.current_soul.personality.traits
+    local personality2=unit2.status.current_soul.personality.traits
+    local compatibility=0
+    compatibility=compatibility+(math.abs(personality1.CHEER_PROPENSITY-personality2.CHEER_PROPENSITY))
+    compatibility=compatibility+(math.abs(personality1.DEPRESSION_PROPENSITY-personality2.DEPRESSION_PROPENSITY))
+    compatibility=compatibility+(math.abs(personality1.ANGER_PROPENSITY-personality2.ANGER_PROPENSITY))
+    compatibility=compatibility+(math.abs(personality1.ANXIETY_PROPENSITY-personality2.ANXIETY_PROPENSITY))
+    compatibility=compatibility+(math.abs(personality1.STRESS_VULNERABILITY-personality2.STRESS_VULNERABILITY))
+    compatibility=compatibility+(math.abs(personality1.VIOLENT-personality2.VIOLENT))
+    compatibility=compatibility+(math.abs(personality1.CONFIDENCE-personality2.CONFIDENCE))
+    compatibility=compatibility+(100-math.abs(personality1.HOPEFUL-personality2.HOPEFUL))
+    compatibility=compatibility+(math.abs(personality1.BASHFUL-personality2.BASHFUL))
+    compatibility=compatibility+(math.abs(personality1.IMAGINATION-personality2.IMAGINATION))
+    return compatibility/1000
+end
+
+function getKismesisCompatibility(unit1,unit2)
+    local personality1=unit1.status.current_soul.personality.traits
+    local personality2=unit2.status.current_soul.personality.traits
+    local compatibility=0
+    compatibility=compatibility+(math.abs(personality1.CHEER_PROPENSITY-personality2.CHEER_PROPENSITY))
+    compatibility=compatibility+(math.abs(personality1.ANGER_PROPENSITY-personality2.ANGER_PROPENSITY))
+    compatibility=compatibility+(math.abs(personality1.HOPEFUL-personality2.HOPEFUL))
+    compatibility=compatibility+(math.abs(personality1.BASHFUL-personality2.BASHFUL))
+    compatibility=compatibility+(math.abs(personality1.EXCITEMENT_SEEKING-personality2.EXCITEMENT_SEEKING))
+    compatibility=compatibility+(math.abs(personality1.ASSERTIVENESS-personality2.ASSERTIVENESS))
+    compatibility=compatibility+(math.abs(personality1.FRIENDLINESS-personality2.FRIENDLINESS))
+    compatibility=compatibility+(math.abs(personality1.GREGARIOUSNESS-personality2.GREGARIOUSNESS))
+    compatibility=compatibility+(math.abs(personality1.GRATITUDE-personality2.GRATITUDE))
+    compatibility=compatibility+(math.abs(personality1.TRUSTING-personality2.TRUSTING))
+    compatibility=compatibility+(math.abs(personality1.THOUGHTLESSNESS-personality2.THOUGHTLESSNESS))
+    compatibility=compatibility+(math.abs(personality1.DUTIFULNESS-personality2.DUTIFULNESS))
+    compatibility=compatibility+(math.abs(personality1.ALTRUISM-personality2.ALTRUISM))
+    return compatibility/1300
+end
+
 putnamEvents.onEmotion.troll_romance=function(unit,emotion)
     local thought=df.unit_thought_type[emotion.thought]
     if thought=='Argument' then
-        local hist_fig=df.historical_figure.find(unit.hist_figure_id)
+        local histfig=df.historical_figure.find(unit.hist_figure_id)
         if emotion.subthought~=-1 then
-            local hist_fig2=df.historical_figure.find(emotion.subthought)
-            local isKismesisArgument,kismesisStrength=adjustRelationship(hist_fig,hist_fig2,'KISMESIS',1)
+            local histfig2=df.historical_figure.find(emotion.subthought)
+            local isKismesisArgument,kismesisStrength=adjustRelationship(histfig,histfig2,'KISMESIS',1)
             if isKismesisArgument then
                 dfhack.run_script('fortbent/add-thought','-thought','arguing with a kismesis','-emotion','AROUSAL','-severity',kismesisStrength*4,'-unit',unit.id) --http://goo.gl/8WOPP 
             end
-            local auspistice=hasCustomRelationship(hist_fig,'AUSPISTICE')
-            local auspistice2=hasCustomRelationship(hist_fig2,'AUSPISTICE')
-            if auspistice==auspistice2 then
-                if getDistance(df.unit.find(df.historical_figure.find(auspistice).unit_id).pos,unit.pos)<30 then
-                    dfhack.run_script('fortbent/add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
-                    dfhack.run_script('fortbent/add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',auspistice.unit_id)
+            local auspistice=hasCustomRelationship(histfig,'AUSPISTICE')
+            if not auspistice and not auspistice2 and (hasCustomRelationship(histfig1,'KISMESIS') or hasCustomRelationship(histfig2,'KISMESIS')) then
+                local auspistice=getMutualRelation(histfig1,histfig2,1)
+                addNewRelationship(histfig1,auspistice,'AUSPISTICE',1)
+                addNewRelationship(histfig2,auspistice,'AUSPISTICE',1)
+            else
+                local auspistice2=hasCustomRelationship(histfig2,'AUSPISTICE')
+                if auspistice==auspistice2 then
+                    if getDistance(df.unit.find(df.historical_figure.find(auspistice).unit_id).pos,unit.pos)<30 then
+                        dfhack.run_script('fortbent/add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
+                        dfhack.run_script('fortbent/add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',auspistice.unit_id)
+                    end
                 end
             end
         end
     end
-    if df.emotion_type.attrs[emotion.type].divider>0 and unit.status.current_soul.personality.stress_level>1000 then
-        local hist_fig=df.historical_figure.find(unit.hist_figure_id)
-        local moirail=hasCustomRelationship(hist_fig,'MOIRAIL')
-        if moirail then
-            local moirailUnit=df.unit.find(df.historical_figure.find(moirail).unit_id)
-            if getDistance(moirailUnit.pos,unit.pos)<30 then
-                dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(unit),'-severity',500,'-unit',unit.id)
-                dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(moirailUnit),'-severity',500,'-unit',unit.id)
+    if thought=='Talked' and df.emotion_type.attrs[emotion.type].divider<0 then
+        local histfig=df.historical_figure.find(unit.hist_figure_id)
+        local hasMoirailAlready=hasCustomRelationship(histfig,'MOIRAIL')
+        local rng=dfhack.random.new()
+        if not hasMoirailAlready and rng:drandom0()<0.2 then
+            local moirailPropensity=(unit.status.current_soul.personality.traits.GREGARIOUSNESS+unit.status.current_soul.personality.traits.LOVE_PROPENSITY+unit.status.current_soul.personality.traits.FRIENDLINESS+(100-unit.status.current_soul.personality.traits.DISDAIN_ADVICE)+(100-unit.status.current_soul.personality.traits.DISCORD))/500 --what a line
+            local friends=getAllRelations(histfig,1)
+            for k,friend_hf in ipairs(friends) do
+                local friend=df.unit.find(friend_hf.unit_id)
+                if not hasMoirailAlready and getDistance(unit.pos,friend.pos)<30 then
+                    local moirailCompatibility=getMoirailCompatibility(unit,friend)
+                    local friendMoirailPropensity=(friend.status.current_soul.personality.traits.GREGARIOUSNESS+friend.status.current_soul.personality.traits.LOVE_PROPENSITY+friend.status.current_soul.personality.traits.FRIENDLINESS+(100-friend.status.current_soul.personality.traits.DISDAIN_ADVICE)+(100-friend.status.current_soul.personality.traits.DISCORD))/500
+                    if rng:drandom0()<moirailCompatibility*((moirailPropensity+friendMoirailPropensity)/2) then
+                        addNewRelationship(histfig,df.historical_figure.find(friend.hist_figure_id),'MOIRAIL',1)
+                        hasMoirailAlready=true
+                    end
+                end
+            end
+        end
+    elseif df.emotion_type.attrs[emotion.type].divider>0 then
+        if unit.status.current_soul.personality.stress_level>1000 then
+            local histfig=df.historical_figure.find(unit.hist_figure_id)
+            local moirail=hasCustomRelationship(histfig,'MOIRAIL')
+            if moirail then
+                local moirailUnit=df.unit.find(df.historical_figure.find(moirail).unit_id)
+                if getDistance(moirailUnit.pos,unit.pos)<30 then
+                    dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(unit),'-severity',500,'-unit',unit.id)
+                    dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(moirailUnit),'-severity',500,'-unit',unit.id)
+                end
+            end
+        end
+        if thought=='Talked' then
+            local histfig=df.historical_figure.find(unit.hist_figure_id)
+            local hasKismesisAlready=hasCustomRelationship(histfig,'KISMESIS')
+            local rng=dfhack.random.new()
+            if not hasKismesisAlready and rng:drandom0()<0.2 then
+                local grudges=getAllRelations(histfig,2)
+                for k,grudge_hf in ipairs(grudges) do
+                    local grudge=df.unit.find(friend_hf.unit_id)
+                    if not hasKismesisAlready and getDistance(unitpos,grudge.pos)<30 then
+                        local kismesisCompatibility=getKismesisCompatibility(unit,grudge)
+                        if rng:drandom0()<kismesisCompatibility*((unit.status.current_soul.personality.traits.HATE_PROPENSITY+grudge.status.current_soul.personality.traits.HATE_PROPENSITY)/2) then
+                            --isn't the fact that HATE_PROPENSITY is already a thing just wonderful
+                            addNewRelationship(histfig,df.historical_figure.find(grudge.hist_figure_id),'KISMESIS',1)
+                            hasKismesisAlready=true
+                        end
+                    end
+                end
             end
         end
     end
 end
 
-putnamEvents.enableEvent(putnamEvents.eventTypes.ON_EMOTION,1)
-
-putnamEvents.enableEvent(putnamEvents.eventTypes.ON_RELATIONSHIP_UPDATE,1)
+putnamEvents.enableEvent(putnamEvents.eventTypes.ON_EMOTION,2)
