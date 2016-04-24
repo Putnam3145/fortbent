@@ -71,7 +71,7 @@ viewscreenActions[df.viewscreen_layer_unit_relationshipst]=function()
     relations:show()
 end
 
-dfhack.onStateChange.fortbent_screenstuff=function(code)
+dfhack.onStateChange.fortbent_troll_romance=function(code)
     if code==SC_VIEWSCREEN_CHANGED then
         local viewfunc=viewscreenActions[dfhack.gui.getCurViewscreen()._type]
         if viewfunc then viewfunc() end
