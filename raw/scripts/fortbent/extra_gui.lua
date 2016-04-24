@@ -85,6 +85,10 @@ function ExtraUnitListInfo:onGetSelectedUnit()
     return parent.units[parent.page][parent.cursor_pos[parent.page]]
 end
 
+function ExtraUnitListInfo:onResize(w,h)
+    self.jobX=w/2
+end
+
 function ExtraUnitListInfo:onRender()
     self._native.parent:render()
     if self._native.parent._type~=df.viewscreen_unitlistst then self:dismiss() return end
@@ -95,20 +99,20 @@ function ExtraUnitListInfo:onRender()
             if v.class then
                 if dfhack.screen.inGraphicsMode() and v.tile then
                     if parent.cursor_pos[parent.page]==k-1 then
-                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},50,k+3,v.class..' of ')
-                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},50+v.classLength+1,k+3,v.aspect..stupidWorkaround)
-                        dfhack.screen.paintTile({fg=COLOR_BLACK,bg=COLOR_GREY},50+v.classLength,k+3,'a',v.tile)
+                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,k+3,v.class..' of ')
+                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX+v.classLength+1,k+3,v.aspect..stupidWorkaround)
+                        dfhack.screen.paintTile({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX+v.classLength,k+3,'a',v.tile)
                     else
-                        dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},50,k+3,v.class..' of ')
-                        dfhack.screen.paintString(v.color,50+v.classLength+1,k+3,v.aspect..stupidWorkaround)
-                        dfhack.screen.paintTile(v.color,50+v.classLength,k+3,'a',v.tile)
+                        dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},self.jobX,k+3,v.class..' of ')
+                        dfhack.screen.paintString(v.color,self.jobX+v.classLength+1,k+3,v.aspect..stupidWorkaround)
+                        dfhack.screen.paintTile(v.color,self.jobX+v.classLength,k+3,'a',v.tile)
                     end
                 else
                     if parent.cursor_pos[parent.page]==k-1 then
-                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},50,k+3,v.class..' of '..v.aspect..stupidWorkaround)
+                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,k+3,v.class..' of '..v.aspect..stupidWorkaround)
                     else
-                        dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},50,k+3,v.class..' of ')
-                        dfhack.screen.paintString(v.color,50+v.classLength,k+3,v.aspect..stupidWorkaround)
+                        dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},self.jobX,k+3,v.class..' of ')
+                        dfhack.screen.paintString(v.color,self.jobX+v.classLength,k+3,v.aspect..stupidWorkaround)
                     end
                 end
             end
