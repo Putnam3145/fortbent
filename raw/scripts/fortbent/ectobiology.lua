@@ -4,6 +4,21 @@
 
 -- where MAKING THIS HAPEN
 
+
+local custom_relation_types={} --should probably put this into a separate file
+
+custom_relation_types[413]={name='Moirail',color_fg=COLOR_RED,color_bg=COLOR_BLACK}
+
+custom_relation_types[612]={name='Kismesis',color_fg=COLOR_BLACK,color_bg=COLOR_GREY}
+
+custom_relation_types[1025]={name='Auspistice',color_fg=COLOR_BLACK,color_bg=COLOR_WHITE} --actually screw that one but whatever.
+
+custom_relation_types['MOIRAIL']=413
+
+custom_relation_types['KISMESIS']=612
+
+custom_relation_types['AUSPISTICE']=1025
+
 local function getNumberOfChildren(unit)
     local children=0
     for k,v in ipairs(df.historical_figure.find(unit.hist_figure_id).histfig_links) do
@@ -22,29 +37,15 @@ local function hasCustomRelationship(histfig,relationship_type)
     return false
 end
 
-local custom_relation_types={} --should probably put this into a separate file
-
-custom_relation_types[413]={name='Moirail',color_fg=COLOR_RED,color_bg=COLOR_BLACK}
-
-custom_relation_types[612]={name='Kismesis',color_fg=COLOR_BLACK,color_bg=COLOR_GREY}
-
-custom_relation_types[1025]={name='Auspistice',color_fg=COLOR_BLACK,color_bg=COLOR_WHITE} --actually screw that one but whatever.
-
-custom_relation_types['MOIRAIL']=413
-
-custom_relation_types['KISMESIS']=612
-
-custom_relation_types['AUSPISTICE']=1025
-
 local function getSpouseOrLover(unit)
     local lover_unit=df.unit.find(unit.relations.lover_id) or df.unit.find(unit.relations.spouse_id)
     local return_table={lover=nil,kismesis=nil}
     local kismesis=hasCustomRelationship(df.historical_figure.find(unit.hist_figure_id),'KISMESIS')
     if kismesis then
-        return_table.kismesis={dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (kismesis)',nil,kismesis}
+        table.insert(return_table,{dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (kismesis)',nil,kismesis})
     end
     if lover_unit then
-        return_table.lover={dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (matesprit)',nil,lover_unit.hist_figure_id}
+        table.insert(return_table,{dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (matesprit)',nil,lover_unit.hist_figure_id})
     else
         local hist_fig=df.historical_figure.find(unit.hist_figure_id)
         for k,v in ipairs(hist_fig.histfig_links) do
@@ -53,7 +54,7 @@ local function getSpouseOrLover(unit)
             end
         end
     end
-    return return_table,(return_table.lover or return_table.kismesis)
+    return return_table,(lover_unit or kismesis)
 end
 
 local function getCitizenList(lovers_only,species)
@@ -113,7 +114,7 @@ local function ectobiologize(freeform)
         if not ok1 then return false end
         local unit=unit_t[3]
         local lovers=getSpouseOrLover(unit)
-        local ok2,name2,lover_t=script.showListPrompt("Ectobiology","Choose second genetic material giver."COLOR_WHITE,lovers)
+        local ok2,name2,lover_t=script.showListPrompt("Ectobiology","Choose second genetic material giver.",COLOR_WHITE,lovers)
         if not ok2 then return false end
         unit.relations.pregnancy_timer=1
         unit.relations.pregnancy_genes=unit.appearance.genes:new()
