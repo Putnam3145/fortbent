@@ -250,7 +250,7 @@ creature_troll_wild
             [BODYGLOSS:THINKPAN]
             [BODY_DETAIL_PLAN:STANDARD_MATERIALS]
             [BODY_DETAIL_PLAN:STANDARD_TISSUES]
-            [CASTE_NAME:musclebeast:musclebeasts:musclebeast]
+            [CASTE_NAME:centaur:centaurs:centaur]
             [BODY_DETAIL_PLAN:VERTEBRATE_TISSUE_LAYERS:SKIN:FAT:MUSCLE:BONE:CARTILAGE]
             [BODY_DETAIL_PLAN:BODY_HAIR_TISSUE_LAYERS:HAIR]
                 [USE_TISSUE_TEMPLATE:EYEBROW:EYEBROW_TEMPLATE]
