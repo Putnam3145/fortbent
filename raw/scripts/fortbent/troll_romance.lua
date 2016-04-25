@@ -378,7 +378,7 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
             for k,friend_hf in ipairs(friends) do
                 local friend=df.unit.find(friend_hf.unit_id)
                 local friendHasMoirailAlready=hasCustomRelationship(friend_hf,'MOIRAIL')
-                if not hasMoirailAlready and not friendHasMoirailAlready and not (friend_hf.id==loverId) and getDistance(unit.pos,friend.pos)<30 then
+                if friend and not hasMoirailAlready and not friendHasMoirailAlready and not (friend_hf.id==loverId) and getDistance(unit.pos,friend.pos)<30 then
                     local moirailCompatibility=getMoirailCompatibility(unit,friend)
                     local friendMoirailPropensity=(friend.status.current_soul.personality.traits.GREGARIOUSNESS+friend.status.current_soul.personality.traits.LOVE_PROPENSITY+friend.status.current_soul.personality.traits.FRIENDLINESS+(100-friend.status.current_soul.personality.traits.DISDAIN_ADVICE)+(100-friend.status.current_soul.personality.traits.DISCORD))/500
                     if rng:drandom0()<moirailCompatibility*((moirailPropensity+friendMoirailPropensity)/2) then
