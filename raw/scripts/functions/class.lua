@@ -188,21 +188,30 @@ function changeLevel(unit,amount,verbose)
  end
 
  --Add/Subtract permanent level bonuses
- for _,attr in pairs(class.LevelBonus.Physical._children) do
-  local amount = class.LevelBonus.Physical[attr]
-  dfhack.script_environment('functions/unit').changeAttribute(unit,attr,amount,0,'track')
+--Add/Subtract permanent level bonuses
+ if class.LevelBonus.Physical then
+  for _,attr in pairs(class.LevelBonus.Physical._children) do
+   local amount = class.LevelBonus.Physical[attr]
+   dfhack.script_environment('functions/unit').changeAttribute(unit,attr,amount,0,'track')
+  end
  end
- for _,attr in pairs(class.LevelBonus.Mental._children) do
-  local amount = class.LevelBonus.Mental[attr]
-  dfhack.script_environment('functions/unit').changeAttribute(unit,attr,amount,0,'track')
+ if class.LevelBonus.Mental then
+  for _,attr in pairs(class.LevelBonus.Mental._children) do
+   local amount = class.LevelBonus.Mental[attr]
+   dfhack.script_environment('functions/unit').changeAttribute(unit,attr,amount,0,'track')
+  end
  end
- for _,skill in pairs(class.LevelBonus.Skill._children) do
-  local amount = class.LevelBonus.Skill[skill]
-  dfhack.script_environment('functions/unit').changeSkill(unit,skill,amount,0,'track')
+ if class.LevelBonus.Skill then
+  for _,skill in pairs(class.LevelBonus.Skill._children) do
+   local amount = class.LevelBonus.Skill[skill]
+   dfhack.script_environment('functions/unit').changeSkill(unit,skill,amount,0,'track')
+  end
  end
- for _,trait in pairs(class.LevelBonus.Trait._children) do
-  local amount = class.LevelBonus.Trait[trait]
-  dfhack.script_environment('functions/unit').changeTrait(unit,trait,amount,0,'track')
+ if class.LevelBonus.Trait then
+  for _,trait in pairs(class.LevelBonus.Trait._children) do
+   local amount = class.LevelBonus.Trait[trait]
+   dfhack.script_environment('functions/unit').changeTrait(unit,trait,amount,0,'track')
+  end
  end
 
  --Learn/Unlearn Skills

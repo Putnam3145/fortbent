@@ -87,6 +87,6 @@ eventful.onUnitDeath.heroic_or_just_god_tier_death=function(unit_id)
         local ann_string=dfhack.TranslateName(dfhack.units.getVisibleName(unit)) .. " is going god tier!"
         dfhack.gui.makeAnnouncement(df.announcement_type.CITIZEN_DEATH,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},unit.pos,ann_string,COLOR_YELLOW)
         dfhack.run_script('full-heal','-r','-unit',unit.id)
-        dfhack.run_script('add-syndrome','-syndrome','god tier','-target',unit.id)
+        dfhack.run_script('modtools/add-syndrome','-syndrome','god tier','-target',unit.id)
     end
 end
