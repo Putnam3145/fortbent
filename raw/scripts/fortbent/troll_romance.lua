@@ -337,8 +337,9 @@ end
 putnamEvents.onEmotion.troll_romance=function(unit,emotion)
     local thought=df.unit_thought_type[emotion.thought]
     if unit.hist_figure_id<0 then return end
+    local histfig=df.historical_figure.find(unit.hist_figure_id)
+    if not histfig or not histfig.info or not histfig.info.relationships then return end
     if thought=='Argument' then
-        local histfig=df.historical_figure.find(unit.hist_figure_id)
         if emotion.subthought~=-1 and df.historical_figure.find(emotion.subthought) then
             local histfig2=df.historical_figure.find(emotion.subthought)
             local isKismesisArgument,kismesisStrength=adjustRelationship(histfig,histfig2,'KISMESIS',1)
@@ -362,7 +363,6 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
         end
     end
     if thought=='Talked' and df.emotion_type.attrs[emotion.type].divider<0 then
-        local histfig=df.historical_figure.find(unit.hist_figure_id)
         local hasMoirailAlready=hasCustomRelationship(histfig,'MOIRAIL')
         local rng=dfhack.random.new()
         local loverId=unit.relations.lover_id~=-1 and (df.unit.find(unit.relations.lover_id) and df.unit.find(unit.relations.lover_id).hist_figure_id or false) or (unit.relations.spouse_id~=-1 and df.unit.find(unit.relations.spouse_id) and df.unit.find(unit.relations.spouse_id).hist_figure_id) or nil
@@ -391,7 +391,6 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
         end
     elseif df.emotion_type.attrs[emotion.type].divider>0 then
         if unit.status.current_soul.personality.stress_level>1000 then
-            local histfig=df.historical_figure.find(unit.hist_figure_id)
             local moirail=hasCustomRelationship(histfig,'MOIRAIL')
             if moirail then
                 local moirailUnit=df.unit.find(df.historical_figure.find(moirail).unit_id)
@@ -402,7 +401,6 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
             end
         end
         if thought=='Talked' then
-            local histfig=df.historical_figure.find(unit.hist_figure_id)
             local hasKismesisAlready=hasCustomRelationship(histfig,'KISMESIS')
             local rng=dfhack.random.new()
             if not hasKismesisAlready and rng:drandom0()<0.2 then
