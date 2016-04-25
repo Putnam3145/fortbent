@@ -51,7 +51,9 @@ function getClaspect(unit)
     local unitTable=persistTable.GlobalTable.roses.UnitTable[tostring(unit.id)]
     if not unitTable then return {class=nil,color=nil} end
     local unitClasses = persistTable.GlobalTable.roses.UnitTable[tostring(unit.id)]['Classes']
+    if not unitClasses then return {class=nil,color=nil} end 
     local currentClass = unitClasses['Current']
+    if not currentClass then return {class=nil,color=nil} end
     local classes = persistTable.GlobalTable.roses.ClassTable
     local currentClassName = currentClass['Name']
     if not unitClasses[currentClassName] then return {class=nil,color=nil} end
