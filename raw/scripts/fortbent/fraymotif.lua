@@ -211,8 +211,8 @@ local function hopeSplode(hopePerson,victim,power,range)
     local biggestCoord=math.max(deltaCoords.x,deltaCoords.y,deltaCoords.z)
     if biggestCoord==0 then biggestCoord=1 deltaCoords.z=1 end
     local direction={x=deltaCoords.x/biggestCoord,y=deltaCoords.y/biggestCoord,z=deltaCoords.z/biggestCoord} --i do not particularly feel like quaternions at the moment
-    local distance=math.sqrt((deltaCoords.x)^2+(deltaCoords.y)^2+(deltaCoords.z)^2)
-    local newPower=power/(distance/math.max(0.5,range))^3
+    local distance=math.sqrt((deltaCoords.x*2)^2+(deltaCoords.y*2)^2+(deltaCoords.z*3)^2) --tiles are 2x2x3
+    local newPower=power/(distance/(2.3333*math.max(0.5,range)))^3 --2.3333 for the proper meter adjustment up there
     local unitFuncs=dfhack.script_environment('functions/unit')
     unitFuncs.makeProjectile(victim,{direction.x*newPower,direction.y*newPower,direction.z*newPower}) --basically an expanding concussive wave with realistic dropoff
 end

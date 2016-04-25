@@ -42,11 +42,20 @@ end
 
 debugScript=false
 
+local sburbableRaces={ --why didn't i think of this sooner??
+    HUMAN=true,
+    TROLL_ALTERNIA=true,
+    DWARF=true,
+    ELF=true,
+    SAIYAN=true, --adding more is zero risk
+    FOUNDATION=true,
+    GNOME_CIV=true,
+    SUCCUBUS=true --masterwork is the only mod that isn't mine i have around lol
+}
+
 function creatureIsSburbable(unit)
-	for k,class in ipairs(df.creature_raw.find(unit.race).caste[unit.caste].creature_class) do
-		if string.find(class.value,"SBURB") then return true end
-	end
-	return false
+    local race_id=df.creature_raw.find(unit.race).creature_id
+    return sburbableRaces[race_id]
 end
 
 function unitDoesntNeedClaspect(unit)

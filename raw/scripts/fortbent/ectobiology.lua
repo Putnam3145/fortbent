@@ -12,32 +12,65 @@ local function getNumberOfChildren(unit)
     return children
 end
 
+local function hasCustomRelationship(histfig,relationship_type)
+    local typeToLookFor=custom_relation_types[relationship_type]
+    for k,v in ipairs(histfig.info.relationships.list) do
+        for kk,vv in ipairs(v.anon_3) do
+            if vv==typeToLookFor then return v.histfig_id end
+        end
+    end
+    return false
+end
+
+local custom_relation_types={} --should probably put this into a separate file
+
+custom_relation_types[413]={name='Moirail',color_fg=COLOR_RED,color_bg=COLOR_BLACK}
+
+custom_relation_types[612]={name='Kismesis',color_fg=COLOR_BLACK,color_bg=COLOR_GREY}
+
+custom_relation_types[1025]={name='Auspistice',color_fg=COLOR_BLACK,color_bg=COLOR_WHITE} --actually screw that one but whatever.
+
+custom_relation_types['MOIRAIL']=413
+
+custom_relation_types['KISMESIS']=612
+
+custom_relation_types['AUSPISTICE']=1025
+
 local function getSpouseOrLover(unit)
     local lover_unit=df.unit.find(unit.relations.lover_id) or df.unit.find(unit.relations.spouse_id)
+    local return_table={lover=nil,kismesis=nil}
+    local kismesis=hasCustomRelationship(df.historical_figure.find(unit.hist_figure_id),'KISMESIS')
+    if kismesis then
+        return_table.kismesis={dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (kismesis)',nil,kismesis}
+    end
     if lover_unit then
-        return lover_unit.hist_figure_id
+        return_table.lover={dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (matesprit)',nil,lover_unit.hist_figure_id}
     else
         local hist_fig=df.historical_figure.find(unit.hist_figure_id)
         for k,v in ipairs(hist_fig.histfig_links) do
             if df.histfig_hf_link_spousest:is_instance(v) or df.histfig_hf_link_loverst:is_instance(v) then
-                return v.target_hf
+                return_table.lover={dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (matesprit)',nil,target_hf}
             end
         end
     end
+    return return_table,(return_table.lover or return_table.kismesis)
 end
 
-local function getCitizenList(lovers_only)
+local function getCitizenList(lovers_only,species)
     local citizenTable={}
     if lovers_only then
         for k,u in ipairs(df.global.world.units.active) do
-            if dfhack.units.isCitizen(u) and (u.relations.spouse_id~=-1 or u.relations.lover_id~=-1) and u.military.squad_id==-1 then
-                table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u))..(getSpouseOrLover(u) and (df.historical_figure.find(getSpouseOrLover(u)).sex==u.sex and ' (gay)' or (' (straight)')) or (' (unknown)'))..' ('..getNumberOfChildren(u)..' children)',nil,u})
+            if dfhack.units.isCitizen(u) and u.military.squad_id==-1 and (not species or u.race==species) then
+                local spouseOrLover,hasSpouseOrLover=getSpouseOrLover(u)
+                if hasSpouseOrLover then
+                    table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u))..' ('..getNumberOfChildren(u)..' children)',nil,u})
+                end
             end
         end
     else
         for k,u in ipairs(df.global.world.units.active) do
-            if dfhack.units.isCitizen(u) then
-                table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u)),nil,u})
+            if dfhack.units.isCitizen(u) and u.military.squad_id==-1 and (not species or u.race==species) then
+                table.insert(citizenTable,{dfhack.TranslateName(dfhack.units.getVisibleName(u))..' ('..getNumberOfChildren(u)..' children)',nil,u})
             end
         end
     end
@@ -58,8 +91,11 @@ local function ectobiologize(freeform)
     if #citizens==0 then script.showMessage('Ectobiology',"Nobody is in a relationship! Best use freeform ectobiology.",COLOR_WHITE) return end
     if freeform then
         local ok1,name1,unit1_t=script.showListPrompt("Ectobiology","Choose first paradox ghost slime target.",COLOR_WHITE,citizens)
-        local ok2,name2,unit2_t=script.showListPrompt("Ectobiology","Choose second paradox ghost slime target.",COLOR_WHITE,citizens)
+        if not ok1 then return end
         local unit1=unit1_t[3]
+        local sameRaceCitizens=getCitizenList(not freeform,unit1.race)
+        local ok2,name2,unit2_t=script.showListPrompt("Ectobiology","Choose second paradox ghost slime target.",COLOR_WHITE,citizens)
+        if not ok2 then return end
         local unit2=unit2_t[3]
         unit1.relations.pregnancy_timer=1
         unit1.relations.pregnancy_genes=unit1.appearance.genes:new()
@@ -73,14 +109,16 @@ local function ectobiologize(freeform)
             unit1.enemy.normal_caste=normal_caste
         end
     else
-        local ok,name,unit_t=script.showListPrompt("Ectobiology","Choose first genetic material giver.",COLOR_WHITE,citizens)
-        if not ok then return false end
+        local ok1,name1,unit_t=script.showListPrompt("Ectobiology","Choose first genetic material giver.",COLOR_WHITE,citizens)
+        if not ok1 then return false end
         local unit=unit_t[3]
-        local lover=getSpouseOrLover(unit)
+        local lovers=getSpouseOrLover(unit)
+        local ok2,name2,lover_t=script.showListPrompt("Ectobiology","Choose second genetic material giver."COLOR_WHITE,lovers)
+        if not ok2 then return false end
         unit.relations.pregnancy_timer=1
         unit.relations.pregnancy_genes=unit.appearance.genes:new()
-        unit.relations.pregnancy_spouse=lover
-        unit.relations.pregnancy_caste=df.historical_figure.find(lover).caste
+        unit.relations.pregnancy_spouse=lover_t[3]
+        unit.relations.pregnancy_caste=df.historical_figure.find(lover_t[3]).caste
         dfhack.run_script('modtools/add-syndrome','-syndrome','temp desterilize','-target',unit.id)
         if unit.sex==1 then
             local normal_caste=unit.enemy.normal_caste
@@ -91,6 +129,7 @@ local function ectobiologize(freeform)
     end
     end)
 end
+
 local utils=require('utils')
 
 validArgs = validArgs or utils.invert({
