@@ -86,12 +86,27 @@ function ExtraUnitListInfo:onGetSelectedUnit()
 end
 
 function ExtraUnitListInfo:onResize(w,h)
-    self.jobX=w/2
+    self.jobX=math.floor(w/2)
+    self.buttonDisplayX=38
+    self.recalculateButtonDisplay=true --putting this code into the onResize function results in utterly screwy results, best put it in once the rendering's back to normal
 end
 
 function ExtraUnitListInfo:onRender()
     self._native.parent:render()
     if self._native.parent._type~=df.viewscreen_unitlistst then self:dismiss() return end
+    if self.recalculateButtonDisplay then
+        local h=df.global.gps.dimy
+        for i=2,df.global.gps.dimx do
+            local tile1,tile2=dfhack.screen.readTile(i,h-2),dfhack.screen.readTile(i+1,h-2)
+            if (tile1.ch==0 or tile1.ch==32 or tile1.bg==tile1.fg) then
+                if (tile2.ch==0 or tile2.ch==32 or tile2.bg==tile2.fg) then
+                    self.buttonDisplayX=i+1
+                    self.recalculateButtonDisplay=false
+                    break
+                end
+            end
+        end
+    end
     if self.showClaspects then
         local parent=self._native.parent
         local stupidWorkaround='                 '
@@ -118,7 +133,8 @@ function ExtraUnitListInfo:onRender()
             end
         end
     end
-    self:renderSubviews()
+    dfhack.screen.paintString({fg=COLOR_LIGHTRED,bg=COLOR_BLACK},self.buttonDisplayX,df.global.gps.dimy-2,'f')
+    dfhack.screen.paintString({fg=COLOR_WHITE,bg=COLOR_BLACK},self.buttonDisplayX+1,df.global.gps.dimy-2,': Display Sburb roles')
 end
 
 function ExtraUnitListInfo:init(args)
@@ -130,17 +146,6 @@ function ExtraUnitListInfo:init(args)
             table.insert(self.overrides[k],getClaspect(unit))
         end
     end
-    self:addviews{
-        widgets.Label{
-            frame={b=1,l=38},
-            text_pen=COLOR_LIGHTRED,
-            text='f'
-        },
-        widgets.Label{
-            frame={b=1,l=39},
-            text=': Display Sburb roles'
-        }
-    }
 end
    
 local ExtraUnitScreen=defclass(ExtraUnitScreen,TransparentScreen)
