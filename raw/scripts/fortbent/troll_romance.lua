@@ -20,8 +20,12 @@ function RelationsOverlay:onRender()
     self._native.parent:render()
     if self._native.parent._type~=df.viewscreen_layer_unit_relationshipst then self:dismiss() return end
     for k,v in ipairs(self.overrides) do
-        local bg=self._native.parent.layer_objects[0].cursor==v.line and COLOR_GREEN or v.str.color_bg
-        dfhack.screen.paintString({fg=v.str.color_fg,bg=bg},52,v.line+3,v.str.name)
+        local list=self._native.parent.layer_objects[0]
+        local page=math.floor(list.cursor/list.page_size)
+        if math.floor(v.line/list.page_size)==page then 
+            local bg=self._native.parent.layer_objects[0].cursor==v.line and COLOR_GREEN or v.str.color_bg
+            dfhack.screen.paintString({fg=v.str.color_fg,bg=bg},52,(v.line%list.page_size)+3,v.str.name)
+        end
     end
 end
 
@@ -53,13 +57,15 @@ function RelationsOverlay:onShow()
     end
     self.overrides={}
     for k,relation_hf in ipairs(self._native.parent.relation_hf) do
-        for kk,histfig_link in ipairs(histfig.histfig_links) do
-            if (df.histfig_hf_link_loverst:is_instance(histfig_link) or df.histfig_hf_link_spousest:is_instance(histfig_link)) and relation_hf.id==histfig_link.target_hf then
-                table.insert(self.overrides,{line=k,str={name='Matesprit',color_fg=COLOR_RED,color_bg=COLOR_BLACK}})
+        if relation_hf then
+            for kk,histfig_link in ipairs(histfig.histfig_links) do
+                if (df.histfig_hf_link_loverst:is_instance(histfig_link) or df.histfig_hf_link_spousest:is_instance(histfig_link)) and relation_hf.id==histfig_link.target_hf then
+                    table.insert(self.overrides,{line=k,str={name='Matesprit',color_fg=COLOR_RED,color_bg=COLOR_BLACK}})
+                end
             end
-        end
-        for kk,overrideId in ipairs(overrideIds) do
-            if relation_hf.id==overrideId.id then table.insert(self.overrides,{line=k,str=overrideId.str}) end
+            for kk,overrideId in ipairs(overrideIds) do
+                if relation_hf.id==overrideId.id then table.insert(self.overrides,{line=k,str=overrideId.str}) end
+            end
         end
     end
 end
