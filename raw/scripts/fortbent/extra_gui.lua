@@ -54,7 +54,7 @@ function getClaspect(unit)
     local currentClass = unitClasses['Current']
     local classes = persistTable.GlobalTable.roses.ClassTable
     local currentClassName = currentClass['Name']
-    if not currentClassLevel[currentClassName] then return {class=nil,color=nil} end
+    if not unitClasses[currentClassName] then return {class=nil,color=nil} end
     local currentClassLevel = tonumber(unitClasses[currentClassName]['Level'])+1
     local ofLocations={currentClassName:find('_OF_')}
     local aspectColor=sburbColors[currentClassName:sub(ofLocations[2]+1,-1)]
