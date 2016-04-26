@@ -90,7 +90,8 @@ end
 
 function ExtraUnitListInfo:onResize(w,h)
     self.jobX=math.floor(w/2)
-    self.buttonDisplayX=38
+    self.pageY=h-9
+    self.buttonDisplayX=12
     self.recalculateButtonDisplay=true --putting this code into the onResize function results in utterly screwy results, best put it in once the rendering's back to normal
 end
 
@@ -113,24 +114,28 @@ function ExtraUnitListInfo:onRender()
     if self.showClaspects then
         local parent=self._native.parent
         local stupidWorkaround='                 '
+        local curPage=math.floor(parent.cursor_pos[parent.page]/self.pageY)
         for k,v in ipairs(self.overrides[parent.page]) do
-            if v.class then
-                if dfhack.screen.inGraphicsMode() and v.tile then
-                    if parent.cursor_pos[parent.page]==k-1 then
-                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,k+3,v.class..' of ')
-                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX+v.classLength+1,k+3,v.aspect..stupidWorkaround)
-                        dfhack.screen.paintTile({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX+v.classLength,k+3,'a',v.tile)
+            if math.floor((k-1)/self.pageY)==curPage then
+                if v.class then
+                    local yPos=((k-1)%self.pageY)+4
+                    if dfhack.screen.inGraphicsMode() and v.tile then
+                        if parent.cursor_pos[parent.page]==k-1 then
+                            dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,yPos,v.class..' of ')
+                            dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX+v.classLength+1,yPos,v.aspect..stupidWorkaround)
+                            dfhack.screen.paintTile({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX+v.classLength,yPos,'a',v.tile)
+                        else
+                            dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},self.jobX,yPos,v.class..' of ')
+                            dfhack.screen.paintString(v.color,self.jobX+v.classLength+1,yPos,v.aspect..stupidWorkaround)
+                            dfhack.screen.paintTile(v.color,self.jobX+v.classLength,yPos,'a',v.tile)
+                        end
                     else
-                        dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},self.jobX,k+3,v.class..' of ')
-                        dfhack.screen.paintString(v.color,self.jobX+v.classLength+1,k+3,v.aspect..stupidWorkaround)
-                        dfhack.screen.paintTile(v.color,self.jobX+v.classLength,k+3,'a',v.tile)
-                    end
-                else
-                    if parent.cursor_pos[parent.page]==k-1 then
-                        dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,k+3,v.class..' of '..v.aspect..stupidWorkaround)
-                    else
-                        dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},self.jobX,k+3,v.class..' of ')
-                        dfhack.screen.paintString(v.color,self.jobX+v.classLength,k+3,v.aspect..stupidWorkaround)
+                        if parent.cursor_pos[parent.page]==k-1 then
+                            dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,yPos,v.class..' of '..v.aspect..stupidWorkaround)
+                        else
+                            dfhack.screen.paintString({fg=COLOR_GREY,bg=COLOR_BLACK},self.jobX,yPos,v.class..' of ')
+                            dfhack.screen.paintString(v.color,self.jobX+v.classLength,yPos,v.aspect..stupidWorkaround)
+                        end
                     end
                 end
             end
@@ -138,6 +143,7 @@ function ExtraUnitListInfo:onRender()
     end
     dfhack.screen.paintString({fg=COLOR_LIGHTRED,bg=COLOR_BLACK},self.buttonDisplayX,df.global.gps.dimy-2,'f')
     dfhack.screen.paintString({fg=COLOR_WHITE,bg=COLOR_BLACK},self.buttonDisplayX+1,df.global.gps.dimy-2,': Display Sburb roles')
+    
 end
 
 function ExtraUnitListInfo:init(args)
