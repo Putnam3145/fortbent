@@ -737,7 +737,7 @@ language_TROLL
 	[T_WORD:FORTIFY:vakala]
 	[T_WORD:FORTRESS:tatrim]
 	[T_WORD:FORTUITOUS:kaguna]
-	[T_WORD:FORTUNE LUCK:jaguna]
+	[T_WORD:FORTUNE LUCK:vriska]
 	[T_WORD:FORTUNE WEALTH:diddha]
 	[T_WORD:FOUNTAIN:vatmas]
 	[T_WORD:FRAGILE:asasra]
