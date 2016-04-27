@@ -486,7 +486,7 @@ language_TROLL
 	[T_WORD:DEITY:tatrin]
 	[T_WORD:DELIGHT:gnatmi]
 	[T_WORD:DELL:megita]
-	[T_WORD:DEMON:vriska]
+	[T_WORD:DEMON:jaguna]
 	[T_WORD:DEN:guntia]
 	[T_WORD:DENOMINATION:aritya]
 	[T_WORD:DENT:achada]
