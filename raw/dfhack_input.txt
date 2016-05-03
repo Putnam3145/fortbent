@@ -57,7 +57,7 @@ modtools/reaction-trigger -reaction LEARN_SHRINK_III -command [ class-learn-spel
 modtools/reaction-trigger -reaction LEARN_SHRINK_IV -command [ class-learn-spell -unit \WORKER_ID -spell SHRINK_IV ]
 modtools/reaction-trigger -reaction LEARN_GROW_I -command [ class-learn-spell -unit \WORKER_ID -spell GROW_I ]
 modtools/reaction-trigger -reaction LEARN_GROW_II -command [ class-learn-spell -unit \WORKER_ID -spell GROW_II ]
-modtools/reaction-trigger -reaction LEARN_GROW_II -command [ class-learn-spell -unit \WORKER_ID -spell GROW_II ]
+modtools/reaction-trigger -reaction LEARN_GROW_III -command [ class-learn-spell -unit \WORKER_ID -spell GROW_III ]
 modtools/reaction-trigger -reaction LEARN_REPLACE_ARMS_WITH_SPACE -command [ class-learn-spell -unit \WORKER_ID -spell REPLACE_ARMS_WITH_SPACE ]
 modtools/reaction-trigger -reaction LEARN_REPLACE_LEGS_WITH_SPACE -command [ class-learn-spell -unit \WORKER_ID -spell REPLACE_LEGS_WITH_SPACE ]
 modtools/reaction-trigger -reaction LEARN_TELEPORT -command [ class-learn-spell -unit \WORKER_ID -spell TELEPORT ]
