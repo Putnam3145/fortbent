@@ -110,7 +110,7 @@ end
 local function removeRelationship(histfig1,histfig2,relationship_type)
     for k,v in ipairs(histfig1.info.relationships.list) do
         if v.histfig_id==histfig2.id then
-            for kk,vv in v.anon_3 do
+            for kk,vv in ipairs(v.anon_3) do
                 if vv==relationship_type then 
                     vv=-relationship_type 
                     v.anon_4[kk]=-v.anon_4[kk] 
