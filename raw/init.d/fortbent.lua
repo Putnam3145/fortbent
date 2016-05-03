@@ -260,9 +260,55 @@ eventful.onInteraction.fortbent_stuff=function(attackVerb, defendVerb, attackerI
     if bothFunc then bothFunc(attackVerb,defendVerb,attackerId,defenderId,attackReportId,defendReportId) end
 end
 
+local function findCreatureGivenID(str)
+    for k,v in ipairs(df.global.world.raws.creatures.all) do
+        if v.creature_id==str then return k,v end
+    end
+end
+
+local function setName(str,name)
+    name.first_name=str
+    for k,v in ipairs(name.words) do
+        v=-1
+        name.parts_of_speech[k]=-1
+    end
+    name.has_name=true
+end
+
+eventful.onReport.lord_english_appear=function(reportId)
+    local report=df.report.find(reportId)
+    if report.text=='Horrifying screams come from the darkness below!' then
+        local LordEnglish=false
+        local LE_creature=findCreatureGivenID('LORD_ENGLISH')
+        if not dfhack.persistent.get('LORD_ENGLISH_HAS_DIED') then
+            for k,v in ipairs(df.global.world.units.active) do
+                if v.flags2.underworld then
+                    if LordEnglish and v.id~=LordEnglish then
+                        v.animal.vanish_countdown=1
+                    else
+                        LordEnglish=v.id
+                        v.enemy.normal_race=LE_creature
+                        v.enemy.normal_caste=0
+                        v.enemy.were_race=LE_creature
+                        v.enemy.were_caste=0
+                        v.sex=1
+                        v.status.current_soul.race=LE_creature
+                        v.status.current_soul.sex=1
+                        v.status.current_soul.caste=0
+                        setName('Lord English',v.name)
+                        setName('Lord English',v.status.current_soul.name)
+                        hasTransformedIntoLEAlready=true
+                        dfhack.gui.makeAnnouncement(df.announcement_type.ENDGAME_EVENT_2,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},v.pos,'HONK',COLOR_LIGHTGREEN)
+                    end
+                end
+            end
+        end
+    end
+end
+
 local stateEvents={}
 
-stateEvents[SC_MAP_LOADED]=function() eventful.enableEvent(eventful.eventType.INTERACTION,5) end
+stateEvents[SC_MAP_LOADED]=function() eventful.enableEvent(eventful.eventType.INTERACTION,5) eventful.enableEvent(eventful.eventType.REPORT,5) end
 
 stateEvents[SC_WORLD_LOADED]=stateEvents[SC_MAP_LOADED]
 
