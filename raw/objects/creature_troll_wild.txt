@@ -497,7 +497,7 @@ creature_troll_wild
         [PETVALUE:100]
         [PET]
         [ADOPTS_OWNER]
-        [CAN_LEARN][SLOW_LEARNER[TRAINABLE]
+        [CAN_LEARN][SLOW_LEARNER][TRAINABLE]
         [FREQUENCY:5]
         [LARGE_ROAMING]
         [CLUSTER_NUMBER:1:2]
