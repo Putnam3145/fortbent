@@ -310,7 +310,7 @@ function getKismesisCompatibility(unit1,unit2)
     compatibility=compatibility+(math.abs(personality1.FRIENDLINESS-personality2.FRIENDLINESS))
     compatibility=compatibility+(math.abs(personality1.GREGARIOUSNESS-personality2.GREGARIOUSNESS))
     compatibility=compatibility+(math.abs(personality1.GRATITUDE-personality2.GRATITUDE))
-    compatibility=compatibility+(math.abs(personality1.TRUSTING-personality2.TRUSTING))
+    compatibility=compatibility+(math.abs(personality1.TRUST-personality2.TRUST))
     compatibility=compatibility+(math.abs(personality1.THOUGHTLESSNESS-personality2.THOUGHTLESSNESS))
     compatibility=compatibility+(math.abs(personality1.DUTIFULNESS-personality2.DUTIFULNESS))
     compatibility=compatibility+(math.abs(personality1.ALTRUISM-personality2.ALTRUISM))
@@ -346,20 +346,6 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
             if isKismesisArgument then
                 dfhack.run_script('fortbent/add-thought','-thought','arguing with a kismesis','-emotion','AROUSAL','-severity',kismesisStrength*4,'-unit',unit.id) --http://goo.gl/8WOPP 
             end
-            local auspistice=hasCustomRelationship(histfig,'AUSPISTICE')
-            if not auspistice and not auspistice2 and (hasCustomRelationship(histfig,'KISMESIS') or hasCustomRelationship(histfig2,'KISMESIS')) then
-                local auspistice=getMutualRelation(histfig,histfig2,1)
-                addNewRelationship(histfig,auspistice,'AUSPISTICE',1)
-                addNewRelationship(histfig2,auspistice,'AUSPISTICE',1)
-            else
-                local auspistice2=hasCustomRelationship(histfig2,'AUSPISTICE')
-                if auspistice and auspistice==auspistice2 then
-                    if getDistance(df.unit.find(df.historical_figure.find(auspistice).unit_id).pos,unit.pos)<30 then
-                        dfhack.run_script('fortbent/add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
-                        dfhack.run_script('fortbent/add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',auspistice.unit_id)
-                    end
-                end
-            end
         end
     end
     if thought=='Talked' and df.emotion_type.attrs[emotion.type].divider<0 then
@@ -372,7 +358,7 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
             removeRelationship(histfig,loverFig,'MOIRAIL') 
             removeRelationship(loverFig,histfig,'MOIRAIL') 
         end
-        if not hasMoirailAlready and rng:drandom0()<0.2 then
+        if not hasMoirailAlready and rng:drandom0()<0.1 then
             local moirailPropensity=(unit.status.current_soul.personality.traits.GREGARIOUSNESS+unit.status.current_soul.personality.traits.LOVE_PROPENSITY+unit.status.current_soul.personality.traits.FRIENDLINESS+(100-unit.status.current_soul.personality.traits.DISDAIN_ADVICE)+(100-unit.status.current_soul.personality.traits.DISCORD))/500 --what a line
             local friends=getAllRelations(histfig,1)
             for k,friend_hf in ipairs(friends) do
@@ -403,17 +389,35 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
         if thought=='Talked' then
             local hasKismesisAlready=hasCustomRelationship(histfig,'KISMESIS')
             local rng=dfhack.random.new()
-            if not hasKismesisAlready and rng:drandom0()<0.2 then
+            if rng:drandom0()<0.1 then
                 local grudges=getAllRelations(histfig,2)
                 for k,grudge_hf in ipairs(grudges) do
-                    local grudge=df.unit.find(friend_hf.unit_id)
-                    if not hasKismesisAlready and getDistance(unitpos,grudge.pos)<30 then
-                        local kismesisCompatibility=getKismesisCompatibility(unit,grudge)
-                        if rng:drandom0()<kismesisCompatibility*((unit.status.current_soul.personality.traits.HATE_PROPENSITY+grudge.status.current_soul.personality.traits.HATE_PROPENSITY)/2) then
-                            --isn't the fact that HATE_PROPENSITY is already a thing just wonderful
-                            addNewRelationship(histfig,df.historical_figure.find(grudge.hist_figure_id),'KISMESIS',1)
-                            addNewRelationship(df.historical_figure.find(grudge.hist_figure_id),histfig,'KISMESIS',1)
-                            hasKismesisAlready=true
+                    local grudge=df.unit.find(grudge_hf.unit_id)
+                    if getDistance(unit.pos,grudge.pos)<30 then
+                        if not hasKismesisAlready then
+                            local kismesisCompatibility=getKismesisCompatibility(unit,grudge)
+                            if rng:drandom0()<kismesisCompatibility*((unit.status.current_soul.personality.traits.HATE_PROPENSITY+grudge.status.current_soul.personality.traits.HATE_PROPENSITY)/2) then
+                                --isn't the fact that HATE_PROPENSITY is already a thing just wonderful
+                                addNewRelationship(histfig,df.historical_figure.find(grudge.hist_figure_id),'KISMESIS',1)
+                                addNewRelationship(df.historical_figure.find(grudge.hist_figure_id),histfig,'KISMESIS',1)
+                                hasKismesisAlready=true
+                            end
+                        else
+                            local auspistice=hasCustomRelationship(histfig,'AUSPISTICE')
+                            if not auspistice and not auspistice2 and (hasCustomRelationship(histfig,'KISMESIS') or hasCustomRelationship(grudge_hf,'KISMESIS')) then
+                                local auspisticeID=getMutualRelation(histfig,grudge_hf,1)
+                                local auspistice=df.historical_figure.find(auspisticeID)
+                                addNewRelationship(histfig,auspistice,'AUSPISTICE',1)
+                                addNewRelationship(grudge_hf,auspistice,'AUSPISTICE',1)
+                            else
+                                local auspistice2=hasCustomRelationship(grudge_hf,'AUSPISTICE')
+                                if auspistice and auspistice==auspistice2 then
+                                    if getDistance(df.unit.find(df.historical_figure.find(auspistice).unit_id).pos,unit.pos)<30 then
+                                        dfhack.run_script('fortbent/add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
+                                        dfhack.run_script('fortbent/add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',df.historical_figure.find(auspistice).unit_id)
+                                    end
+                                end
+                            end
                         end
                     end
                 end

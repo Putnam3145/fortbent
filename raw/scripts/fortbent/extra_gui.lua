@@ -97,8 +97,14 @@ end
 
 function ExtraUnitListInfo:onRender()
     self._native.parent:render()
+    self.buttonDisplayTimeout=self.buttonDisplayTimeout and self.buttonDisplayTimeout-1 or 10
+    if self.buttonDisplayTimeout<=0 then
+        self.recalculateButtonDisplay=true
+    end
     if self._native.parent._type~=df.viewscreen_unitlistst then self:dismiss() return end
     if self.recalculateButtonDisplay then
+        local old_x=self.buttonDisplayX
+        local old_y=self.buttonDisplayY
         local h=df.global.gps.dimy
         for i=2,df.global.gps.dimx do
             local tile1,tile2=dfhack.screen.readTile(i,h-2),dfhack.screen.readTile(i+1,h-2)
@@ -110,6 +116,7 @@ function ExtraUnitListInfo:onRender()
                 end
             end
         end
+        self.buttonDisplayTimeout=math.ceil(df.global.enabler.gfps/30)
     end
     if self.showClaspects then
         local parent=self._native.parent
