@@ -74,8 +74,8 @@ creature_troll
         
         [SELECT_CASTE:ALL]
         [MULTIPLE_LITTER_RARE]
-        [ORIENTATION:MALE:5:0:95] In the words of Karkat: "HOW IS THAT A THING". Orientation isn't really a concept to trolls, and people who are interested in only one gender (E.G Kanaya) are apparently rare as hell. Having 1/400 trolls be completely asexual is kind of actually a bit of a mistake, since in some abstract way asexual trolls should probably get culled by some point (horrible tyrannical society, remember!)
-        [ORIENTATION:FEMALE:5:0:95]
+        [ORIENTATION:MALE:5:95:0] no marriage because then no reproduction
+        [ORIENTATION:FEMALE:5:95:0]
         [BODY:HUMANOID_NECK:2EYES:2EARS:NOSE:2LUNGS:HEART:GUTS:ORGANS:HUMANOID_JOINTS:THROAT:NECK:SPINE:BRAIN:SKULL:5FINGERS:5TOES:MOUTH:TONGUE:FACIAL_FEATURES:TEETH:RIBCAGE:2HEAD_HORN]
         [SELECT_CASTE:MALE_BROWN_WINGED]
          [SELECT_ADDITIONAL_CASTE:FEMALE_BROWN_WINGED]
