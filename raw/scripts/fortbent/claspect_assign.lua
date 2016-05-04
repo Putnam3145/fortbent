@@ -22,7 +22,7 @@ function assignClaspect(unit,aspect,class)
         dfhack.run_script('classes/change-class','-unit',unit.id,'-class',class..'_OF_'..aspect)
         if unit.hist_figure_id then
             local hist_figure=df.historical_figure.find(unit.hist_figure_id)
-            if hist_figure.info and hist_figure.info.kills then
+            if hist_figure and hist_figure.info and hist_figure.info.kills then
                 for k,v in pairs(hist_figure.info.kills.killed_count) do
                     pcall(function() dfhack.run_script('classes/add-experience','-unit',unit.id,'-amount',v) end)
                 end

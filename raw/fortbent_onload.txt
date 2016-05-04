@@ -24,8 +24,6 @@ fortbent/heroic_just
 
 fortbent/claspect_assign
 
-fortbent/godtier_transform
-
 fortbent/troll_romance
 
 fortbent/extra_gui
