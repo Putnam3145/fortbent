@@ -31,7 +31,7 @@ local doomName=capitalizeFirstLetterOfString(doomHero.name.first_name)
 local voidName=capitalizeFirstLetterOfString(voidHero.name.first_name)
 local doomPronoun=getPronoun(doomHero)
 local voidPronoun=getPronoun(voidHero)
-dfhack.makeAnnouncement(df.announcement_type.ENDGAME_EVENT_1,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},doomHero.pos,doomName..' has seen a vision of Lord English and how to defeat him. To deal with this, ' .. doomPronoun[1] .. ' asks ' ..voidName..' for help. Being a highly skilled void hero, '..voidPronoun..' accepts the challenge, and a legendary sword is created, Caledfwlch.',COLOR_CYAN,true)
+dfhack.gui.makeAnnouncement(df.announcement_type.ENDGAME_EVENT_1,{RECENTER=true,A_DISPLAY=true,D_DISPLAY=true,PAUSE=true,DO_MEGA=true},doomHero.pos,doomName..' has seen a vision of Lord English and how to defeat him. To deal with this, ' .. doomPronoun[1] .. ' asks ' ..voidName..' for help. Being a highly skilled void hero, '..voidPronoun[1]..' accepts the challenge, and a legendary sword is created, Caledfwlch.',COLOR_CYAN,true)
 local caledfwlchDef='WEAPON:ITEM_WEAPON_TROLL_CALEDFWLCH_CUE'
 local cueball=dfhack.matinfo.find('INORGANIC:CUEBALL_LE_POISON_NO_ALCHEMIZE')
 local caledfwlchId=dfhack.items.createItem(dfhack.items.findType(caledfwlchDef),dfhack.items.findSubtype(caledfwlchDef),cueball.type,cueball.index,voidHero)

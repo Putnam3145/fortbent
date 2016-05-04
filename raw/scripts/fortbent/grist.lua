@@ -52,6 +52,7 @@ local function gristTorrent()
 end
 
 local function getClaspect(unit)
+    local persistTable=require('persist-table')
     local unitTable=persistTable.GlobalTable.roses.UnitTable[tostring(unit.id)]
     if not unitTable then return {class=nil,color=nil} end
     local unitClasses = persistTable.GlobalTable.roses.UnitTable[tostring(unit.id)]['Classes']
@@ -63,11 +64,9 @@ local function getClaspect(unit)
     if not unitClasses[currentClassName] then return {class=nil,color=nil} end
     local currentClassLevel = tonumber(unitClasses[currentClassName]['Level'])+1
     local ofLocations={currentClassName:find('_OF_')}
-    local aspectColor=sburbColors[currentClassName:sub(ofLocations[2]+1,-1)]
     local className=currentClassName:sub(1,1)..currentClassName:sub(2,ofLocations[1]-1):lower()
     local aspectName=currentClassName:sub(ofLocations[2]+1,ofLocations[2]+1)..currentClassName:sub(ofLocations[2]+2,-1):lower()
-    local tile=dfhack.screen.findGraphicsTile('PUTNAM_GODTIER',sburbTiles[aspectName:upper()],0)
-    return {class=className,aspect=aspectName,level=currentClassLevel,color=aspectColor,classLength=ofLocations[2],tile=tile}
+    return {class=className,aspect=aspectName,level=currentClassLevel}
 end
 
 local function experienceTorrent()
@@ -76,7 +75,7 @@ local function experienceTorrent()
     local seery_doom_hero=false
     for k,v in ipairs(df.global.world.units.active) do
         if dfhack.units.isCitizen(v) then
-            local claspect=getClaspect(unit)
+            local claspect=getClaspect(v)
             if not seery_doom_hero and (claspect.aspect=='Doom' and (claspect.class=='Seer' or claspect.class=='Mage')) and claspect.level>5 then
                 seery_doom_hero=v
             elseif not stealy_void_hero and claspect.aspect=='Void' and (claspect.class=='Rogue' or claspect.class=='Thief') and claspect.level>5 then
