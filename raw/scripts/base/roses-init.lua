@@ -25,13 +25,13 @@ roses.SpellTable = roses.SpellTable or {}
 if not roses.GlobalTable then dfhack.script_environment('functions/tables').makeGlobalTable() end
 
 local function civilizationNotAlreadyLoaded()
- return (not roses.CivilizationTable) or #roses.CivilizationTable._children < 1
+ return (not roses.CivilizationTable) or #roses.CivilizationTable < 1
 end
 local function classNotAlreadyLoaded()
- return (not roses.ClassTable) or #roses.ClassTable._children < 1
+ return (not roses.ClassTable) or #roses.ClassTable < 1
 end
 local function eventNotAlreadyLoaded()
- return (not roses.EventTable) or #roses.EventTable._children < 1
+ return (not roses.EventTable) or #roses.EventTable < 1
 end
 
 if args.all or args.classSystem then

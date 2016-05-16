@@ -8,7 +8,7 @@ function checkRequirements(event,effect)
  end
 -- check counters
  if check['Counter'] and yes then
-  for _,i in pairs(check['Counter']._children) do
+  for _,i in pairs(check['Counter']) do
    local x = check['Counter'][i]
    if roses.GlobalTable.Counters[i] then
     if tonumber(roses.GlobalTable.Counters[i]) >= tonumber(x) then
@@ -35,7 +35,7 @@ function checkRequirements(event,effect)
  end
 -- check wealth
  if check['Wealth'] and yes then
-  for _,i in pairs(check['Wealth']._children) do
+  for _,i in pairs(check['Wealth']) do
    local x = check['Wealth'][i]
    if df.global.ui.tasks.wealth[string.lower(i)] then
     if df.global.ui.tasks.wealth[string.lower(i)] >= tonumber(x) then
@@ -59,7 +59,7 @@ function checkRequirements(event,effect)
  end
 -- check building
  if check['Building'] and yes then
-  for _,i in pairs(check['Building']._children) do
+  for _,i in pairs(check['Building']) do
    local x = check['Building'][i]
    local n = 0
    for _,y in ipairs(df.global.world.buildings.all) do
@@ -83,7 +83,7 @@ function checkRequirements(event,effect)
 -- check class
  if check['Class'] and yes then
   local unitTable = roses.UnitTable
-  for _,i in pairs(check['Class']._children) do
+  for _,i in pairs(check['Class']) do
    local x = check['Class'][i]
    local n = 0
    for _,y in ipairs(df.global.world.units.active) do
@@ -105,7 +105,7 @@ function checkRequirements(event,effect)
  end
 -- check skill
  if check['Skill'] and yes then
-  for _,i in pairs(check['Skill']._children) do
+  for _,i in pairs(check['Skill']) do
    local x = check['Skill'][i]
    local n = 0
    for _,y in ipairs(df.global.world.units.active) do
@@ -128,7 +128,7 @@ function checkRequirements(event,effect)
 -- check kills
  if check['Kills'] and yes then
   local kills = roses.GlobalTable.Kills
-  for _,i in pairs(check['Kills']._children) do
+  for _,i in pairs(check['Kills']) do
    local x = check['Kills'][i]
    if kills[i] then
     if kills[i] >= tonumber(x) then
@@ -143,7 +143,7 @@ function checkRequirements(event,effect)
 -- check deaths
  if check['Deaths'] and yes then
   local deaths = roses.GlobalTable.Deaths
-  for _,i in pairs(check['Deaths']._children) do
+  for _,i in pairs(check['Deaths']) do
    local x = check['Deaths'][i]
    if deaths[i]['All'] then
     if deaths[i]['All'] >= tonumber(x) then
@@ -158,7 +158,7 @@ function checkRequirements(event,effect)
 -- check trades
  if check['Trades'] and yes then
   local trades = roses.GlobalTable.Trades
-  for _,i in pairs(check['Trades']._children) do
+  for _,i in pairs(check['Trades']) do
    local x = check['Trades'][i]
    if trades[i] then
     if trades[i] >= tonumber(x) then
@@ -173,7 +173,7 @@ function checkRequirements(event,effect)
 -- check sieges
  if check['Sieges'] and yes then
   local sieges = roses.GlobalTable.Sieges
-  for _,i in pairs(check['Sieges']._children) do
+  for _,i in pairs(check['Sieges']) do
    local x = check['Sieges'][i]
    if sieges[i] then
     if sieges[i] >= tonumber(x) then

@@ -18,7 +18,7 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
   if dur > 0 then
    attributeTable.Change = tostring(attributeTable.Change + change)
    local statusTable = attributeTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = tostring(change)
@@ -28,7 +28,7 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
  elseif alter == 'end' then
   attributeTable.Change = tostring(attributeTable.Change - change)
   local statusTable = attributeTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -86,7 +86,7 @@ function trackSkill(unitID,skill,current,change,value,dur,alter)
   if dur > 0 then
    skillTable.Change = tostring(skillTable.Change + change)
    local statusTable = skillTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = change
@@ -96,7 +96,7 @@ function trackSkill(unitID,skill,current,change,value,dur,alter)
  elseif alter == 'end' then
   skillTable.Change = tostring(skillTable.Change - change)
   local statusTable = skillTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -153,7 +153,7 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
   if dur > 0 then
    resistanceTable.Change = tostring(resistanceTable.Change + change)
    local statusTable = resistanceTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = change
@@ -163,7 +163,7 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
  elseif alter == 'end' then
   resistanceTable.Change = tostring(resistanceTable.Change - change)
   local statusTable = resistanceTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -214,7 +214,7 @@ function trackTrait(unitID,trait,current,change,value,dur,alter)
   if dur > 0 then
    traitTable.Change = tostring(traitTable.Change + change)
    local statusTable = traitTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = change
@@ -224,7 +224,7 @@ function trackTrait(unitID,trait,current,change,value,dur,alter)
  elseif alter == 'end' then
   traitTable.Change = tostring(skillTable.Change - change)
   local statusTable = traitTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil

@@ -1,7 +1,7 @@
 local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
 
 local delayTable = roses.CommandDelay
-for _,i in pairs(delayTable._children) do
+for _,i in pairs(delayTable) do
  local delay = delayTable[i]
  local currentTick = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick
  if currentTick >= tonumber(delay.Tick) then
@@ -16,8 +16,8 @@ for _,i in pairs(delayTable._children) do
  end
 end
 
-local delayTable = persistTable.GlobalTable.roses.EnvironmentDelay
-for _,i in pairs(delayTable._children) do
+local delayTable = roses.EnvironmentDelay
+for _,i in pairs(delayTable) do
  local delay = delayTable[i]
  local currentTick = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick
  if currentTick >= tonumber(delay.Tick) then
@@ -26,7 +26,7 @@ for _,i in pairs(delayTable._children) do
   local ticks = delay.Tick-currentTick
   local environment = delay.Environment
   local functions = delay.Function
-  local arguments = delay.Arguments._children
+  local arguments = delay.Arguments
   dfhack.timeout(ticks,'ticks',
                  function ()
                   dfhack.script_environment(environment)[functions](table.unpack(arguments))

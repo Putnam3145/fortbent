@@ -25,30 +25,30 @@ function changeLevel(entity,amount,verbose)
    if amount > 0 then
     for i = currentLevel+1,nextLevel,1 do
      if civilizationTable.Level[tostring(i)] then
-      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Remove._children) do
+      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Remove) do
        depth1 = civilizationTable.Level[tostring(i)].Remove[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,-1,verbose)
         end
        end
       end
-      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Add._children) do
+      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Add) do
        depth1 = civilizationTable.Level[tostring(i)].Add[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,1,verbose)
         end
        end
       end
-      for _,position in pairs(civilizationTable.Level[tostring(i)].RemovePosition._children) do
+      for _,position in pairs(civilizationTable.Level[tostring(i)].RemovePosition) do
        dfhack.script_environment('functions/entity').changeNoble(key,position,-1,verbose)
       end
-      for _,position in pairs(civilizationTable.Level[tostring(i)].AddPosition._children) do
+      for _,position in pairs(civilizationTable.Level[tostring(i)].AddPosition) do
        dfhack.script_environment('functions/entity').changeNoble(key,position,1,verbose)
       end
       if civilizationTable.Level[tostring(i)].LevelMethod then
@@ -60,30 +60,30 @@ function changeLevel(entity,amount,verbose)
    elseif amount <0 then
     for i = currentLevel,nextLevel,-1 do
      if civilizationTable.Level[tostring(i)] then
-      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Remove._children) do
+      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Remove) do
        depth1 = civilizationTable.Level[tostring(i)].Remove[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,1,verbose)
         end
        end
       end
-      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Add._children) do
+      for _,mtype in pairs(civilizationTable.Level[tostring(i)].Add) do
        depth1 = civilizationTable.Level[tostring(i)].Add[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,-1,verbose)
         end
        end
       end
-      for _,position in pairs(civilizationTable.Level[tostring(i)].RemovePosition._children) do
+      for _,position in pairs(civilizationTable.Level[tostring(i)].RemovePosition) do
        dfhack.script_environment('functions/entity').changeNoble(key,position,1,verbose)
       end
-      for _,position in pairs(civilizationTable.Level[tostring(i)].AddPosition._children) do
+      for _,position in pairs(civilizationTable.Level[tostring(i)].AddPosition) do
        dfhack.script_environment('functions/entity').changeNoble(key,position,-1,verbose)
       end
       if civilizationTable.Level[tostring(i)].LevelMethod then

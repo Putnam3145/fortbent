@@ -427,7 +427,7 @@ function changeNoble(entity,position,direction,verbose)
      pos.code = position
      pos.id = positions.next_position_id
      positions.next_position_id = positions.next_position_id + 1
-     for _,creature in pairs(positionTable.AllowedCreature._children) do
+     for _,creature in pairs(positionTable.AllowedCreature) do
        local caste = positionTable.AllowedCreature[creature]
        for _,w in pairs(df.global.world.raws.creatures.all) do
         if creature == w.creature_id then
@@ -439,7 +439,7 @@ function changeNoble(entity,position,direction,verbose)
         end
        end
       end
-      for _,creature in pairs(positionTable.RejectedCreature._children) do
+      for _,creature in pairs(positionTable.RejectedCreature) do
        local caste = positionTable.RejectedCreature[creature]
        for _,w in pairs(df.global.world.raws.creatures.all) do
         if creature == w.creature_id then
@@ -451,11 +451,11 @@ function changeNoble(entity,position,direction,verbose)
         end
        end
       end
-      for _,k in pairs(positionTable.AllowedClass._children) do
+      for _,k in pairs(positionTable.AllowedClass) do
        local class = positionTable.AllowedClass[k]
        pos.allowed_class:insert('#',class)
       end
-      for _,k in pairs(positionTable.RejectedClass._children) do
+      for _,k in pairs(positionTable.RejectedClass) do
        local class = positionTable.RejectedClass[k]
        pos.rejected_class:insert('#',class)
       end
@@ -603,7 +603,7 @@ function changeNoble(entity,position,direction,verbose)
        end
       end
       if positionTable.Flags then
-       for _,v in pairs(positionTable.Flags._children) do
+       for _,v in pairs(positionTable.Flags) do
         local w = positionTable.Flags[v]
         if pos.flags[v] then pos.flags[v] = true end
        end
@@ -613,7 +613,7 @@ function changeNoble(entity,position,direction,verbose)
       else
        pos.number = -1
       end
-      for _,v in pairs(positionTable.AppointedBy._children) do
+      for _,v in pairs(positionTable.AppointedBy) do
        p = -1
        own = false
        site = false

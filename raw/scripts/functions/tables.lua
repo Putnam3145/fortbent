@@ -511,21 +511,21 @@ function makeEntityTable(entity)
     entityTable.Civilization.CurrentPercent = civilizations[entity].LevelPercent
     if civilizations[entity].Level then
      if civilizations[entity].Level['0'] then
-      for _,mtype in pairs(civilizations[entity].Level['0'].Remove._children) do
+      for _,mtype in pairs(civilizations[entity].Level['0'].Remove) do
        local depth1 = civilizations[entity].Level['0'].Remove[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         local depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          local sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,-1,true)
         end
        end
       end
-      for _,mtype in pairs(civilizations[entity].Level['0'].Add._children) do
+      for _,mtype in pairs(civilizations[entity].Level['0'].Add) do
        local depth1 = civilizations[entity].Level['0'].Add[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         local depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          local sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,1,true)
         end
@@ -890,7 +890,7 @@ function makeUnitTable(unit)
   unitTable.Classes.Current.Name = 'NONE'
   unitTable.Classes.Current.TotalExp = tostring(0)
   unitTable.Classes.Current.SkillExp = tostring(0)
-  for i,x in pairs(roses.ClassTable._children) do
+  for i,x in pairs(roses.ClassTable) do
    unitTable.Classes[x] = {}
    unitTable.Classes[x].Level = tostring(0)
    unitTable.Classes[x].Experience = tostring(0)
@@ -900,7 +900,7 @@ function makeUnitTable(unit)
  if roses.SpellTable then
   unitTable.Spells = {}
   unitTable.Spells.Active = {}
-  for i,x in pairs(roses.SpellTable._children) do
+  for i,x in pairs(roses.SpellTable) do
    unitTable.Spells[x] = tostring(0)
   end
  end

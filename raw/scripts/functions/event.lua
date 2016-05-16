@@ -30,7 +30,7 @@ function checkRequirements(event,effect,verbose)
 
 -- Check for fortress wealth
  if check.Wealth then
-  for _,wtype in pairs(check.Wealth._children) do
+  for _,wtype in pairs(check.Wealth) do
    local amount = check.Wealth[wtype]
    if df.global.ui.tasks.wealth[string.lower(wtype)] then
     if df.global.ui.tasks.wealth[string.lower(wtype)] < tonumber(amount) then
@@ -66,7 +66,7 @@ function checkEvent(id,method,verbose)
 
  if checkRequirements(id,0,verbose) then
   triggered[0] = true
-  for _,i in pairs(eventTable.Effect._children) do
+  for _,i in pairs(eventTable.Effect) do
    if checkRequirements(event,tonumber(i),verbose) then
     contingency = tonumber(eventTable.Effect[i].Contingent) or 0
     if triggered[contingency] then

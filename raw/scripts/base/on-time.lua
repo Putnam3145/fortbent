@@ -14,7 +14,7 @@ daily = {}
 
 -- CivilizationTable Checks
 if roses.CivilizationTable and roses.EntityTable then
- for _,id in pairs(roses.EntityTable._children) do
+ for _,id in pairs(roses.EntityTable) do
   entityTable = roses.EntityTable[id]
   if entityTable.Civilization then
    method = entityTable.Civilization.CurrentMethod
@@ -37,7 +37,7 @@ end
 
 -- EventTable Checks
 if roses.EventTable then
- for _,id in pairs(roses.EventTable._children) do
+ for _,id in pairs(roses.EventTable) do
   event = roses.EventTable[id]
   method = event.Check
   if method == 'YEARLY' then

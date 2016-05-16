@@ -41,7 +41,7 @@ function changeCounter(counter,amount,extra)
     break
    elseif i == #counters then
     print('Sub-counter already set')
-    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x]._children[1])
+    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x][1])
     print('Can not set a value of a counter with already set sub-counters')
     return
    end
@@ -96,7 +96,7 @@ function getCounter(counter,extra)
     break
    elseif i == #counters then
     print('Sub-counter already set')
-    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x]._children[1])
+    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x][1])
     print('Can not get a value of a counter with already set sub-counters')
     return
    end

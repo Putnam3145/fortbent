@@ -29,7 +29,7 @@ if not eventTable[event] then
 end
 if dfhack.script_environment('functions/event').checkRequirements(event,0,verbose) or force then
  triggered[0] = true
- for _,i in pairs(eventTable[event].Effect._children) do
+ for _,i in pairs(eventTable[event].Effect) do
   if dfhack.script_environment('functions/event').checkRequirements(event,tonumber(i),verbose) or forceAll then
    triggered[tonumber(i)] = true
    contingency = tonumber(eventTable[event].Effect[i].Contingent) or 0

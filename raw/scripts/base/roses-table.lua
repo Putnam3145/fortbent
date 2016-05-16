@@ -1,9 +1,11 @@
 roses = roses or false
 
+local json=require('json')
+
 function saveRosesTable()
     local savePath=dfhack.getSavePath()
     if not roses or not savePath then return false end
-    local rosesFilePath=savePath..'/prongle.json'
+    local rosesFilePath=savePath..'/roses.json'
     json.encode_file(roses,rosesFilePath)
 end
 
@@ -15,7 +17,7 @@ function loadRosesTable()
     local rosesFileExists=dfhack.filesystem.isfile(rosesFilePath)
     if not rosesFileExists then
         roses={}
-        saveRosesTableToFile()
+        saveRosesTable()
         return roses
     end
     roses=json.decode_file(rosesFilePath)
