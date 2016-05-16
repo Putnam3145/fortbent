@@ -416,9 +416,9 @@ function changeNoble(entity,position,direction,verbose)
    end
   end
  elseif direction == 1 then
-  local persistTable = require 'persist-table'
+  local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
   entity = civ.entity_raw.code
-  civilizationTable = persistTable.GlobalTable.roses.CivilizationTable[entity]
+  civilizationTable = roses.CivilizationTable[entity]
   if civilizationTable then
    if civilizationTable.Nobles then
     if civilizationTable.Nobles[position] then

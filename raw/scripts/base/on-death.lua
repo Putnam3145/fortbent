@@ -1,7 +1,7 @@
 --base/classes.lua v1.0
 experience_radius = -1
 
-local persistTable = require 'persist-table'
+local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
 local utils = require 'utils'
 local split = utils.split_string
 local events = require "plugins.eventful"
@@ -24,7 +24,6 @@ function expCheck(unit,unitTarget,radius)
 end
 
 events.onUnitDeath.mainFunction=function(target_id)
- roses = persistTable.GlobalTable.roses
  if not roses then
   return
  end

@@ -52,14 +52,14 @@ local function gristTorrent()
 end
 
 local function getClaspect(unit)
-    local persistTable=require('persist-table')
-    local unitTable=persistTable.GlobalTable.roses.UnitTable[tostring(unit.id)]
+    local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+    local unitTable=roses.UnitTable[tostring(unit.id)]
     if not unitTable then return {class=nil,color=nil} end
-    local unitClasses = persistTable.GlobalTable.roses.UnitTable[tostring(unit.id)]['Classes']
+    local unitClasses = roses.UnitTable[tostring(unit.id)]['Classes']
     if not unitClasses then return {class=nil,color=nil} end 
     local currentClass = unitClasses['Current']
     if not currentClass then return {class=nil,color=nil} end
-    local classes = persistTable.GlobalTable.roses.ClassTable
+    local classes = roses.ClassTable
     local currentClassName = currentClass['Name']
     if not unitClasses[currentClassName] then return {class=nil,color=nil} end
     local currentClassLevel = tonumber(unitClasses[currentClassName]['Level'])+1

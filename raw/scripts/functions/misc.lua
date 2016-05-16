@@ -10,8 +10,8 @@ function permute(tab)
 end
 
 function changeCounter(counter,amount,extra)
- local persistTable = require 'persist-table'
- local roses = persistTable.GlobalTable.roses
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local roses = roses
  if not roses then return end
 
  local utils = require 'utils'
@@ -65,8 +65,8 @@ function changeCounter(counter,amount,extra)
 end
 
 function getCounter(counter,extra)
- local persistTable = require 'persist-table'
- local roses = persistTable.GlobalTable.roses
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local roses = roses
  if not roses then return end
 
  local utils = require 'utils'

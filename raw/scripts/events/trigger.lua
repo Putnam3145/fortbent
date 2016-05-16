@@ -1,5 +1,5 @@
 local utils = require 'utils'
-local persistTable = require 'persist-table'
+local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
 
 validArgs = validArgs or utils.invert({
  'help',
@@ -21,7 +21,7 @@ if args.forceAll then
 end
 
 triggered = {}
-eventTable = persistTable.GlobalTable.roses.EventTable
+eventTable = roses.EventTable
 event = args.event
 if not eventTable[event] then
  print('Not a valid event')

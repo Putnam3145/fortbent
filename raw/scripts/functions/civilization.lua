@@ -8,14 +8,14 @@ function changeLevel(entity,amount,verbose)
  end
  key = tostring(civid)
 
- local persistTable = require 'persist-table'
- entityTable = persistTable.GlobalTable.roses.EntityTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ entityTable = roses.EntityTable
  if not entityTable[key] then
   dfhack.script_environment('functions/tables').makeEntityTable(key)
  end
- entityTable = persistTable.GlobalTable.roses.EntityTable[key]
+ entityTable = roses.EntityTable[key]
  entity = df.global.world.entities.all[civid].entity_raw.code
- civilizationTable = persistTable.GlobalTable.roses.CivilizationTable[entity]
+ civilizationTable = roses.CivilizationTable[entity]
  if civilizationTable then
   if civilizationTable.Level then
    currentLevel = tonumber(entityTable.Civilization.Level)
@@ -98,14 +98,14 @@ function changeLevel(entity,amount,verbose)
 end
 
 function checkEntity(id,method,verbose)
- local persistTable = require 'persist-table'
- civilizationTable = persistTable.GlobalTable.roses.EntityTable[id].Civilization
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ civilizationTable = roses.EntityTable[id].Civilization
 
  leveled = false
 
  -- check for non-time based checks
  if method ~= civilizationTable.CurrentMethod then
-  entityTable = persistTable.GlobalTable.roses.EntityTable[id]
+  entityTable = roses.EntityTable[id]
   method = civilizationTable.CurrentMethod
   chance = tonumber(civilizationTable.CurrentPercent)
   if method == 'KILLs' then

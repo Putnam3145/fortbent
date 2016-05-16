@@ -1,6 +1,6 @@
 function trackMaterial(itemID,change,dur,alter)
- local persistTable = require 'persist-table'
- local itemTable = persistTable.GlobalTable.roses.ItemTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local itemTable = roses.ItemTable
  if not itemTable[tostring(itemID)] then
   dfhack.script_environment('functions/tables').makeItemTable(itemID)
  end
@@ -31,8 +31,8 @@ function trackMaterial(itemID,change,dur,alter)
 end
 
 function trackQuality(itemID,change,dur,alter)
- local persistTable = require 'persist-table'
- local itemTable = persistTable.GlobalTable.roses.ItemTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local itemTable = roses.ItemTable
  if not itemTable[tostring(itemID)] then
   dfhack.script_environment('functions/tables').makeItemTable(itemID)
  end
@@ -63,8 +63,8 @@ function trackQuality(itemID,change,dur,alter)
 end
 
 function trackSubtype(itemID,change,dur,alter)
- local persistTable = require 'persist-table'
- local itemTable = persistTable.GlobalTable.roses.ItemTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local itemTable = roses.ItemTable
  if not itemTable[tostring(itemID)] then
   dfhack.script_environment('functions/tables').makeItemTable(itemID)
  end

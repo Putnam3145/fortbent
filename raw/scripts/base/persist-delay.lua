@@ -1,6 +1,6 @@
-local persistTable = require 'persist-table'
+local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
 
-local delayTable = persistTable.GlobalTable.roses.CommandDelay
+local delayTable = roses.CommandDelay
 for _,i in pairs(delayTable._children) do
  local delay = delayTable[i]
  local currentTick = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick

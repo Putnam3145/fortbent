@@ -1,18 +1,40 @@
+unitClasses=unitClasses or false
+
+function loadClassTableFromFile()
+    local savePath=dfhack.getSavePath()
+    if unitClasses or not savePath then return false end
+    local unitClassesFilePath=savePath..'/classes.json'
+    local unitClassesFileExists=dfhack.filesystem.isfile(unitClassesFilePath)
+    if not unitClassesFileExists then
+        unitClasses={}
+        saveunitClassesToFile()
+        return true
+    end
+    unitClasses=json.decode_file(unitClassesFilePath)
+end
+
+function saveClassTableToFile()
+    local savePath=dfhack.getSavePath()
+    if not prongleData or not savePath then return false end
+    local prongleDataFilePath=savePath..'/prongle.json'
+    json.encode_file(prongleData,prongleDataFilePath)
+end
+
 function addExperience(unit,amount,verbose)
  if tonumber(unit) then
   unit = df.unit.find(tonumber(unit))
  end
  local unitID = unit.id
 
- local persistTable = require 'persist-table'
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
- unitTable = persistTable.GlobalTable.roses.UnitTable[tostring(unitID)]
+ unitTable = roses.UnitTable[tostring(unitID)]
  local unitClasses = unitTable.Classes
  local currentClass = unitClasses.Current
- local classTable = persistTable.GlobalTable.roses.ClassTable
+ local classTable = roses.ClassTable
  currentClass.TotalExp = tostring(tonumber(currentClass.TotalExp)+amount)
  currentClass.SkillExp = tostring(tonumber(currentClass.SkillExp)+amount)
  if currentClass.Name ~= 'NONE' then
@@ -39,12 +61,12 @@ function changeClass(unit,change,verbose)
  end
  local key = tostring(unit.id)
 
- local persistTable = require 'persist-table'
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local unitTable = roses.UnitTable
  if not unitTable[key] then
   dfhack.script_environment('functions/tables').makeUnitTable(unit)
  end
- local unitTable = persistTable.GlobalTable.roses.UnitTable[key]
+ local unitTable = roses.UnitTable[key]
 -- Change the units class
  local currentClass = unitTable.Classes.Current
  local nextClass = unitTable.Classes[change]
@@ -52,7 +74,7 @@ function changeClass(unit,change,verbose)
   print('No such class to change into')
   return false
  end
- local classes = persistTable.GlobalTable.roses.ClassTable
+ local classes = roses.ClassTable
  if currentClass.Name == change then
   print('Already this class')
   return false
@@ -134,12 +156,12 @@ function changeLevel(unit,amount,verbose)
  end
  local key = tostring(unit.id)
 
- local persistTable = require 'persist-table'
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local unitTable = roses.UnitTable
  if not unitTable[key] then
   dfhack.script_environment('functions/tables').makeUnitTable(unit)
  end
- local unitTable = persistTable.GlobalTable.roses.UnitTable[key]
+ local unitTable = roses.UnitTable[key]
  local currentClass = unitTable.Classes.Current
  if currentClass.Name == 'NONE' then
   if verbose then print('Unit does not have a current class assigned. Can not change level') end
@@ -147,7 +169,7 @@ function changeLevel(unit,amount,verbose)
  end
  local name = currentClass.Name
  local level = tonumber(unitTable.Classes[name].Level)
- local class = persistTable.GlobalTable.roses.ClassTable[name]
+ local class = roses.ClassTable[name]
  local maxLevel = false
 
  if amount > 0 then
@@ -304,12 +326,12 @@ function changeSpell(unit,spell,direction,verbose)
   synUtils.eraseSyndromeClass(unit,'CLASS_SPELL')
  elseif direction == 'learn' then
   local key = tostring(unit.id)
-  local persistTable = require 'persist-table'
-  local unitTable = persistTable.GlobalTable.roses.UnitTable
+  local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+  local unitTable = roses.UnitTable
   if not unitTable[key] then
    dfhack.script_environment('functions/tables').makeUnitTable(unit)
   end
-  local unitTable = persistTable.GlobalTable.roses.UnitTable[key]
+  local unitTable = roses.UnitTable[key]
   if unitTable.Spells[spell] == '1' then
    if verbose then print('Spell already known, adding to unit') end
   else
@@ -318,16 +340,16 @@ function changeSpell(unit,spell,direction,verbose)
   end
   changeSpell(unit,spell,'add',verbose)
   if unitTable.Classes.Current.Name ~= 'NONE' then
-   unitTable.Classes.Current.SkillExp = tostring(unitTable.Classes.Current.SkillExp - persistTable.GlobalTable.roses.ClassTable[unitTable.Classes.Current.Name].Spells[spell].Cost)
+   unitTable.Classes.Current.SkillExp = tostring(unitTable.Classes.Current.SkillExp - roses.ClassTable[unitTable.Classes.Current.Name].Spells[spell].Cost)
   end
  elseif direction == 'unlearn' then
   local key = tostring(unit.id)
-  local persistTable = require 'persist-table'
-  local unitTable = persistTable.GlobalTable.roses.UnitTable
+  local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+  local unitTable = roses.UnitTable
   if not unitTable[key] then
    dfhack.script_environment('functions/tables').makeUnitTable(unit)
   end
-  local unitTable = persistTable.GlobalTable.roses.UnitTable[key]
+  local unitTable = roses.UnitTable[key]
   if unitTable.Spells[spell] == '1' then
    if verbose then print('Spell loss, removing from unit') end
    unitTable.Spells[spell] = '0'
@@ -344,17 +366,17 @@ function checkRequirementsClass(unit,class,verbose)
  end
  local key = tostring(unit.id)
 
- local persistTable = require 'persist-table'
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local unitTable = roses.UnitTable
  if not unitTable[key] then
   dfhack.script_environment('functions/tables').makeUnitTable(unit)
  end
- local unitTable = persistTable.GlobalTable.roses.UnitTable[key]
+ local unitTable = roses.UnitTable[key]
 
  local unitClasses = unitTable.Classes
  local unitCounters = unitTable.Counters
  local currentClass = unitClasses.Current
- local classTable = persistTable.GlobalTable.roses.ClassTable[class]
+ local classTable = roses.ClassTable[class]
  if not classTable then
   if verbose then print ('No specified class to check for requirements') end
   return false
@@ -446,12 +468,12 @@ function checkRequirementsSpell(unit,spell,verbose)
  end
  local key = tostring(unit.id)
 
- local persistTable = require 'persist-table'
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local unitTable = roses.UnitTable
  if not unitTable[key] then
   dfhack.script_environment('functions/tables').makeUnitTable(unit)
  end
- local unitTable = persistTable.GlobalTable.roses.UnitTable[key]
+ local unitTable = roses.UnitTable[key]
 
 
  local unitClasses = unitTable.Classes
@@ -459,7 +481,7 @@ function checkRequirementsSpell(unit,spell,verbose)
  local currentClass = unitClasses.Current
  local currentClassName = currentClass.Name
  local currentClassLevel = unitClasses[currentClass.Name].Level
- local classTable = persistTable.GlobalTable.roses.ClassTable[currentClassName]
+ local classTable = roses.ClassTable[currentClassName]
  if not classTable then
   if verbose then print ('No specified class to check for requirements') end
   return false

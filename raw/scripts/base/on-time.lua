@@ -1,8 +1,7 @@
 --base/civilizations.lua v1.0
 
-local persistTable = require 'persist-table'
+local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
 
-roses = persistTable.GlobalTable.roses
 if not roses then
  return
 end

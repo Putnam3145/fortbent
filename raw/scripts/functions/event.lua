@@ -1,6 +1,6 @@
 function checkRequirements(event,effect,verbose)
- local persistTable = require 'persist-table'
- event = persistTable.GlobalTable.roses.EventTable[event]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ event = roses.EventTable[event]
  if not event then
   return false
  end
@@ -53,15 +53,15 @@ function checkRequirements(event,effect,verbose)
 end
 
 function triggerEvent(event,effect,verbose)
- local persistTable = require 'persist-table'
- eventTable = persistTable.GlobalTable.roses.EventTable[event]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ eventTable = roses.EventTable[event]
 
 
 end
 
 function checkEvent(id,method,verbose)
- local persistTable = require 'persist-table'
- local eventTable = persistTable.GlobalTable.roses.EventTable[id]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local eventTable = roses.EventTable[id]
  local triggered = {}
 
  if checkRequirements(id,0,verbose) then

@@ -1,5 +1,5 @@
 function checkRequirements(event,effect)
- local persistTable = require 'persist-table'
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
  yes = true
  if effect == 0 then
   check = event['Required']
@@ -10,8 +10,8 @@ function checkRequirements(event,effect)
  if check['Counter'] and yes then
   for _,i in pairs(check['Counter']._children) do
    local x = check['Counter'][i]
-   if persistTable.GlobalTable.roses.GlobalTable.Counters[i] then
-    if tonumber(persistTable.GlobalTable.roses.GlobalTable.Counters[i]) >= tonumber(x) then
+   if roses.GlobalTable.Counters[i] then
+    if tonumber(roses.GlobalTable.Counters[i]) >= tonumber(x) then
 	 yes = true
 	else
 	 yes = false
@@ -82,7 +82,7 @@ function checkRequirements(event,effect)
  end
 -- check class
  if check['Class'] and yes then
-  local unitTable = persistTable.GlobalTable.roses.UnitTable
+  local unitTable = roses.UnitTable
   for _,i in pairs(check['Class']._children) do
    local x = check['Class'][i]
    local n = 0
@@ -127,7 +127,7 @@ function checkRequirements(event,effect)
  end
 -- check kills
  if check['Kills'] and yes then
-  local kills = persistTable.GlobalTable.roses.GlobalTable.Kills
+  local kills = roses.GlobalTable.Kills
   for _,i in pairs(check['Kills']._children) do
    local x = check['Kills'][i]
    if kills[i] then
@@ -142,7 +142,7 @@ function checkRequirements(event,effect)
  end
 -- check deaths
  if check['Deaths'] and yes then
-  local deaths = persistTable.GlobalTable.roses.GlobalTable.Deaths
+  local deaths = roses.GlobalTable.Deaths
   for _,i in pairs(check['Deaths']._children) do
    local x = check['Deaths'][i]
    if deaths[i]['All'] then
@@ -157,7 +157,7 @@ function checkRequirements(event,effect)
  end
 -- check trades
  if check['Trades'] and yes then
-  local trades = persistTable.GlobalTable.roses.GlobalTable.Trades
+  local trades = roses.GlobalTable.Trades
   for _,i in pairs(check['Trades']._children) do
    local x = check['Trades'][i]
    if trades[i] then
@@ -172,7 +172,7 @@ function checkRequirements(event,effect)
  end
 -- check sieges
  if check['Sieges'] and yes then
-  local sieges = persistTable.GlobalTable.roses.GlobalTable.Sieges
+  local sieges = roses.GlobalTable.Sieges
   for _,i in pairs(check['Sieges']._children) do
    local x = check['Sieges'][i]
    if sieges[i] then

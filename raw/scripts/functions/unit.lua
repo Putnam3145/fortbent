@@ -1,6 +1,6 @@
 function trackAttribute(unitID,attribute,current,change,value,dur,alter)
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return "base/roses-init not loaded"
  end
  
@@ -8,7 +8,7 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
   unitID = unitID.id
  end
 
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
@@ -67,8 +67,8 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
 end
 
 function trackSkill(unitID,skill,current,change,value,dur,alter)
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return
  end
  
@@ -76,7 +76,7 @@ function trackSkill(unitID,skill,current,change,value,dur,alter)
   unitID = unitID.id
  end
  
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
@@ -122,8 +122,8 @@ end
 function trackResistance(unitID,resistance,current,change,value,dur,alter)
  local utils = require 'utils'
  local split = utils.split_string
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return
  end
  
@@ -131,11 +131,11 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
   unitID = unitID.id
  end
  
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
- unitTable = persistTable.GlobalTable.roses.UnitTable[tostring(unitID)]
+ unitTable = roses.UnitTable[tostring(unitID)]
  
  resistance = resistance:gsub('%.',':')
  array = split(resistance,':')
@@ -195,8 +195,8 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
 end
 
 function trackTrait(unitID,trait,current,change,value,dur,alter)
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return
  end
 
@@ -204,7 +204,7 @@ function trackTrait(unitID,trait,current,change,value,dur,alter)
   unitID = unitID.id
  end
  
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
@@ -1008,7 +1008,7 @@ function makeProjectile(unit,velocity)
 end
 
 function findUnit(search)
- local persistTable = require 'persist-table'
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
  local primary = search[1]
  local secondary = search[2] or 'NONE'
  local tertiary = search[3] or 'NONE'
@@ -1065,8 +1065,8 @@ function findUnit(search)
    end
   elseif secondary == 'CLASS' then
    for i,x in pairs(unitList) do
-    if persistTable.GlobalTable.roses.UnitTable[x.id] then
-     if persistTable.GlobalTable.roses.UnitTable[x.id].Classes.Current.Name == tertiary then
+    if roses.UnitTable[x.id] then
+     if roses.UnitTable[x.id].Classes.Current.Name == tertiary then
       n = n + 1
       targetList[n] = x
      end
