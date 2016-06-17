@@ -90,8 +90,8 @@ inorganic_metal_troll
             [SOLID_DENSITY:8000]
             [LIQUID_DENSITY:8320]
             [MOLAR_MASS:107868]
-            [IMPACT_YIELD:100000]
-            [IMPACT_FRACTURE:170000]
+            [IMPACT_YIELD:1505000]
+            [IMPACT_FRACTURE:595000]
             [IMPACT_STRAIN_AT_YIELD:430]
             [COMPRESSIVE_YIELD:1505000]
             [COMPRESSIVE_FRACTURE:595000]
@@ -261,7 +261,7 @@ inorganic_metal_troll
             [BENDING_STRAIN_AT_YIELD:125000]
             [MAX_EDGE:2147483647] See, at least this cap is *logical*, unlike that cap up there.
             [STATE_COLOR:ALL_SOLID:GRAY]
-			
+            
     [INORGANIC:CUEBALL_LE_POISON_NO_ALCHEMIZE]
         [USE_MATERIAL_TEMPLATE:METAL_TEMPLATE]
             [STATE_ADJ:ALL_SOLID:legendary piece of shit]
