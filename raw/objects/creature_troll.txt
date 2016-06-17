@@ -8,7 +8,7 @@ creature_troll
         [INTELLIGENT]
         [CREATURE_CLASS:SBURBABLE]
         [CANOPENDOORS]
-		[STRANGE_MOODS]
+        [STRANGE_MOODS]
         [MUNDANE]
         [BENIGN]
         [CREATURE_CLASS:INCESTUOUS_SLURRY]
