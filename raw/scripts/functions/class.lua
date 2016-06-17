@@ -1,25 +1,3 @@
-unitClasses=unitClasses or false
-
-function loadClassTableFromFile()
-    local savePath=dfhack.getSavePath()
-    if unitClasses or not savePath then return false end
-    local unitClassesFilePath=savePath..'/classes.json'
-    local unitClassesFileExists=dfhack.filesystem.isfile(unitClassesFilePath)
-    if not unitClassesFileExists then
-        unitClasses={}
-        saveunitClassesToFile()
-        return true
-    end
-    unitClasses=json.decode_file(unitClassesFilePath)
-end
-
-function saveClassTableToFile()
-    local savePath=dfhack.getSavePath()
-    if not prongleData or not savePath then return false end
-    local prongleDataFilePath=savePath..'/prongle.json'
-    json.encode_file(prongleData,prongleDataFilePath)
-end
-
 function addExperience(unit,amount,verbose)
  if tonumber(unit) then
   unit = df.unit.find(tonumber(unit))
@@ -29,7 +7,7 @@ function addExperience(unit,amount,verbose)
  local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
  local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
-  dfhack.script_environment('functions/tables').makeUnitTable(unitID)
+  dfhack.script_environment('functions/tables').makeUnitTable(unit)
  end
  unitTable = roses.UnitTable[tostring(unitID)]
  local unitClasses = unitTable.Classes
@@ -71,7 +49,7 @@ function changeClass(unit,change,verbose)
  local currentClass = unitTable.Classes.Current
  local nextClass = unitTable.Classes[change]
  if not nextClass then
-  print('No such class to change into')
+  print('No such class to change into: '..change)
   return false
  end
  local classes = roses.ClassTable

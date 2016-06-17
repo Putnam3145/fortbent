@@ -847,7 +847,7 @@ function makeUnitTable(unit)
   unitTable.Traits[trait].StatusEffects = {}
  end
 
- unitTable.Resistances = {}
+--[[ unitTable.Resistances = {}
 
  physicalResistances = {'All','Blunt','Pierce','Slash'}
  unitTable.Resistances.Physical = {}
@@ -878,7 +878,7 @@ function makeUnitTable(unit)
    unitTable.Resistances.Magical[resistance][subresistance].Item = tostring(0)
    unitTable.Resistances.Magical[resistance][subresistance].StatusEffects = {}
   end
- end
+ end]]
  
  unitTable.Stats = {}
  unitTable.Stats.Kills = '0'
@@ -891,9 +891,9 @@ function makeUnitTable(unit)
   unitTable.Classes.Current.TotalExp = tostring(0)
   unitTable.Classes.Current.SkillExp = tostring(0)
   for i,x in pairs(roses.ClassTable) do
-   unitTable.Classes[x] = {}
-   unitTable.Classes[x].Level = tostring(0)
-   unitTable.Classes[x].Experience = tostring(0)
+   unitTable.Classes[i] = {}
+   unitTable.Classes[i].Level = tostring(0)
+   unitTable.Classes[i].Experience = tostring(0)
   end
  end
 
@@ -901,7 +901,7 @@ function makeUnitTable(unit)
   unitTable.Spells = {}
   unitTable.Spells.Active = {}
   for i,x in pairs(roses.SpellTable) do
-   unitTable.Spells[x] = tostring(0)
+   unitTable.Spells[i] = tostring(0)
   end
  end
 
