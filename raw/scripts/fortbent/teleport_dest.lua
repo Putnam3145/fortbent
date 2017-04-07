@@ -19,7 +19,7 @@ local function teleport(unit,pos)
 end
 
 local function teleport_to_dest(unit)
- if not (unit.relations.draggee_id~=-1 or unit.relations.dragger_id~=-1 or unit.relations.following~=0 or unit.counters.unconscious>0) then
+ if not (unit.relationship_ids.Draggee~=-1 or unit.relationship_ids.Dragger~=-1 or unit.following~=0 or unit.counters.unconscious>0) then
   if (dfhack.maps.isValidTilePos(unit.pos) and dfhack.maps.isValidTilePos(unit.path.dest)) then
    teleport(unit,unit.path.dest)
   end

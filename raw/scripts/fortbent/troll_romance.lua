@@ -217,8 +217,8 @@ putnamEvents.onRelationshipUpdate.troll_romance=function(histfig1_id,histfig2_id
     if not hasMoirailAlready and relationship_type==1 and new_value>=80 then
         local histfig2=df.historical_figure.find(histfig2_id)
         local unit1=df.unit.find(histfig1.unit_id)
-        local hasLoverAlready=unit1.relations.lover_id~=-1 or unit1.relations.spouse_id~=-1
-        if hasLoverAlready and unit1.relations.lover_id~=histfig2.unit_id and unit1.relations.spouse_id~=histfig2.unit_id and adjustRelationship(histfig2,histfig1,1,0)>=80 then
+        local hasLoverAlready=unit1.relationship_ids.Lover~=-1 or unit1.relationship_ids.Spouse~=-1
+        if hasLoverAlready and unit1.relationship_ids.Lover~=histfig2.unit_id and unit1.relationship_ids.Spouse~=histfig2.unit_id and adjustRelationship(histfig2,histfig1,1,0)>=80 then
             addNewRelationship(histfig1,histfig2,'MOIRAIL',1)
         end
     elseif hasMoirailAlready and relationship_type==1 and adjustRelationship(histfig1,histfig2,'MOIRAIL',0) then --adjustRelationship returns false if not found, so basically a search function when used this way
@@ -351,7 +351,7 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
     if thought=='Talked' and df.emotion_type.attrs[emotion.type].divider<0 then
         local hasMoirailAlready=hasCustomRelationship(histfig,'MOIRAIL')
         local rng=dfhack.random.new()
-        local loverId=unit.relations.lover_id~=-1 and (df.unit.find(unit.relations.lover_id) and df.unit.find(unit.relations.lover_id).hist_figure_id or false) or (unit.relations.spouse_id~=-1 and df.unit.find(unit.relations.spouse_id) and df.unit.find(unit.relations.spouse_id).hist_figure_id) or nil
+        local loverId=unit.relationship_ids.Lover~=-1 and (df.unit.find(unit.relationship_ids.Lover) and df.unit.find(unit.relationship_ids.Lover).hist_figure_id or false) or (unit.relationship_ids.Spouse~=-1 and df.unit.find(unit.relationship_ids.Spouse) and df.unit.find(unit.relationship_ids.Spouse).hist_figure_id) or nil
         if loverId==hasMoirailAlready then
             hasMoirailAlready=false 
             local loverFig=df.historical_figure.find(loverId)

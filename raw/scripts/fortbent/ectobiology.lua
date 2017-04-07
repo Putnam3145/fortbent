@@ -38,7 +38,7 @@ local function hasCustomRelationship(histfig,relationship_type)
 end
 
 local function getSpouseOrLover(unit)
-    local lover_unit=df.unit.find(unit.relations.lover_id) or df.unit.find(unit.relations.spouse_id)
+    local lover_unit=df.unit.find(unit.relationship_ids.Lover) or df.unit.find(unit.relationship_ids.Spouse)
     local return_table={lover=nil,kismesis=nil}
     local kismesis=hasCustomRelationship(df.historical_figure.find(unit.hist_figure_id),'KISMESIS')
     if kismesis then
@@ -98,10 +98,10 @@ local function ectobiologize(freeform)
         local ok2,name2,unit2_t=script.showListPrompt("Ectobiology","Choose second paradox ghost slime target.",COLOR_WHITE,citizens)
         if not ok2 then return end
         local unit2=unit2_t[3]
-        unit1.relations.pregnancy_timer=1
-        unit1.relations.pregnancy_genes=unit1.appearance.genes:new()
-        unit1.relations.pregnancy_spouse=unit2.hist_figure_id
-        unit1.relations.pregnancy_caste=unit2.caste
+        unit1.pregnancy_timer=1
+        unit1.pregnancy_genes=unit1.appearance.genes:new()
+        unit1.pregnancy_spouse=unit2.hist_figure_id
+        unit1.pregnancy_caste=unit2.caste
         dfhack.run_script('modtools/add-syndrome','-syndrome','temp desterilize','-target',unit1.id)
         if unit1.sex==1 then
             local normal_caste=unit1.enemy.normal_caste
@@ -116,10 +116,10 @@ local function ectobiologize(freeform)
         local lovers=getSpouseOrLover(unit)
         local ok2,name2,lover_t=script.showListPrompt("Ectobiology","Choose second genetic material giver.",COLOR_WHITE,lovers)
         if not ok2 then return false end
-        unit.relations.pregnancy_timer=1
-        unit.relations.pregnancy_genes=unit.appearance.genes:new()
-        unit.relations.pregnancy_spouse=lover_t[3]
-        unit.relations.pregnancy_caste=df.historical_figure.find(lover_t[3]).caste
+        unit.pregnancy_timer=1
+        unit.pregnancy_genes=unit.appearance.genes:new()
+        unit.pregnancy_spouse=lover_t[3]
+        unit.pregnancy_caste=df.historical_figure.find(lover_t[3]).caste
         dfhack.run_script('modtools/add-syndrome','-syndrome','temp desterilize','-target',unit.id)
         if unit.sex==1 then
             local normal_caste=unit.enemy.normal_caste

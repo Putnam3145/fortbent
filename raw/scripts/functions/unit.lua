@@ -1,6 +1,6 @@
 function trackAttribute(unitID,attribute,current,change,value,dur,alter)
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return "base/roses-init not loaded"
  end
  
@@ -8,7 +8,7 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
   unitID = unitID.id
  end
 
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
@@ -18,7 +18,7 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
   if dur > 0 then
    attributeTable.Change = tostring(attributeTable.Change + change)
    local statusTable = attributeTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = tostring(change)
@@ -28,7 +28,7 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
  elseif alter == 'end' then
   attributeTable.Change = tostring(attributeTable.Change - change)
   local statusTable = attributeTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -67,8 +67,8 @@ function trackAttribute(unitID,attribute,current,change,value,dur,alter)
 end
 
 function trackSkill(unitID,skill,current,change,value,dur,alter)
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return
  end
  
@@ -76,7 +76,7 @@ function trackSkill(unitID,skill,current,change,value,dur,alter)
   unitID = unitID.id
  end
  
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
@@ -86,7 +86,7 @@ function trackSkill(unitID,skill,current,change,value,dur,alter)
   if dur > 0 then
    skillTable.Change = tostring(skillTable.Change + change)
    local statusTable = skillTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = change
@@ -96,7 +96,7 @@ function trackSkill(unitID,skill,current,change,value,dur,alter)
  elseif alter == 'end' then
   skillTable.Change = tostring(skillTable.Change - change)
   local statusTable = skillTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -122,8 +122,8 @@ end
 function trackResistance(unitID,resistance,current,change,value,dur,alter)
  local utils = require 'utils'
  local split = utils.split_string
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return
  end
  
@@ -131,11 +131,11 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
   unitID = unitID.id
  end
  
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
- unitTable = persistTable.GlobalTable.roses.UnitTable[tostring(unitID)]
+ unitTable = roses.UnitTable[tostring(unitID)]
  
  resistance = resistance:gsub('%.',':')
  array = split(resistance,':')
@@ -153,7 +153,7 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
   if dur > 0 then
    resistanceTable.Change = tostring(resistanceTable.Change + change)
    local statusTable = resistanceTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = change
@@ -163,7 +163,7 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
  elseif alter == 'end' then
   resistanceTable.Change = tostring(resistanceTable.Change - change)
   local statusTable = resistanceTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -195,8 +195,8 @@ function trackResistance(unitID,resistance,current,change,value,dur,alter)
 end
 
 function trackTrait(unitID,trait,current,change,value,dur,alter)
- local persistTable = require 'persist-table'
- if not persistTable.GlobalTable.roses then
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ if not roses then
   return
  end
 
@@ -204,7 +204,7 @@ function trackTrait(unitID,trait,current,change,value,dur,alter)
   unitID = unitID.id
  end
  
- local unitTable = persistTable.GlobalTable.roses.UnitTable
+ local unitTable = roses.UnitTable
  if not unitTable[tostring(unitID)] then
   dfhack.script_environment('functions/tables').makeUnitTable(unitID)
  end
@@ -214,7 +214,7 @@ function trackTrait(unitID,trait,current,change,value,dur,alter)
   if dur > 0 then
    traitTable.Change = tostring(traitTable.Change + change)
    local statusTable = traitTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = change
@@ -224,7 +224,7 @@ function trackTrait(unitID,trait,current,change,value,dur,alter)
  elseif alter == 'end' then
   traitTable.Change = tostring(skillTable.Change - change)
   local statusTable = traitTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -776,14 +776,14 @@ function create(race,caste,options) --from modtools/create-unit
   df.global.hist_figure_next_id=df.global.hist_figure_next_id+1
   hf.appeared_year = df.global.cur_year
 
-  hf.born_year = trgunit.relations.birth_year
-  hf.born_seconds = trgunit.relations.birth_time
-  hf.curse_year = trgunit.relations.curse_year
-  hf.curse_seconds = trgunit.relations.curse_time
-  hf.birth_year_bias = trgunit.relations.birth_year_bias
-  hf.birth_time_bias = trgunit.relations.birth_time_bias
-  hf.old_year = trgunit.relations.old_year
-  hf.old_seconds = trgunit.relations.old_time
+  hf.born_year = trgunit.birth_year
+  hf.born_seconds = trgunit.birth_time
+  hf.curse_year = trgunit.curse_year
+  hf.curse_seconds = trgunit.curse_time
+  hf.birth_year_bias = trgunit.birth_year_bias
+  hf.birth_time_bias = trgunit.birth_time_bias
+  hf.old_year = trgunit.old_year
+  hf.old_seconds = trgunit.old_time
   hf.died_year = -1
   hf.died_seconds = -1
   hf.name:assign(trgunit.name)
@@ -825,8 +825,8 @@ function create(race,caste,options) --from modtools/create-unit
   --add entity event
   local hf_event_id=df.global.hist_event_next_id
   df.global.hist_event_next_id=df.global.hist_event_next_id+1
-  df.global.world.history.events:insert("#",{new=df.history_event_add_hf_entity_linkst,year=trgunit.relations.birth_year,
-  seconds=trgunit.relations.birth_time,id=hf_event_id,civ=hf.civ_id,histfig=hf.id,link_type=0})
+  df.global.world.history.events:insert("#",{new=df.history_event_add_hf_entity_linkst,year=trgunit.birth_year,
+  seconds=trgunit.birth_time,id=hf_event_id,civ=hf.civ_id,histfig=hf.id,link_type=0})
   return hf
  end
 
@@ -1008,7 +1008,7 @@ function makeProjectile(unit,velocity)
 end
 
 function findUnit(search)
- local persistTable = require 'persist-table'
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
  local primary = search[1]
  local secondary = search[2] or 'NONE'
  local tertiary = search[3] or 'NONE'
@@ -1065,8 +1065,8 @@ function findUnit(search)
    end
   elseif secondary == 'CLASS' then
    for i,x in pairs(unitList) do
-    if persistTable.GlobalTable.roses.UnitTable[x.id] then
-     if persistTable.GlobalTable.roses.UnitTable[x.id].Classes.Current.Name == tertiary then
+    if roses.UnitTable[x.id] then
+     if roses.UnitTable[x.id].Classes.Current.Name == tertiary then
       n = n + 1
       targetList[n] = x
      end
