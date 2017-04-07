@@ -393,8 +393,9 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
                 local grudges=getAllRelations(histfig,2)
                 for k,grudge_hf in ipairs(grudges) do
                     local grudge=df.unit.find(grudge_hf.unit_id)
+                    local grudgeHasKismesisAlready=hasCustomRelationship(grudge_hf,'KISMESIS')
                     if getDistance(unit.pos,grudge.pos)<30 then
-                        if not hasKismesisAlready then
+                        if not (hasKismesisAlready or grudgeHasKismesisAlready) then
                             local kismesisCompatibility=getKismesisCompatibility(unit,grudge)
                             if rng:drandom0()<kismesisCompatibility*((unit.status.current_soul.personality.traits.HATE_PROPENSITY+grudge.status.current_soul.personality.traits.HATE_PROPENSITY)/2) then
                                 --isn't the fact that HATE_PROPENSITY is already a thing just wonderful
