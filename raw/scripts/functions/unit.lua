@@ -776,14 +776,14 @@ function create(race,caste,options) --from modtools/create-unit
   df.global.hist_figure_next_id=df.global.hist_figure_next_id+1
   hf.appeared_year = df.global.cur_year
 
-  hf.born_year = trgunit.relations.birth_year
-  hf.born_seconds = trgunit.relations.birth_time
-  hf.curse_year = trgunit.relations.curse_year
-  hf.curse_seconds = trgunit.relations.curse_time
-  hf.birth_year_bias = trgunit.relations.birth_year_bias
-  hf.birth_time_bias = trgunit.relations.birth_time_bias
-  hf.old_year = trgunit.relations.old_year
-  hf.old_seconds = trgunit.relations.old_time
+  hf.born_year = trgunit.birth_year
+  hf.born_seconds = trgunit.birth_time
+  hf.curse_year = trgunit.curse_year
+  hf.curse_seconds = trgunit.curse_time
+  hf.birth_year_bias = trgunit.birth_year_bias
+  hf.birth_time_bias = trgunit.birth_time_bias
+  hf.old_year = trgunit.old_year
+  hf.old_seconds = trgunit.old_time
   hf.died_year = -1
   hf.died_seconds = -1
   hf.name:assign(trgunit.name)
@@ -825,8 +825,8 @@ function create(race,caste,options) --from modtools/create-unit
   --add entity event
   local hf_event_id=df.global.hist_event_next_id
   df.global.hist_event_next_id=df.global.hist_event_next_id+1
-  df.global.world.history.events:insert("#",{new=df.history_event_add_hf_entity_linkst,year=trgunit.relations.birth_year,
-  seconds=trgunit.relations.birth_time,id=hf_event_id,civ=hf.civ_id,histfig=hf.id,link_type=0})
+  df.global.world.history.events:insert("#",{new=df.history_event_add_hf_entity_linkst,year=trgunit.birth_year,
+  seconds=trgunit.birth_time,id=hf_event_id,civ=hf.civ_id,histfig=hf.id,link_type=0})
   return hf
  end
 

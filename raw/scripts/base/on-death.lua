@@ -35,7 +35,7 @@ events.onUnitDeath.mainFunction=function(target_id)
  target_creature_name = df.creature_raw.find(target_race).creature_id
  target_caste_name = df.creature_raw.find(target_race).caste[target_caste].caste_id
 
- killer_id = tonumber(target.relations.last_attacker_id)
+ killer_id = tonumber(target.relationship_ids.LastAttacker)
  if killer_id >= 0 then
   killer = df.unit.find(killer_id)
   killer_civ = killer.civ_id
