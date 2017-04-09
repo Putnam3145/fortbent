@@ -344,7 +344,7 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
             local histfig2=df.historical_figure.find(emotion.subthought)
             local isKismesisArgument,kismesisStrength=adjustRelationship(histfig,histfig2,'KISMESIS',1)
             if isKismesisArgument then
-                dfhack.run_script('fortbent/add-thought','-thought','arguing with a kismesis','-emotion','AROUSAL','-severity',kismesisStrength*4,'-unit',unit.id) --http://goo.gl/8WOPP 
+                dfhack.run_script('add-thought','-thought','arguing with a kismesis','-emotion','AROUSAL','-severity',kismesisStrength*4,'-unit',unit.id) --http://goo.gl/8WOPP 
             end
         end
     end
@@ -381,8 +381,8 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
             if moirail then
                 local moirailUnit=df.unit.find(df.historical_figure.find(moirail).unit_id)
                 if getDistance(moirailUnit.pos,unit.pos)<30 and not hasHadThoughtRecently(unit,'a feelings jam with the moirail',4800) and not hasHadThoughtRecently(moirailUnit,'a feelings jam with the moirail',4800) then
-                    dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(unit),'-severity',500,'-unit',unit.id)
-                    dfhack.run_script('fortbent/add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(moirailUnit),'-severity',500,'-unit',moirailUnit.id)
+                    dfhack.run_script('add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(unit),'-severity',500,'-unit',unit.id)
+                    dfhack.run_script('add-thought','-thought','a feelings jam with the moirail','-emotion',getMoirailFeelingsJamEmotion(moirailUnit),'-severity',500,'-unit',moirailUnit.id)
                 end
             end
         end
@@ -393,8 +393,9 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
                 local grudges=getAllRelations(histfig,2)
                 for k,grudge_hf in ipairs(grudges) do
                     local grudge=df.unit.find(grudge_hf.unit_id)
+                    local grudgeHasKismesisAlready=hasCustomRelationship(grudge_hf,'KISMESIS')
                     if getDistance(unit.pos,grudge.pos)<30 then
-                        if not hasKismesisAlready then
+                        if not (hasKismesisAlready or grudgeHasKismesisAlready) then
                             local kismesisCompatibility=getKismesisCompatibility(unit,grudge)
                             if rng:drandom0()<kismesisCompatibility*((unit.status.current_soul.personality.traits.HATE_PROPENSITY+grudge.status.current_soul.personality.traits.HATE_PROPENSITY)/2) then
                                 --isn't the fact that HATE_PROPENSITY is already a thing just wonderful
@@ -413,8 +414,8 @@ putnamEvents.onEmotion.troll_romance=function(unit,emotion)
                                 local auspistice2=hasCustomRelationship(grudge_hf,'AUSPISTICE')
                                 if auspistice and auspistice==auspistice2 then
                                     if getDistance(df.unit.find(df.historical_figure.find(auspistice).unit_id).pos,unit.pos)<30 then
-                                        dfhack.run_script('fortbent/add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
-                                        dfhack.run_script('fortbent/add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',df.historical_figure.find(auspistice).unit_id)
+                                        dfhack.run_script('add-thought','-thought','the soothing of an auspistice','-emotion','FONDNESS','-severity',50,'-unit',unit.id)
+                                        dfhack.run_script('add-thought','-thought','auspiticizing','-emotion','FONDNESS','-severity',20,'-unit',df.historical_figure.find(auspistice).unit_id)
                                     end
                                 end
                             end
