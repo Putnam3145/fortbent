@@ -192,7 +192,7 @@ function alchemize(adventure,unit)
             grist:save() --redundancy redundancy redundancy
             if df.item_type.attrs[itemtype].is_stackable then
                 local proper_item=df.item.find(dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit))
-                proper_item:setStackSize(amount)
+                proper_item:setStackSize(tonumber(amount))
             else
                 for i=1,amount do
                     dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit)
@@ -214,4 +214,4 @@ validArgs = validArgs or utils.invert({
 
 args = utils.processArgs({...}, validArgs)
 
-alchemize(args.adventure,args.unit and df.unit.find(args.unit) or nil)
+alchemize(args.adventure,tonumber(args.unit) and df.unit.find(tonumber(args.unit)) or nil)
