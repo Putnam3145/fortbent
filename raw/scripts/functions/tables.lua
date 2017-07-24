@@ -6,8 +6,8 @@ function makeCivilizationTable()
 
  local utils = require 'utils'
  local split = utils.split_string
- local persistTable = require 'persist-table'
- persistTable.GlobalTable.roses.CivilizationTable = {}
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ roses.CivilizationTable = {}
 
  print('Searching for civilization files')
  local files = {}
@@ -29,7 +29,7 @@ function makeCivilizationTable()
   return false
  end
 
- civilizations = persistTable.GlobalTable.roses.CivilizationTable
+ civilizations = roses.CivilizationTable
  for _,file in ipairs(files) do
 
   local data = {}
@@ -245,8 +245,8 @@ end
 function makeClassTable()
  local utils = require 'utils'
  local split = utils.split_string
- local persistTable = require 'persist-table'
- persistTable.GlobalTable.roses.ClassTable = {}
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ roses.ClassTable = {}
 
  print('Searching for class files')
  local files = {}
@@ -268,7 +268,7 @@ function makeClassTable()
   return false
  end
 
- classes = persistTable.GlobalTable.roses.ClassTable
+ classes = roses.ClassTable
  for _,file in ipairs(files) do
 
   local data = {}
@@ -488,11 +488,11 @@ function makeEntityTable(entity)
  entity = civid>-1 and df.historical_entity.find(civid) or entity
  if type(entity)~='userdata' then return end
 
- local persistTable = require 'persist-table'
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
  local key = tostring(entity.id)
  local entity = entity.entity_raw.code
- local civilizations = persistTable.GlobalTable.roses.CivilizationTable
- local entityTable = persistTable.GlobalTable.roses.EntityTable
+ local civilizations = roses.CivilizationTable
+ local entityTable = roses.EntityTable
  if entityTable[key] then
   return
  else
@@ -511,21 +511,21 @@ function makeEntityTable(entity)
     entityTable.Civilization.CurrentPercent = civilizations[entity].LevelPercent
     if civilizations[entity].Level then
      if civilizations[entity].Level['0'] then
-      for _,mtype in pairs(civilizations[entity].Level['0'].Remove._children) do
+      for _,mtype in pairs(civilizations[entity].Level['0'].Remove) do
        local depth1 = civilizations[entity].Level['0'].Remove[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         local depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          local sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,-1,true)
         end
        end
       end
-      for _,mtype in pairs(civilizations[entity].Level['0'].Add._children) do
+      for _,mtype in pairs(civilizations[entity].Level['0'].Add) do
        local depth1 = civilizations[entity].Level['0'].Add[mtype]
-       for _,stype in pairs(depth1._children) do
+       for _,stype in pairs(depth1) do
         local depth2 = depth1[stype]
-        for _,mobj in pairs(depth2._children) do
+        for _,mobj in pairs(depth2) do
          local sobj = depth2[mobj]
          dfhack.script_environment('functions/entity').changeResources(key,mtype,stype,mobj,sobj,1,true)
         end
@@ -541,8 +541,8 @@ end
 function makeEventTable()
  local utils = require 'utils'
  local split = utils.split_string
- local persistTable = require 'persist-table'
- persistTable.GlobalTable.roses.EventTable = {}
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ roses.EventTable = {}
 
  print('Searching for event files')
  local files = {}
@@ -564,7 +564,7 @@ function makeEventTable()
   return false
  end
 
- events = persistTable.GlobalTable.roses.EventTable
+ events = roses.EventTable
  for _,file in ipairs(files) do
 
   local data = {}
@@ -755,12 +755,12 @@ function makeEventTable()
 end
 
 function makeGlobalTable()
- local persistTable = require 'persist-table'
- persistTable.GlobalTable.roses.GlobalTable = {}
- persistTable.GlobalTable.roses.GlobalTable.Kills = {}
- persistTable.GlobalTable.roses.GlobalTable.Deaths = {}
- persistTable.GlobalTable.roses.GlobalTable.Trades = {}
- persistTable.GlobalTable.roses.GlobalTable.Sieges = {}
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ roses.GlobalTable = {}
+ roses.GlobalTable.Kills = {}
+ roses.GlobalTable.Deaths = {}
+ roses.GlobalTable.Trades = {}
+ roses.GlobalTable.Sieges = {}
 end
 
 function makeItemTable(item)
@@ -769,9 +769,9 @@ function makeItemTable(item)
  end
  itemID = item.id
 
- local persistTable = require 'persist-table'
- persistTable.GlobalTable.roses.ItemTable[tostring(itemID)] = {}
- itemTable = persistTable.GlobalTable.roses.ItemTable[tostring(itemID)]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ roses.ItemTable[tostring(itemID)] = {}
+ itemTable = roses.ItemTable[tostring(itemID)]
 
  itemTable.Material = {}
  itemTable.Material.Base = dfhack.matinfo.getToken(item.mat_type,item.mat_index)
@@ -798,9 +798,9 @@ function makeUnitTable(unit)
  end
  unitID = unit.id
 
- local persistTable = require 'persist-table'
- persistTable.GlobalTable.roses.UnitTable[tostring(unitID)] = {}
- unitTable = persistTable.GlobalTable.roses.UnitTable[tostring(unitID)]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ roses.UnitTable[tostring(unitID)] = {}
+ unitTable = roses.UnitTable[tostring(unitID)]
 
  unitTable.Attributes = {}
  for i = 0,5,1 do
@@ -847,7 +847,7 @@ function makeUnitTable(unit)
   unitTable.Traits[trait].StatusEffects = {}
  end
 
- unitTable.Resistances = {}
+--[[ unitTable.Resistances = {}
 
  physicalResistances = {'All','Blunt','Pierce','Slash'}
  unitTable.Resistances.Physical = {}
@@ -878,30 +878,30 @@ function makeUnitTable(unit)
    unitTable.Resistances.Magical[resistance][subresistance].Item = tostring(0)
    unitTable.Resistances.Magical[resistance][subresistance].StatusEffects = {}
   end
- end
+ end]]
  
  unitTable.Stats = {}
  unitTable.Stats.Kills = '0'
  unitTable.Stats.Deaths = '0'
 
- if persistTable.GlobalTable.roses.ClassTable then
+ if roses.ClassTable then
   unitTable.Classes = {}
   unitTable.Classes.Current = {}
   unitTable.Classes.Current.Name = 'NONE'
   unitTable.Classes.Current.TotalExp = tostring(0)
   unitTable.Classes.Current.SkillExp = tostring(0)
-  for i,x in pairs(persistTable.GlobalTable.roses.ClassTable._children) do
-   unitTable.Classes[x] = {}
-   unitTable.Classes[x].Level = tostring(0)
-   unitTable.Classes[x].Experience = tostring(0)
+  for i,x in pairs(roses.ClassTable) do
+   unitTable.Classes[i] = {}
+   unitTable.Classes[i].Level = tostring(0)
+   unitTable.Classes[i].Experience = tostring(0)
   end
  end
 
- if persistTable.GlobalTable.roses.SpellTable then
+ if roses.SpellTable then
   unitTable.Spells = {}
   unitTable.Spells.Active = {}
-  for i,x in pairs(persistTable.GlobalTable.roses.SpellTable._children) do
-   unitTable.Spells[x] = tostring(0)
+  for i,x in pairs(roses.SpellTable) do
+   unitTable.Spells[i] = tostring(0)
   end
  end
 

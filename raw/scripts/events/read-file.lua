@@ -5,8 +5,8 @@ end
 function readFile(path)
  local utils = require 'utils'
  local split = utils.split_string
- local persistTable = require 'persist-table'
- persistTable.GlobalTable.roses.EventTable = persistTable.GlobalTable.roses.EventTable or {}
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ roses.EventTable = roses.EventTable or {}
  local iofile = io.open(path,"r")
  local totdat = {}
  local count = 1
@@ -19,7 +19,7 @@ function readFile(path)
  iofile:close()
  
  d = {}
- events = persistTable.GlobalTable.roses.EventTable
+ events = roses.EventTable
  count = 1
  for i,x in ipairs(totdat) do
   if split(x,':')[1] == '[EVENT' then

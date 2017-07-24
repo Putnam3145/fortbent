@@ -2,7 +2,6 @@
 
 local utils = require 'utils'
 local split = utils.split_string
-local persistTable = require 'persist-table'
 
 validArgs = validArgs or utils.invert({
  'help',
@@ -16,23 +15,23 @@ validArgs = validArgs or utils.invert({
 })
 local args = utils.processArgs({...}, validArgs)
 
-persistTable.GlobalTable.roses = persistTable.GlobalTable.roses or {}
-persistTable.GlobalTable.roses.UnitTable = persistTable.GlobalTable.roses.UnitTable or {}
-persistTable.GlobalTable.roses.EntityTable = persistTable.GlobalTable.roses.EntityTable or {}
-persistTable.GlobalTable.roses.CommandDelay = persistTable.GlobalTable.roses.CommandDelay or {}
-persistTable.GlobalTable.roses.EnvironmentDelay = persistTable.GlobalTable.roses.EnvironmentDelay or {}
-persistTable.GlobalTable.roses.CounterTable = persistTable.GlobalTable.roses.CounterTable or {}
-persistTable.GlobalTable.roses.SpellTable = persistTable.GlobalTable.roses.SpellTable or {}
-if not persistTable.GlobalTable.roses.GlobalTable then dfhack.script_environment('functions/tables').makeGlobalTable() end
+roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+roses.UnitTable = roses.UnitTable or {}
+roses.EntityTable = roses.EntityTable or {}
+roses.CommandDelay = roses.CommandDelay or {}
+roses.EnvironmentDelay = roses.EnvironmentDelay or {}
+roses.CounterTable = roses.CounterTable or {}
+roses.SpellTable = roses.SpellTable or {}
+if not roses.GlobalTable then dfhack.script_environment('functions/tables').makeGlobalTable() end
 
 local function civilizationNotAlreadyLoaded()
- return (not persistTable.GlobalTable.roses.CivilizationTable) or #persistTable.GlobalTable.roses.CivilizationTable._children < 1
+ return (not roses.CivilizationTable) or #roses.CivilizationTable < 1
 end
 local function classNotAlreadyLoaded()
- return (not persistTable.GlobalTable.roses.ClassTable) or #persistTable.GlobalTable.roses.ClassTable._children < 1
+ return (not roses.ClassTable) or #roses.ClassTable < 1
 end
 local function eventNotAlreadyLoaded()
- return (not persistTable.GlobalTable.roses.EventTable) or #persistTable.GlobalTable.roses.EventTable._children < 1
+ return (not roses.EventTable) or #roses.EventTable < 1
 end
 
 if args.all or args.classSystem then

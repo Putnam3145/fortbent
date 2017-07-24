@@ -1,9 +1,9 @@
 function commandDelay(ticks,script)
- local persistTable = require 'persist-table'
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
  local currentTick = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick
  local runTick = currentTick + ticks
- local persistDelay = persistTable.GlobalTable.roses.CommandDelay
- local number = #persistDelay._children
+ local persistDelay = roses.CommandDelay
+ local number = #persistDelay
  persistDelay[tostring(number+1)] = {}
  persistDelay[tostring(number+1)].Tick = tostring(runTick)
  persistDelay[tostring(number+1)].Command = script
@@ -20,11 +20,11 @@ function environmentDelay(ticks,environment,functions,arguments)
                       dfhack.script_environment(environment)[functions](table.unpack(arguments))
                      end
                     )
- local persistTable = require 'persist-table'
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
  local currentTick = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick
  local runTick = currentTick + ticks
- local persistDelay = persistTable.GlobalTable.roses.EnvironmentDelay
- local number = #persistDelay._children
+ local persistDelay = roses.EnvironmentDelay
+ local number = #persistDelay
  persistDelay[tostring(number+1)] = {}
  persistDelay[tostring(number+1)].ID = tostring(id)
  persistDelay[tostring(number+1)].Tick = tostring(runTick)

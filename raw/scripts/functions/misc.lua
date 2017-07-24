@@ -10,8 +10,8 @@ function permute(tab)
 end
 
 function changeCounter(counter,amount,extra)
- local persistTable = require 'persist-table'
- local roses = persistTable.GlobalTable.roses
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local roses = roses
  if not roses then return end
 
  local utils = require 'utils'
@@ -41,7 +41,7 @@ function changeCounter(counter,amount,extra)
     break
    elseif i == #counters then
     print('Sub-counter already set')
-    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x]._children[1])
+    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x][1])
     print('Can not set a value of a counter with already set sub-counters')
     return
    end
@@ -65,8 +65,8 @@ function changeCounter(counter,amount,extra)
 end
 
 function getCounter(counter,extra)
- local persistTable = require 'persist-table'
- local roses = persistTable.GlobalTable.roses
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local roses = roses
  if not roses then return end
 
  local utils = require 'utils'
@@ -96,7 +96,7 @@ function getCounter(counter,extra)
     break
    elseif i == #counters then
     print('Sub-counter already set')
-    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x]._children[1])
+    print('Counter = '..counters[i],'Sub-counter = '..counterTable[x][1])
     print('Can not get a value of a counter with already set sub-counters')
     return
    end

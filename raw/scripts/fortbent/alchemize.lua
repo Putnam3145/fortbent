@@ -1,3 +1,8 @@
+local function usesCreature(itemtype)
+ typesThatUseCreatures={REMAINS=true,FISH=true,FISH_RAW=true,VERMIN=true,PET=true,EGG=true,CORPSE=true,CORPSEPIECE=true}
+ return typesThatUseCreatures[df.item_type[itemtype]]
+end
+
 function getMatFilter(itemtype)
   local itemTypes={
    SEEDS=function(mat,parent,typ,idx)
@@ -192,7 +197,7 @@ function alchemize(adventure,unit)
             grist:save() --redundancy redundancy redundancy
             if df.item_type.attrs[itemtype].is_stackable then
                 local proper_item=df.item.find(dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit))
-                proper_item:setStackSize(amount)
+                proper_item:setStackSize(tonumber(amount))
             else
                 for i=1,amount do
                     dfhack.items.createItem(itemtype, itemsubtype, mattype, matindex, unit)
@@ -214,4 +219,4 @@ validArgs = validArgs or utils.invert({
 
 args = utils.processArgs({...}, validArgs)
 
-alchemize(args.adventure,args.unit and df.unit.find(args.unit) or nil)
+alchemize(args.adventure,tonumber(args.unit) and df.unit.find(tonumber(args.unit)) or nil)

@@ -1,6 +1,6 @@
 function trackMaterial(itemID,change,dur,alter)
- local persistTable = require 'persist-table'
- local itemTable = persistTable.GlobalTable.roses.ItemTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local itemTable = roses.ItemTable
  if not itemTable[tostring(itemID)] then
   dfhack.script_environment('functions/tables').makeItemTable(itemID)
  end
@@ -9,7 +9,7 @@ function trackMaterial(itemID,change,dur,alter)
   materialTable.Current = change
   if dur >= 0 then
    local statusTable = materialTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = change
@@ -20,7 +20,7 @@ function trackMaterial(itemID,change,dur,alter)
   local materialTable = itemTable[tostring(itemID)].Material
   materialTable.Current = change
   local statusTable = materialTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -31,8 +31,8 @@ function trackMaterial(itemID,change,dur,alter)
 end
 
 function trackQuality(itemID,change,dur,alter)
- local persistTable = require 'persist-table'
- local itemTable = persistTable.GlobalTable.roses.ItemTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local itemTable = roses.ItemTable
  if not itemTable[tostring(itemID)] then
   dfhack.script_environment('functions/tables').makeItemTable(itemID)
  end
@@ -41,7 +41,7 @@ function trackQuality(itemID,change,dur,alter)
   qualityTable.Current = tostring(change)
   if dur >= 0 then
    local statusTable = qualityTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = tostring(change)
@@ -52,7 +52,7 @@ function trackQuality(itemID,change,dur,alter)
   local qualityTable = itemTable[tostring(itemID)].Quality
   qualityTable.Current = tostring(change)
   local statusTable = qualityTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil
@@ -63,8 +63,8 @@ function trackQuality(itemID,change,dur,alter)
 end
 
 function trackSubtype(itemID,change,dur,alter)
- local persistTable = require 'persist-table'
- local itemTable = persistTable.GlobalTable.roses.ItemTable
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local itemTable = roses.ItemTable
  if not itemTable[tostring(itemID)] then
   dfhack.script_environment('functions/tables').makeItemTable(itemID)
  end
@@ -73,7 +73,7 @@ function trackSubtype(itemID,change,dur,alter)
   subtypeTable.Current = tostring(change)
   if dur >= 0 then
    local statusTable = subtypeTable.StatusEffects
-   local number = #statusTable._children
+   local number = #statusTable
    statusTable[tostring(number+1)] = {}
    statusTable[tostring(number+1)].End = 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick + dur
    statusTable[tostring(number+1)].Change = tostring(change)
@@ -84,7 +84,7 @@ function trackSubtype(itemID,change,dur,alter)
   local subtypeTable = itemTable[tostring(itemID)].Quality
   subtypeTable.Current = tostring(change)
   local statusTable = subtypeTable.StatusEffects
-  for i = #statusTable._children,1,-1 do
+  for i = #statusTable,1,-1 do
    if statusTable[i] then
     if statusTable[i].End <= 1200*28*3*4*df.global.cur_year + df.global.cur_year_tick then
      statusTable[i] = nil

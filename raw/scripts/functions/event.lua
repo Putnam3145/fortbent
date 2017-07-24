@@ -1,6 +1,6 @@
 function checkRequirements(event,effect,verbose)
- local persistTable = require 'persist-table'
- event = persistTable.GlobalTable.roses.EventTable[event]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ event = roses.EventTable[event]
  if not event then
   return false
  end
@@ -30,7 +30,7 @@ function checkRequirements(event,effect,verbose)
 
 -- Check for fortress wealth
  if check.Wealth then
-  for _,wtype in pairs(check.Wealth._children) do
+  for _,wtype in pairs(check.Wealth) do
    local amount = check.Wealth[wtype]
    if df.global.ui.tasks.wealth[string.lower(wtype)] then
     if df.global.ui.tasks.wealth[string.lower(wtype)] < tonumber(amount) then
@@ -53,20 +53,20 @@ function checkRequirements(event,effect,verbose)
 end
 
 function triggerEvent(event,effect,verbose)
- local persistTable = require 'persist-table'
- eventTable = persistTable.GlobalTable.roses.EventTable[event]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ eventTable = roses.EventTable[event]
 
 
 end
 
 function checkEvent(id,method,verbose)
- local persistTable = require 'persist-table'
- local eventTable = persistTable.GlobalTable.roses.EventTable[id]
+ local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+ local eventTable = roses.EventTable[id]
  local triggered = {}
 
  if checkRequirements(id,0,verbose) then
   triggered[0] = true
-  for _,i in pairs(eventTable.Effect._children) do
+  for _,i in pairs(eventTable.Effect) do
    if checkRequirements(event,tonumber(i),verbose) then
     contingency = tonumber(eventTable.Effect[i].Contingent) or 0
     if triggered[contingency] then

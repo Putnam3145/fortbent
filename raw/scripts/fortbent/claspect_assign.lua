@@ -107,7 +107,7 @@ function getClass(unit)
 end
 
 function makeClaspect(unit,unitidx)
-	local creatureAspect = rng:random(13)+1
+	local creatureAspect = rng:random(12)+1
     local aspect=aspects[creatureAspect]
     local class=getClass(unit)
     aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'LIGHT' --light default
