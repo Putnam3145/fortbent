@@ -1,3 +1,8 @@
+local function usesCreature(itemtype)
+ typesThatUseCreatures={REMAINS=true,FISH=true,FISH_RAW=true,VERMIN=true,PET=true,EGG=true,CORPSE=true,CORPSEPIECE=true}
+ return typesThatUseCreatures[df.item_type[itemtype]]
+end
+
 function getMatFilter(itemtype)
   local itemTypes={
    SEEDS=function(mat,parent,typ,idx)
