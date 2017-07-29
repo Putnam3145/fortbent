@@ -6,6 +6,18 @@ local skillWorldIDs={}
 
 local magicIdentifier=3145
 
+local physicalAttrs={}
+
+local mentalAttrs={}
+
+for k,v in ipairs(df.mental_attribute_type) do
+    mentalAttrs[v]=k
+end
+
+for k,v in ipairs(df.physical_attribute_type) do
+    physicalAttrs[v]=k
+end
+
 local function insertSkillsIntoWorld()
     local skillAlreadyInWorld={}
     for k,v in ipairs(df.global.world.musical_forms.all) do
@@ -50,11 +62,44 @@ function getSkillFromUnit(unit,skill)
     return false --not found
 end
 
+local function addSyndromesToUnit(syndromes,unit)
+    for k,syndrome in ipairs(syndromes) do
+        dfhack.run_script('modtools/add-syndrome','-target',unit.id,'-syndrome',syndrome,'-resetPolicy','-DoNothing')
+    end
+end
+
+local function addAttributesToUnit(attributes,unit)
+    for k,v in ipairs(attributes) do
+        if physicalAttrs[v.name] then
+            local unitPhysicalAttr=unit.body.physical_attrs[v.name]
+            math.max(0,unitPhysicalAttr.value=unitPhysicalAttr.value+v.bonus)
+            math.max(0,unitPhysicalAttr.max_value=unitPhysicalAttr.max_value+(v.bonus*2))
+        elseif mentalAttrs[v.name] then
+            local unitMentalAttr=unit.status.current_soul.mental_attrs[v.name]
+            math.max(0,unitMentalAttr.value=unitMentalAttr.value+v.bonus)
+            math.max(0,unitMentalAttr.max_value=unitMentalAttr.max_value+(v.bonus*2))        
+        else
+            print('Unrecognized attribute! '..v.name)
+        end
+    end
+end
+
+local function addRealSkillsToUnit(skills,unit)
+    for k,skill in ipairs(skills) do
+        dfhack.run_script('modtools/skill-change','-unit',unit.id,'-value',skill.bonus,'-mode','add','-granularity','experience','-skill',skill.name)
+    end
+end
+
 local function levelSkill(unit,skill,level) --local because all leveling should go through the much more proper channel of addExperienceToSkill
     if type(skill)=='table' then
         skill.levelfuncs[level](unit)
+        addSyndromesToUnit(skill.syndromes[level],unit)
+        addAttributesToUnit(skill.attributes[level],unit)
     elseif type(skill)=='userdata' and skill._type==df.unit_musical_skill then
-        skills[df.musical_form.find(skill.id).name.first_name].levelfuncs[level](unit)
+        local properSkill=skills[df.musical_form.find(skill.id).name.first_name]
+        properSkill.levelfuncs[level](unit)
+        addSyndromesToUnit(properSkill.syndromes[level],unit)
+        addAttributesToUnit(properSkill.attributes[level],unit)
     end
 end
 
@@ -69,7 +114,8 @@ function addExperienceToSkill(unit,skill,amount)
     end
     if not unitSkill then return false end --skills should only be explicitly added
     unitSkill.experience=unitSkill.experience+amount
-    local levelThreshold=skill.levelUpThresholds[unitSkill.rating]
+    local levelThreshold=skill.levelUpThresholds[unitSkill.rating+1] or 1/0 --[[IEEE 754 standard, so this is positive infinity, which, fun fact, lua counts as more than any integer.
+      Like any clever hack, this is actually quite stupid, but I was feeling lazy.]]
     if unitSkill.experience>levelThreshold then
         unitSkill.experience=unitSkill.experience-levelThreshold
         levelSkill(unit,skill,unitSkill.rating+1)
