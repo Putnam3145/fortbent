@@ -15,7 +15,7 @@ local function insertSkillsIntoWorld()
             skillWorldIDs[skillName]=v.id
         end
     end
-    for k,skill in ipairs(skills) do
+    for k,skill in pairs(skills) do
         if not skillAlreadyInWorld[skill.name] then
             local formForSkill=df.musical_form:new()
             formForSkill.id=df.global.musical_form_next_id
@@ -59,7 +59,7 @@ local function levelSkill(unit,skill,level) --local because all leveling should 
 end
 
 function addExperienceToSkill(unit,skill,amount)
-    --will add experience to unit and level up if it reaches a level up threshold defined in the json
+    --will add experience to unit and level up if it reaches a level up threshold defined in the data files
     --return false on failure, true on success
     local unitSkill
     if type(skill)=='table' then
