@@ -1,3 +1,5 @@
+--@ module = true
+
 local skills={}
 
 local skillWorldIDs={}
@@ -83,20 +85,4 @@ function addExperienceToAllSkillsWithLevelCriterion(unit,amount,criterion)
             addExperienceToSkill(unit,v,amount)
         end
     end
-end
-
-local utils=require('utils')
-
-validArgs = validArgs or utils.invert({
- 'activate',
-})
-
-if moduleMode then
- return
-end
-
-local args = utils.processArgs({...}, validArgs)
-
-if args.activate then
-    loadSkillsFromFiles()
 end
