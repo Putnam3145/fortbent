@@ -3,30 +3,30 @@
 -- You can use lua files as data files!
 
 aspects={
-	"BREATH", --1
-	"LIGHT",
-	"TIME",
-	"SPACE",
-	"LIFE",
-	"HOPE",
-	"VOID",
-	"HEART",
-	"BLOOD",
-	"DOOM",
-	"MIND",
-	"RAGE"}
+	"Breath", --1
+	"Light",
+	"Time",
+	"Space",
+	"Life",
+	"Hope",
+	"Void",
+	"Heart",
+	"Blood",
+	"Doom",
+	"Mind",
+	"Rage"}
     
     
 classes={
-    "HEIR", --1
-	"SEER",
-	"KNIGHT",
-	"WITCH",
-	"MAID",
-	"PAGE",
-	"PRINCE",
-	"ROGUE",
-	"THIEF",
-	"SYLPH",
-	"BARD",
-	"MAGE"}
+    "Heir", --1
+	"Seer",
+	"Knight",
+	"Witch",
+	"Maid",
+	"Page",
+	"Prince",
+	"Rogue",
+	"Thief",
+	"Sylph",
+	"Bard",
+	"Mage"}

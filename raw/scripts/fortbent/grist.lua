@@ -51,45 +51,4 @@ local function gristTorrent()
     grist:save()
 end
 
-local function getClaspect(unit)
-    local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
-    local unitTable=roses.UnitTable[tostring(unit.id)]
-    if not unitTable then return {class=nil,color=nil} end
-    local unitClasses = roses.UnitTable[tostring(unit.id)]['Classes']
-    if not unitClasses then return {class=nil,color=nil} end 
-    local currentClass = unitClasses['Current']
-    if not currentClass then return {class=nil,color=nil} end
-    local classes = roses.ClassTable
-    local currentClassName = currentClass['Name']
-    if not unitClasses[currentClassName] then return {class=nil,color=nil} end
-    local currentClassLevel = tonumber(unitClasses[currentClassName]['Level'])+1
-    local ofLocations={currentClassName:find('_OF_')}
-    local className=currentClassName:sub(1,1)..currentClassName:sub(2,ofLocations[1]-1):lower()
-    local aspectName=currentClassName:sub(ofLocations[2]+1,ofLocations[2]+1)..currentClassName:sub(ofLocations[2]+2,-1):lower()
-    return {class=className,aspect=aspectName,level=currentClassLevel}
-end
-
-local function experienceTorrent()
-    local timeout_tick=1
-    local stealy_void_hero=false
-    local seery_doom_hero=false
-    for k,v in ipairs(df.global.world.units.active) do
-        if dfhack.units.isCitizen(v) then
-            local claspect=getClaspect(v)
-            if not seery_doom_hero and (claspect.aspect=='Doom' and (claspect.class=='Seer' or claspect.class=='Mage')) and claspect.level>5 then
-                seery_doom_hero=v
-            elseif not stealy_void_hero and claspect.aspect=='Void' and (claspect.class=='Rogue' or claspect.class=='Thief') and claspect.level>5 then
-                stealy_void_hero=v
-            end
-            dfhack.timeout(math.floor(timeout_tick),'ticks',function() pcall(function() dfhack.run_script('classes/add-experience','-unit',v.id,'-amount',1) end) end)
-            timeout_tick=timeout_tick+.5
-        end
-    end
-    if stealy_void_hero and seery_doom_hero then
-        dfhack.run_script('fortbent/caledfwlch_event','-void',stealy_void_hero.id,'-doom',seery_doom_hero.id)
-    end
-end
-
 require('repeat-util').scheduleUnlessAlreadyScheduled('GristTorrent',7,'days',gristTorrent)
-
-require('repeat-util').scheduleUnlessAlreadyScheduled('ExperienceTorrent',28,'days',experienceTorrent)
