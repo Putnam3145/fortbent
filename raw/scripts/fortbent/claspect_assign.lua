@@ -68,8 +68,8 @@ function getClass(unit)
     local passive=50-active
     local male_lean=unit.sex==0 and 0 or 20
     local female_lean=unit.sex==1 and 20 or 0
-    local male_exclusive=unit.sex==0 and 0 or 1
-    local female_exclusive=unit.sex==1 and 0 or 1
+    local male_exclusive=unit.sex==0 and 0.5 or 1
+    local female_exclusive=unit.sex==1 and 0.5 or 1
     class_pers.Heir=passive+round(traits.PERSEVERENCE/2)+male_lean --Equius demands things insistently and John follows instructions even when he thinks they're dumb.
     class_pers.Seer=passive+round(traits.CURIOUS/2)+female_lean
     class_pers.Knight=active+round(traits.BRAVERY/2)+male_lean --Based more on the archetype of knight than the knights we've seen (Latula, Karkat, Dave)
