@@ -39,12 +39,11 @@ end
 function assignSkillToUnit(unit,skill)
     local skillAssignMusicalSkill=df.unit_musical_skill:new()
     skillAssignMusicalSkill.id=skillWorldIDs[skill.name]
-    unit.status.current_soul.perfomance_skills.musical_forms:insert('#',skillAssignMusicalSkill)
-    --yes, perfomance, not my typo
+    unit.status.current_soul.performance_skills.musical_forms:insert('#',skillAssignMusicalSkill)
 end
 
 function getSkillFromUnit(unit,skill)
-    for k,v in ipairs(unit.status.current_soul.perfomance_skills.musical_forms) do
+    for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         if df.musical_form.find(v.id).name.first_name==skill.name then return v end
     end
     return false --not found
@@ -122,7 +121,7 @@ local function canGainExperienceWithCriterion(skill,criterion)
 end
 
 function addExperienceToAllSkillsWithLevelCriterion(unit,amount,criterion)
-    for k,v in ipairs(unit.status.current_soul.perfomance_skills.musical_forms) do
+    for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         local musicalForm=df.musical_form.find(v.id)
         if musicalForm.name.unknown==magicIdentifier and canGainExperienceWithCriterion(skills[musicalForm.name],criterion) then
             addExperienceToSkill(unit,v,amount)
