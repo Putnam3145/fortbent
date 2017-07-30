@@ -318,24 +318,26 @@ end
 
 eventful.onUnitDeath.addSburbExperience=function(unit_id)
     local deadUnit=df.unit.find(unit_id)
-    local expValue=(unit.body.blood_max/500)
-    expValue=expValue+unit.body.physical_attrs.STRENGTH.value/1000
-    expValue=expValue+unit.body.physical_attrs.AGILITY.value/1000
-    expValue=expValue+unit.body.physical_attrs.TOUGHNESS.value/1000
-    expValue=expValue+unit.body.physical_attrs.ENDURANCE.value/1000
-    expValue=expValue+unit.status.current_soul.mental_attrs.WILLPOWER.value/1500
-    expValue=expValue+unit.status.current_soul.mental_attrs.SPATIAL_SENSE.value/1000
-    expValue=expValue+unit.status.current_soul.mental_attrs.KINESTHETIC_SENSE.value/1000
-    expValue=expValue+unit.status.current_soul.mental_attrs.FOCUS.value/2000
-    local killerId=df.incident.find(deadUnit.counters.death_id).killer
-    if df.unit.find(killerId) then
-        putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(killerId),expValue,'sburb')
+    local expValue=(deadUnit.body.blood_max/500)
+    expValue=expValue+deadUnit.body.physical_attrs.STRENGTH.value/1000
+    expValue=expValue+deadUnit.body.physical_attrs.AGILITY.value/1000
+    expValue=expValue+deadUnit.body.physical_attrs.TOUGHNESS.value/1000
+    expValue=expValue+deadUnit.body.physical_attrs.ENDURANCE.value/1000
+    expValue=expValue+deadUnit.status.current_soul.mental_attrs.WILLPOWER.value/1500
+    expValue=expValue+deadUnit.status.current_soul.mental_attrs.SPATIAL_SENSE.value/1000
+    expValue=expValue+deadUnit.status.current_soul.mental_attrs.KINESTHETIC_SENSE.value/1000
+    expValue=expValue+deadUnit.status.current_soul.mental_attrs.FOCUS.value/2000
+    if df.incident.find(deadUnit.counters.death_id) then
+        local killerId=df.incident.find(deadUnit.counters.death_id).killer
+        if df.unit.find(killerId) then
+            putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(killerId),expValue,'sburb')
+        end
     end
 end
 
 eventful.onItemCreated.addSburbExperience=function(item_id)
     local item=df.item.find(item_id)
-    if pcall(function() tostring(item.maker) end) and unit.find(item.maker) then
+    if pcall(function() tostring(item.maker) end) and df.unit.find(item.maker) then
         putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(item.maker),(item.quality+1)^2,'sburb')
     end
 end

@@ -15,7 +15,7 @@ for k,aspect in ipairs(claspectNames.aspects) do
         table.insert(claspect.syndromes[6],'FRAYMOTIF')
         table.insert(claspect.syndromes[10],'CAN_GO_GOD_TIER')
         claspect.levelUpThresholds={100,300,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900} --believe it or not, 1-indexed shit is helpful here
-        claspect.criteria={'sburb'}
+        claspect.experienceCriteria={'sburb'}
     end
     claspects['Page of '..aspect].levelUpThresholds={100,200,400,700,1100,1600,2200,2900,3700,4800,5800,6900,8100,9400,10800}
 end

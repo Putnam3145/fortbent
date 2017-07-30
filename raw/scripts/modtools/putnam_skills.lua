@@ -1,8 +1,8 @@
 --@ module = true
 
-local skills={}
+skills={}
 
-local skillWorldIDs={}
+skillWorldIDs={}
 
 local magicIdentifier=3145
 
@@ -31,7 +31,7 @@ end
 
 function addSkills(tbl)
     for k,v in pairs(tbl) do
-        table.insert(skills,v)
+        skills[v.name]=v
     end
     insertSkillsIntoWorld()
 end
@@ -48,7 +48,7 @@ function assignSkillToUnit(unit,skill)
 end
 
 function getSkillFromUnit(unit,skill)
-    if not unit.status or unit.status.current_soul or unit.status.current_soul.performance_skills then return false end
+    if not unit.status or not unit.status.current_soul or not unit.status.current_soul.performance_skills then return false end
     for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         if df.musical_form.find(v.id).name.first_name==skill then return v end
     end
@@ -66,7 +66,7 @@ end
 
 local function addSyndromesToUnit(syndromes,unit)
     for k,syndrome in ipairs(syndromes) do
-        dfhack.run_script('modtools/add-syndrome','-target',unit.id,'-syndrome',syndrome,'-resetPolicy','-DoNothing')
+        dfhack.run_script('modtools/add-syndrome','-target',unit.id,'-syndrome',syndrome,'-resetPolicy','DoNothing')
     end
 end
 
@@ -86,45 +86,40 @@ local function addAttributesToUnit(attributes,unit)
     end
 end
 
-local function addRealSkillsToUnit(skills,unit)
-    for k,skill in ipairs(skills) do
+local function addRealSkillsToUnit(realSkills,unit)
+    for k,skill in ipairs(realSkills) do
         dfhack.run_script('modtools/skill-change','-unit',unit.id,'-value',skill.bonus,'-mode','add','-granularity','experience','-skill',skill.name)
     end
 end
 
 local function levelSkill(unit,skill,level) --local because all leveling should go through the much more proper channel of addExperienceToSkill
-    if type(skill)=='table' then
+    if skill.levelfuncs and skill.levelfuncs[level] then 
         skill.levelfuncs[level](unit)
+    end
+    if skill.syndromes and skill.syndromes[level] then 
         addSyndromesToUnit(skill.syndromes[level],unit)
-        addAttributesToUnit(skill.attributes[level],unit)
-        addRealSkillsToUnit(properSkill.skills[level],unit)
-    elseif type(skill)=='userdata' and skill._type==df.unit_musical_skill then
-        local properSkill=skills[df.musical_form.find(skill.id).name.first_name]
-        properSkill.levelfuncs[level](unit)
-        addSyndromesToUnit(properSkill.syndromes[level],unit)
-        addAttributesToUnit(properSkill.attributes[level],unit)
-        addRealSkillsToUnit(properSkill.skills[level],unit)
+    end
+    if skill.attributes and skill.attributes[level] then
+        addAttributesToUnit(skill.attributes[level],unit)        
+    end
+    if skill.skills and skill.skills[level] then
+        addRealSkillsToUnit(skill.skills[level],unit)
     end
 end
 
 function addExperienceToSkill(unit,skill,amount)
     --will add experience to unit and level up if it reaches a level up threshold defined in the data files
     --return false on failure, true on success
-    local unitSkill
-    if type(skill)=='table' then
-        unitSkill=getSkillFromUnit(unit,skill)
-    elseif type(skill)=='userdata' and skill._type==df.unit_musical_skill then
-        unitSkill=skill
-    end
+    local unitSkill=getSkillFromUnit(unit,skill)
     if not unitSkill then return false end --skills should only be explicitly added
     unitSkill.experience=unitSkill.experience+amount
-    local levelThreshold=skill.levelUpThresholds[unitSkill.rating+1] or 1/0 --[[IEEE 754 standard, so this is positive infinity, which, fun fact, lua counts as more than any integer.
+    local putnamSkill=skills[skill]
+    local levelThreshold=putnamSkill.levelUpThresholds[unitSkill.rating+1] or 1/0 --[[IEEE 754 standard, so this is positive infinity, which, fun fact, lua counts as more than any integer.
       Like any clever hack, this is actually quite stupid, but I was feeling lazy.]]
-    if unitSkill.experience>levelThreshold then
+    while unitSkill.experience>levelThreshold do
         unitSkill.experience=unitSkill.experience-levelThreshold
-        levelSkill(unit,skill,unitSkill.rating+1)
+        levelSkill(unit,putnamSkill,unitSkill.rating+1)
         unitSkill.rating=unitSkill.rating+1
-        addExperienceToSkill(unit,unitSkill,0) -- makes sure that, should the unit get enough experience to level multiple times, the unit will go through each level individually
     end
     return true
 end
@@ -139,8 +134,8 @@ end
 function addExperienceToAllSkillsWithLevelCriterion(unit,amount,criterion)
     for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         local musicalForm=df.musical_form.find(v.id)
-        if musicalForm.name.unknown==magicIdentifier and canGainExperienceWithCriterion(skills[musicalForm.name],criterion) then
-            addExperienceToSkill(unit,v,amount)
+        if musicalForm.name.unknown==magicIdentifier and canGainExperienceWithCriterion(skills[musicalForm.name.first_name],criterion) then
+            addExperienceToSkill(unit,musicalForm.name.first_name,amount)
         end
     end
 end
