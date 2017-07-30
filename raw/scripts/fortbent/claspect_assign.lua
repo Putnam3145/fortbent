@@ -16,7 +16,7 @@ function assignClaspect(unit,aspect,class)
         local hist_figure=df.historical_figure.find(unit.hist_figure_id)
         if hist_figure and hist_figure.info and hist_figure.info.kills then
             for k,v in pairs(hist_figure.info.kills.killed_count) do
-                local caste=df.creature_raw.find(hist_figure_info.kills.killed_race[k]).caste[hist_figure_info.kills.killed_caste[k]]
+                local caste=df.creature_raw.find(hist_figure.info.kills.killed_race[k]).caste[hist_figure.info.kills.killed_caste[k]]
                 local bodySizeInfo=caste.body_size_1
                 local bodySize=bodySizeInfo[#bodySizeInfo-1]/500
                 local strength=caste.attributes.phys_att_range.STRENGTH[3]/1000
