@@ -10,6 +10,8 @@ fraymotifAdjectives={}
 
 local claspects=dfhack.script_environment('fortbent/claspects')
 
+local fraymotifFuncs=dfhack.script_environment('fortbent/fraymotifFuncs')
+
 for k,v in ipairs(claspects.aspects) do
     fraymotifEffects[v]={}
     fraymotifAffects[v]={}
@@ -61,31 +63,29 @@ fraymotifEffects.BREATH.GENERIC=function(attacker,defender,modifiers,affectType,
         local reduction=30 --degrees in Fahrenheit/urists of change in temperature
         for k,v in ipairs(modifiers) do
             if v.speed then speed=math.ceil(speed/v.speed) end
-            if v.strength then reduction=math.ceil(reduction*v.strength) end
+            if v.strength then reduction=math.floor(reduction*v.strength+0.5) end
         end
-        local unitFuncs=dfhack.script_environment('functions/unit') --hey i'm using more of roses stuff now
         if speed>0 then
             for i=math.floor(speed/reduction),speed,speed/reduction do
                 dfhack.timeout(math.floor(i),'ticks',function() 
                     for k,v in ipairs(defender.status2.body_part_temperature) do
-                        unitFuncs.changeBody(defender,k,'temperature',-1,0)
+                        v.whole=math.max(0,math.min(65535,v.whole-1))
                     end
                 end)
             end
         else
             for k,v in ipairs(defender.status2.body_part_temperature) do
-                unitFuncs.changeBody(defender,k,'temperature',-reduction,0)
+                v.whole=math.max(0,math.min(65535,v.whole-reduction))
             end
         end
     elseif affectType=='soul' then
-        local unitFuncs=dfhack.script_environment('functions/unit')
         local duration=1000
         local reduction=500
         for k,v in ipairs(modifiers) do
             if v.duration then duration=math.ceil(duration*v.duration) end
             if v.strength then reduction=math.ceil(reduction*v.strength) end
         end
-        unitFuncs.changeAttribute(defender,'WILLPOWER',-reduction,duration)
+        fraymotifFuncs.changeAttribute(defender,'WILLPOWER',-reduction,duration)
     end
     return true
 end
@@ -98,29 +98,27 @@ fraymotifEffects.LIGHT.GENERIC=function(attacker,defender,modifiers,affectType,s
             if v.speed then speed=math.ceil(speed/v.speed) end
             if v.strength then addition=math.ceil(addition*v.strength) end
         end
-        local unitFuncs=dfhack.script_environment('functions/unit') --hey i'm using more of roses stuff now
         if speed>0 then
             for i=math.floor(speed/addition),speed,speed/addition do
                 dfhack.timeout(math.floor(i),'ticks',function() 
                     for k,v in ipairs(defender.status2.body_part_temperature) do
-                        unitFuncs.changeBody(defender,k,'temperature',1,0)
+                        v.whole=math.max(0,math.min(65535,v.whole+1))
                     end
                 end)
             end
         else
             for k,v in ipairs(defender.status2.body_part_temperature) do
-                unitFuncs.changeBody(defender,k,'temperature',addition,0)
+                v.whole=math.max(0,math.min(65535,v.whole+addition))
             end
         end
     elseif affectType=='soul' then
-        local unitFuncs=dfhack.script_environment('functions/unit')
         local duration=1000
         local reduction=500
         for k,v in ipairs(modifiers) do
             if v.duration then duration=math.ceil(duration*v.duration) end
             if v.strength then reduction=math.ceil(reduction*v.strength) end
         end
-        unitFuncs.changeAttribute(defender,'ANALYTICAL_ABILITY',-reduction,duration)
+        fraymotifFuncs.changeAttribute(defender,'ANALYTICAL_ABILITY',-reduction,duration)
     end
     return true
 end
@@ -131,9 +129,8 @@ fraymotifEffects.TIME.GENERIC=function(attacker,defender,modifiers,affectType,sp
         for k,v in ipairs(modifiers) do
             if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
         end
-        local wrapper=dfhack.script_environment('functions/wrapper')
-        local targetList,numFound=wrapper.checkLocation(attacker,radius)
-        local allies,num_civ=wrapper.checkTarget(attacker,targetList,'civ')
+        local targetList,numFound=fraymotifFuncs.checkLocation(attacker,radius)
+        local allies,num_allies_found=fraymotifFuncs.checkTarget(attacker,targetList,'civ')
         for k,v in ipairs(allies) do
             dfhack.run_script('full-heal','-r','-unit',v.id)
         end
@@ -192,12 +189,11 @@ fraymotifEffects.TIME.GENERIC=function(attacker,defender,modifiers,affectType,sp
 end
 
 fraymotifEffects.SPACE.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
-    local unitFuncs=dfhack.script_environment('functions/unit')
     local velocity=1
     for k,v in ipairs(modifiers) do
         if v.strength then velocity=v.strength*velocity end
     end
-    unitFuncs.makeProjectile(defender,{0,0,velocity})
+    fraymotifFuncs.makeProjectile(defender,{0,0,velocity})
 end
 
 --life is generic
@@ -210,11 +206,10 @@ local function hopeSplode(hopePerson,victim,power,range)
     local deltaCoords={x=hopePerson.pos.x-victim.pos.x,y=hopePerson.pos.y-victim.pos.y,z=hopePerson.pos.z-victim.pos.z}
     local biggestCoord=math.max(deltaCoords.x,deltaCoords.y,deltaCoords.z)
     if biggestCoord==0 then biggestCoord=1 deltaCoords.z=1 end
-    local direction={x=deltaCoords.x/biggestCoord,y=deltaCoords.y/biggestCoord,z=deltaCoords.z/biggestCoord} --i do not particularly feel like quaternions at the moment
+    local direction={x=deltaCoords.x/biggestCoord,y=deltaCoords.y/biggestCoord,z=deltaCoords.z/biggestCoord}
     local distance=math.sqrt((deltaCoords.x*2)^2+(deltaCoords.y*2)^2+(deltaCoords.z*3)^2) --tiles are 2x2x3
     local newPower=power/(distance/(2.3333*math.max(0.5,range)))^3 --2.3333 for the proper meter adjustment up there
-    local unitFuncs=dfhack.script_environment('functions/unit')
-    unitFuncs.makeProjectile(victim,{direction.x*newPower,direction.y*newPower,direction.z*newPower}) --basically an expanding concussive wave with realistic dropoff
+    fraymotifFuncs.makeProjectile(victim,{direction.x*newPower,direction.y*newPower,direction.z*newPower}) --basically an expanding concussive wave with realistic dropoff
 end
 
 fraymotifEffects.HOPE.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
@@ -224,10 +219,9 @@ fraymotifEffects.HOPE.GENERIC=function(attacker,defender,modifiers,affectType,sp
         if v.strength then power=v.strength*power end
         if v.radius then range=v.radius+range end
     end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(attacker,{50,50,50}) --!!!!!
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    local targetList=fraymotifFuncs.checkLocation(attacker,{50,50,50}) --!!!!!
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     for k,v in ipairs(enemies) do
         hopeSplode(attacker,defender,power,range)
     end
@@ -276,11 +270,10 @@ fraymotifEffects.BLOOD.GENERIC=function(attacker,defender,modifiers,affectType,s
             if v.speed then tickRate=math.ceil(velocity*v.speed) end
         end
         defender.body.blood_count=defender.body.blood_count-damage
-        local wrapper=dfhack.script_environment('functions/wrapper')
         local enemyToTarget=false
         do
-            local targetList=wrapper.checkLocation(defender,{5,5,0})
-            local enemies,num_enemies_found=wrapper.checkTarget(defender,targetList,'civ')
+            local targetList=fraymotifFuncs.checkLocation(defender,{5,5,0})
+            local enemies,num_enemies_found=fraymotifFuncs.checkTarget(defender,targetList,'civ')
             enemyToTarget=enemies[1]
         end
         local itemFuncs=dfhack.script_environment('functions/item')
@@ -330,9 +323,8 @@ fraymotifEffects.MIND.SEER=function(attacker,defender,modifiers,affectType,speci
         for k,v in ipairs(modifiers) do
             if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
         end
-        local wrapper=require('functions/wrapper')
-        local targetList,numFound=wrapper.checkLocation(attacker,radius)
-        local allies,num_civ=wrapper.checkTarget(attacker,targetList,'civ')
+        local targetList,numFound=fraymotifFuncs.checkLocation(attacker,radius)
+        local allies,num_civ=fraymotifFuncs.checkTarget(attacker,targetList,'civ')
         for k,v in ipairs(allies) do
             dfhack.run_script('full-heal','-r','-unit',v.id)
         end
@@ -397,10 +389,9 @@ fraymotifAffects.GENERIC=function(attacker,defender,effect,modifiers)
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
     end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found}) --strength is divided between all of the enemies found.
     for k,v in ipairs(enemies) do
@@ -507,10 +498,9 @@ fraymotifAffects.BREATH.GENERIC=function(attacker,defender,effect,modifiers)
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
     end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found})
     for k,v in ipairs(enemies) do
@@ -530,10 +520,9 @@ fraymotifAffects.TIME.GENERIC=function(attacker,defender,effect,modifiers)
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
     end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found})
     for k,v in ipairs(enemies) do
@@ -549,11 +538,9 @@ fraymotifAffects.SPACE.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={3,3,3} --seriously bigger's fine
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
-    end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    end    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found,duration=0.8})
     for k,v in ipairs(enemies) do
@@ -572,10 +559,9 @@ fraymotifAffects.HOPE.GENERIC=function(attacker,defender,effect,modifiers)
         for k,v in ipairs(modifiers) do
             if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
         end
-        local wrapper=dfhack.script_environment('functions/wrapper')
-        local targetList=wrapper.checkLocation(defender,radius)
-        local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-        local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+        local targetList=fraymotifFuncs.checkLocation(defender,radius)
+        local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+        local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
         local num_found=num_animals_found+num_enemies_found
         table.insert(modifiers,{strength=1/num_found})
         for k,v in ipairs(enemies) do
@@ -595,11 +581,9 @@ fraymotifAffects.HEART.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
-    end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    end    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found})
     for k,v in ipairs(enemies) do
@@ -616,11 +600,9 @@ fraymotifAffects.BLOOD.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
-    end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    end    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found})
     for k,v in ipairs(enemies) do
@@ -637,11 +619,9 @@ fraymotifAffects.DOOM.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
-    end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    end    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found})
     for k,v in ipairs(enemies) do
@@ -657,11 +637,9 @@ fraymotifAffects.MIND.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
-    end
-    local wrapper=dfhack.script_environment('functions/wrapper')
-    local targetList=wrapper.checkLocation(defender,radius)
-    local enemies,num_enemies_found=wrapper.checkTarget(attacker,targetList,'enemy')
-    local animals,num_animals_found=wrapper.checkTarget(attacker,targetList,'wild')
+    end    local targetList=fraymotifFuncs.checkLocation(defender,radius)
+    local enemies,num_enemies_found=fraymotifFuncs.checkTarget(attacker,targetList,'enemy')
+    local animals,num_animals_found=fraymotifFuncs.checkTarget(attacker,targetList,'wild')
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found})
     for k,v in ipairs(enemies) do
@@ -693,9 +671,8 @@ fraymotifAffects.RAGE.GENERIC=function(attacker,defender,effect,modifiers)
         for k,v in ipairs(modifiers) do
             if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
         end
-        local wrapper=dfhack.script_environment('functions/wrapper')
-        local targetList,numFound=wrapper.checkLocation(defender,radius) --completely indiscriminate!
-        local _,num_civ=wrapper.checkTarget(attacker,targetList,'civ')
+        local targetList,numFound=fraymotifFuncs.checkLocation(defender,radius) --completely indiscriminate!
+        local _,num_civ=fraymotifFuncs.checkTarget(attacker,targetList,'civ')
         table.insert(modifiers,{strength=1/numFound}) 
         local yes_or_no=script.showYesNoPrompt('Fraymotifs','Rage fraymotif will catch '..tostring(num_civ)..' citizens in AOE. Use?')
         if yes_or_no then

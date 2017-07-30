@@ -6,18 +6,6 @@ local skillWorldIDs={}
 
 local magicIdentifier=3145
 
-local physicalAttrs={}
-
-local mentalAttrs={}
-
-for k,v in ipairs(df.mental_attribute_type) do
-    mentalAttrs[v]=k
-end
-
-for k,v in ipairs(df.physical_attribute_type) do
-    physicalAttrs[v]=k
-end
-
 local function insertSkillsIntoWorld()
     local skillAlreadyInWorld={}
     for k,v in ipairs(df.global.world.musical_forms.all) do
@@ -70,11 +58,11 @@ end
 
 local function addAttributesToUnit(attributes,unit)
     for k,v in ipairs(attributes) do
-        if physicalAttrs[v.name] then
+        if df.physical_attribute_type[v.name] then
             local unitPhysicalAttr=unit.body.physical_attrs[v.name]
             math.max(0,unitPhysicalAttr.value=unitPhysicalAttr.value+v.bonus)
             math.max(0,unitPhysicalAttr.max_value=unitPhysicalAttr.max_value+(v.bonus*2))
-        elseif mentalAttrs[v.name] then
+        elseif df.mental_attribute_type[v.name] then
             local unitMentalAttr=unit.status.current_soul.mental_attrs[v.name]
             math.max(0,unitMentalAttr.value=unitMentalAttr.value+v.bonus)
             math.max(0,unitMentalAttr.max_value=unitMentalAttr.max_value+(v.bonus*2))        
