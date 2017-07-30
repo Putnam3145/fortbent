@@ -57,7 +57,7 @@ fraymotifEffects.GENERIC=function(attacker,defender,modifiers,affectType,special
     end
 end
 
-fraymotifEffects.BREATH.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Breath.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     if affectType=='unit' then
         local speed=100 --how long it'll take to fully change the temperature
         local reduction=30 --degrees in Fahrenheit/urists of change in temperature
@@ -90,7 +90,7 @@ fraymotifEffects.BREATH.GENERIC=function(attacker,defender,modifiers,affectType,
     return true
 end
 
-fraymotifEffects.LIGHT.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Light.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     if affectType=='unit' then
         local speed=100 --how long it'll take to fully change the temperature
         local addition=30 --degrees in Fahrenheit/urists of change in temperature
@@ -123,7 +123,7 @@ fraymotifEffects.LIGHT.GENERIC=function(attacker,defender,modifiers,affectType,s
     return true
 end
 
-fraymotifEffects.TIME.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Time.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     if (specialAffect.seer or specialAffect.mage) and specialAffect.mind then
         local radius = {3,3,3}
         for k,v in ipairs(modifiers) do
@@ -188,7 +188,7 @@ fraymotifEffects.TIME.GENERIC=function(attacker,defender,modifiers,affectType,sp
     end
 end
 
-fraymotifEffects.SPACE.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Space.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     local velocity=1
     for k,v in ipairs(modifiers) do
         if v.strength then velocity=v.strength*velocity end
@@ -212,7 +212,7 @@ local function hopeSplode(hopePerson,victim,power,range)
     fraymotifFuncs.makeProjectile(victim,{direction.x*newPower,direction.y*newPower,direction.z*newPower}) --basically an expanding concussive wave with realistic dropoff
 end
 
-fraymotifEffects.HOPE.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Hope.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     local power=1
     local range=1
     for k,v in ipairs(modifiers) do
@@ -230,7 +230,7 @@ fraymotifEffects.HOPE.GENERIC=function(attacker,defender,modifiers,affectType,sp
     end
 end
 
-fraymotifEffects.VOID.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Void.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     local chance=0.002
     for k,v in ipairs(modifiers) do
         if v.strength then chance=v.strength*chance end
@@ -241,7 +241,7 @@ fraymotifEffects.VOID.GENERIC=function(attacker,defender,modifiers,affectType,sp
     end
 end
 
-fraymotifEffects.HEART.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Heart.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     if specialAffect.mind then
         local new_soul=df.unit_soul:new()
         new_soul:assign(defender.status.current_soul) --I'll consider souls[0] immutable; any permanent changes go into a new one. 
@@ -261,7 +261,7 @@ fraymotifEffects.HEART.GENERIC=function(attacker,defender,modifiers,affectType,s
     return true
 end
 
-fraymotifEffects.BLOOD.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Blood.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     if affectType=='unit' then
         local damage=150
         local velocity=20
@@ -290,7 +290,7 @@ fraymotifEffects.BLOOD.GENERIC=function(attacker,defender,modifiers,affectType,s
     end
 end
 
-fraymotifEffects.DOOM.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Doom.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     local chance=0.002
     local doomTimer=1000
     for k,v in ipairs(modifiers) do
@@ -302,7 +302,7 @@ fraymotifEffects.DOOM.GENERIC=function(attacker,defender,modifiers,affectType,sp
     end
 end
 
-fraymotifEffects.MIND.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Mind.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     if specialAffect.heart then
         local new_soul=df.unit_soul:new()
         new_soul:assign(defender.status.souls[0])
@@ -317,8 +317,8 @@ fraymotifEffects.MIND.GENERIC=function(attacker,defender,modifiers,affectType,sp
     end
 end
 
-fraymotifEffects.MIND.SEER=function(attacker,defender,modifiers,affectType,specialAffect)
-    if specialAffect.time then
+fraymotifEffects.Mind.Seer=function(attacker,defender,modifiers,affectType,specialAffect)
+    if specialAffect.Time then
         local radius = {3,3,3}
         for k,v in ipairs(modifiers) do
             if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
@@ -329,12 +329,12 @@ fraymotifEffects.MIND.SEER=function(attacker,defender,modifiers,affectType,speci
             dfhack.run_script('full-heal','-r','-unit',v.id)
         end
     else
-        fraymotifEffects.MIND.GENERIC(attacker,defender,modifiers,affectType,specialAffect)
+        fraymotifEffects.Mind.GENERIC(attacker,defender,modifiers,affectType,specialAffect)
     end
 end
 
 local function getBpToAttack(unit,specialAffect,attackInfo)
-    if specialAffect.space then
+    if specialAffect.Space then
         return attackInfo.body_part_idx[0]
     else
         for k,bp in ipairs(unit.body.body_plan.body_parts) do
@@ -350,7 +350,7 @@ local function getAttackToUse(unit,specialAffect)
     end
 end
 
-fraymotifEffects.RAGE.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
+fraymotifEffects.Rage.GENERIC=function(attacker,defender,modifiers,affectType,specialAffect)
     local strength=500
     for k,v in ipairs(modifiers) do
         if v.strength then strength=math.ceil(v.strength*strength) end
@@ -406,94 +406,94 @@ end
 
 fraymotifModifiers.GENERIC={strength=1,speed=1,radius=0,duration=1} --LITERALLY NOTHING
 
-fraymotifModifiers.BREATH.GENERIC={strength=1.2,speed=1.3,radius=1}
+fraymotifModifiers.Breath.GENERIC={strength=1.2,speed=1.3,radius=1}
 
-fraymotifModifiers.LIGHT.GENERIC={strength=1.3,radius=1}
+fraymotifModifiers.Light.GENERIC={strength=1.3,radius=1}
 
-fraymotifModifiers.TIME.GENERIC={speed=1.5,duration=1.5}
+fraymotifModifiers.Time.GENERIC={speed=1.5,duration=1.5}
 
-fraymotifModifiers.SPACE.GENERIC={radius=3,strength=2}
+fraymotifModifiers.Space.GENERIC={radius=3,strength=2}
 
-fraymotifModifiers.LIFE.GENERIC={strength=2,speed=2,duration=0.4}
+fraymotifModifiers.Life.GENERIC={strength=2,speed=2,duration=0.4}
 
-fraymotifModifiers.HOPE.GENERIC={strength=1.6,radius=1}
+fraymotifModifiers.Hope.GENERIC={strength=1.6,radius=1}
 
-fraymotifModifiers.VOID.GENERIC=fraymotifModifiers.GENERIC --get it haha it's NOTHING you fat nasty trash
+fraymotifModifiers.Void.GENERIC=fraymotifModifiers.GENERIC --get it haha it's NOTHING you fat nasty trash
 
-fraymotifModifiers.HEART.GENERIC={strength=1.1,speed=1.6,radius=-1}
+fraymotifModifiers.Heart.GENERIC={strength=1.1,speed=1.6,radius=-1}
 
-fraymotifModifiers.BLOOD.GENERIC={strength=2,radius=-2,duration=0.5}
+fraymotifModifiers.Blood.GENERIC={strength=2,radius=-2,duration=0.5}
 
-fraymotifModifiers.DOOM.GENERIC={strength=2,speed=.6}
+fraymotifModifiers.Doom.GENERIC={strength=2,speed=.6}
 
-fraymotifModifiers.MIND.GENERIC={strength=1.1,speed=1.6,radius=-1}
+fraymotifModifiers.Mind.GENERIC={strength=1.1,speed=1.6,radius=-1}
 
-fraymotifModifiers.RAGE.GENERIC={strength=2,duration=0.8}
+fraymotifModifiers.Rage.GENERIC={strength=2,duration=0.8}
 
 fraymotifNames.GENERIC={'fray','motif'}
 
 fraymotifAdjectives.GENERIC={'very ordinary','still ordinary','generic','unchanged','ordinary','perfectly generic'}
 
-fraymotifNames.BREATH.GENERIC={'diffuse','chill'}
+fraymotifNames.Breath.GENERIC={'diffuse','chill'}
 
-fraymotifAdjectives.BREATH.GENERIC={'zephyrean','fluid','pressurized','boyling','boiling','windy'}
+fraymotifAdjectives.Breath.GENERIC={'zephyrean','fluid','pressurized','boyling','boiling','windy'}
 
-fraymotifNames.LIGHT.GENERIC={'targeted','heat'}
+fraymotifNames.Light.GENERIC={'targeted','heat'}
 
-fraymotifAdjectives.LIGHT.GENERIC={'prismatic','spectral','bright','energetic','luminous','electromagnetic'}
+fraymotifAdjectives.Light.GENERIC={'prismatic','spectral','bright','energetic','luminous','electromagnetic'}
 
-fraymotifNames.TIME.GENERIC={'quick','stopper'}
+fraymotifNames.Time.GENERIC={'quick','stopper'}
 
-fraymotifAdjectives.TIME.GENERIC={'allegro','presto','accelerated','paced','high-tempo','quicker'} --listen okay they'll all do the same thing anyway
+fraymotifAdjectives.Time.GENERIC={'allegro','presto','accelerated','paced','high-tempo','quicker'} --listen okay they'll all do the same thing anyway
 
-fraymotifNames.SPACE.GENERIC={'geometric','accelerator'}
+fraymotifNames.Space.GENERIC={'geometric','accelerator'}
 
-fraymotifAdjectives.SPACE.GENERIC={'3-D','volumetric','widened','increased','enlargened','bigger'}
+fraymotifAdjectives.Space.GENERIC={'3-D','volumetric','widened','increased','enlargened','bigger'}
 
-fraymotifNames.LIFE.GENERIC={'targeted','lifedrain'}
+fraymotifNames.Life.GENERIC={'targeted','lifedrain'}
 
-fraymotifAdjectives.LIFE.GENERIC={'vigorous','pulchritudinous','vimful','squirming','writhing','lifelike'}
+fraymotifAdjectives.Life.GENERIC={'vigorous','pulchritudinous','vimful','squirming','writhing','lifelike'}
 
-fraymotifNames.HOPE.GENERIC={'optimistic','hopesplosion'}
+fraymotifNames.Hope.GENERIC={'optimistic','hopesplosion'}
 
-fraymotifAdjectives.HOPE.GENERIC={'hopeful','forward-thinking','gung-ho','enthusiastic','tally-ho','rip-snorting'}
+fraymotifAdjectives.Hope.GENERIC={'hopeful','forward-thinking','gung-ho','enthusiastic','tally-ho','rip-snorting'}
 
-fraymotifNames.VOID.GENERIC={'targeted','zap'}
+fraymotifNames.Void.GENERIC={'targeted','zap'}
 
-fraymotifAdjectives.VOID.GENERIC={'very ordinary','still ordinary','generic','unchanged','ordinary','perfectly generic'}
+fraymotifAdjectives.Void.GENERIC={'very ordinary','still ordinary','generic','unchanged','ordinary','perfectly generic'}
 
-fraymotifNames.HEART.GENERIC={'soul','trauma'}
+fraymotifNames.Heart.GENERIC={'soul','trauma'}
 
-fraymotifNames.HEART.GENERIC.MIND={}
+fraymotifNames.Heart.GENERIC.Mind={}
 
-  fraymotifNames.HEART.GENERIC.MIND.GENERIC="Soulfray" --this is stupid
+  fraymotifNames.Heart.GENERIC.Mind.GENERIC="Soulfray" --this is stupid
 
-fraymotifAdjectives.HEART.GENERIC={'beating','splintered','self-actualized','personal','pink','hearty'}
+fraymotifAdjectives.Heart.GENERIC={'beating','splintered','self-actualized','personal','pink','hearty'}
 
-fraymotifNames.BLOOD.GENERIC={'bloody','bloodshot'} --"bloody bloodshot" is hilarious okay
+fraymotifNames.Blood.GENERIC={'bloody','bloodshot'} --"bloody bloodshot" is hilarious okay
 
-fraymotifAdjectives.BLOOD.GENERIC={'bloody','bloody','bloody','bloody','bloody','bloody'} --:^Y
+fraymotifAdjectives.Blood.GENERIC={'bloody','bloody','bloody','bloody','bloody','bloody'} --:^Y
 
-fraymotifNames.DOOM.GENERIC={'slow-burn','doom'}
+fraymotifNames.Doom.GENERIC={'slow-burn','doom'}
 
-fraymotifAdjectives.DOOM.GENERIC={'defeatist','inevitable','wyrd','destined','finishing','depressed'}
+fraymotifAdjectives.Doom.GENERIC={'defeatist','inevitable','wyrd','destined','finishing','depressed'}
 
-fraymotifNames.MIND.GENERIC={'brainy','trauma'}
+fraymotifNames.Mind.GENERIC={'brainy','trauma'}
 
-fraymotifAdjectives.MIND.GENERIC={'mindful','freudian','compulsive','cognitive','punishing','synaptic'}
+fraymotifAdjectives.Mind.GENERIC={'mindful','freudian','compulsive','cognitive','punishing','synaptic'}
 
-fraymotifAdjectives.MIND.GENERIC.HEART={}
+fraymotifAdjectives.Mind.GENERIC.Heart={}
 
-  fraymotifAdjectives.MIND.GENERIC.HEART.GENERIC='Mindflay'
+  fraymotifAdjectives.Mind.GENERIC.Heart.GENERIC='Mindflay'
   
-  fraymotifAdjectives.MIND.SEER=fraymotifAdjectives.MIND.GENERIC
-  fraymotifAdjectives.MIND.SEER.TIME="Switch to someone who isn't a failure"
+  fraymotifAdjectives.Mind.Seer=fraymotifAdjectives.Mind.GENERIC
+  fraymotifAdjectives.Mind.Seer.Time="Switch to someone who isn't a failure"
 
-fraymotifNames.RAGE.GENERIC={'indiscriminatory','self-loathing'}
+fraymotifNames.Rage.GENERIC={'indiscriminatory','self-loathing'}
 
-fraymotifAdjectives.RAGE.GENERIC={'hateful','spiteful','incoherent','incandescent','indignant','potent'}
+fraymotifAdjectives.Rage.GENERIC={'hateful','spiteful','incoherent','incandescent','indignant','potent'}
 
-fraymotifAffects.BREATH.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Breath.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={2,2,2}
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
@@ -504,17 +504,17 @@ fraymotifAffects.BREATH.GENERIC=function(attacker,defender,effect,modifiers)
     local num_found=num_animals_found+num_enemies_found
     table.insert(modifiers,{strength=1/num_found})
     for k,v in ipairs(enemies) do
-        effect(attacker,defender,modifiers,'unit',{time=true})
+        effect(attacker,defender,modifiers,'unit',{Time=true})
     end
     for k,v in ipairs(animals) do
-        effect(attacker,defender,modifiers,'unit',{time=true})
+        effect(attacker,defender,modifiers,'unit',{Time=true})
     end
     return true
 end
 
---light is generic
+--Light is generic
 
-fraymotifAffects.TIME.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Time.GENERIC=function(attacker,defender,effect,modifiers)
     table.insert(modifiers,{speed=1.2})
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
@@ -534,7 +534,7 @@ fraymotifAffects.TIME.GENERIC=function(attacker,defender,effect,modifiers)
     return true
 end
 
-fraymotifAffects.SPACE.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Space.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={3,3,3} --seriously bigger's fine
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
@@ -551,7 +551,7 @@ end
 
 --life is generic
 
-fraymotifAffects.HOPE.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Hope.GENERIC=function(attacker,defender,effect,modifiers)
     local rng=dfhack.random.new()
     if rng:drandom0()<0.5 then
         table.insert(modifiers,{strength=2})
@@ -577,7 +577,7 @@ end
 
 --void is generic
 
-fraymotifAffects.HEART.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Heart.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
@@ -595,7 +595,7 @@ fraymotifAffects.HEART.GENERIC=function(attacker,defender,effect,modifiers)
     return true
 end
 
-fraymotifAffects.BLOOD.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Blood.GENERIC=function(attacker,defender,effect,modifiers)
     table.insert(modifiers,{vascular_only=true,strength=1.2})
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
@@ -614,7 +614,7 @@ fraymotifAffects.BLOOD.GENERIC=function(attacker,defender,effect,modifiers)
     return true
 end
 
-fraymotifAffects.DOOM.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Doom.GENERIC=function(attacker,defender,effect,modifiers)
     table.insert(modifiers,{speed=0.1,duration=10})
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
@@ -633,7 +633,7 @@ fraymotifAffects.DOOM.GENERIC=function(attacker,defender,effect,modifiers)
     return true
 end
 
-fraymotifAffects.MIND.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Mind.GENERIC=function(attacker,defender,effect,modifiers)
     local radius={-1,-1,-1}
     for k,v in ipairs(modifiers) do
         if v.radius then for kk,vv in ipairs(radius) do vv=vv+v.radius end end
@@ -651,19 +651,19 @@ fraymotifAffects.MIND.GENERIC=function(attacker,defender,effect,modifiers)
     return true
 end
 
-fraymotifAffects.MIND.SEER=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Mind.Seer=function(attacker,defender,effect,modifiers)
     --will ALWAYS target precisely one enemy
     effect(attacker,defender,modifiers,'soul',{seer=true,mind=true})
     return true
 end
 
-fraymotifAffects.MIND.MAGE=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Mind.Mage=function(attacker,defender,effect,modifiers)
     --will ALWAYS target precisely one enemy
     effect(attacker,defender,modifiers,'soul',{mage=true,mind=true})
     return true
 end
 
-fraymotifAffects.RAGE.GENERIC=function(attacker,defender,effect,modifiers)
+fraymotifAffects.Rage.GENERIC=function(attacker,defender,effect,modifiers)
     local script=require('gui.script')
     script.start(function() 
         table.insert(modifiers,{strength=2})

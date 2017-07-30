@@ -310,14 +310,14 @@ local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
 eventful.onUnitAttack.addSburbExperience=function(attackerId,defenderId,woundId)
     local wound
     for k,v in ipairs(df.unit.find(defenderId).body.wounds) do
-        if woundId==wound.id then wound=v end
+        if woundId==v.id then wound=v end
     end
     putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(attackerId),math.floor(math.sqrt(wound.contact_area)+0.5)+1,'sburb')
     putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(defenderId),1,'sburb')
 end
 
 eventful.onUnitDeath.addSburbExperience=function(unit_id)
-    local deadUnit=df.unit_find(unit_id)
+    local deadUnit=df.unit.find(unit_id)
     local expValue=(unit.body.blood_max/500)
     expValue=expValue+unit.body.physical_attrs.STRENGTH.value/1000
     expValue=expValue+unit.body.physical_attrs.AGILITY.value/1000
@@ -348,7 +348,8 @@ stateEvents[SC_MAP_LOADED]=function()
     eventful.enableEvent(eventful.eventType.UNIT_ATTACK,5)
     eventful.enableEvent(eventful.eventType.UNIT_DEATH,10)
     eventful.enableEvent(eventful.eventType.ITEM_CREATED,5)
-    dfhack.script_environment('persist_timeout').onLoad() 
+    dfhack.script_environment('modtools/persist_timeout').onLoad() 
+    dfhack.run_command('fortbent/classes')
 end
 
 function onStateChange(op)

@@ -48,14 +48,16 @@ local sburbTiles={
 	Rage=4}
 
 function getClaspect(unit)
-    local currentClass = putnamSkills.getSkillsFromUnit(unit)[1]
+    local currentClass
+    local currentClasses = putnamSkills.getSkillsFromUnit(unit)
+    if currentClasses then currentClass=currentClasses[1] else return {class=false} end 
     local currentClassName = df.musical_form.find(currentClass.id).name.first_name
     local currentClassLevel = currentClass.rating
     local ofLocations={currentClassName:find(' of ')}
     local aspectColor=sburbColors[currentClassName:sub(ofLocations[2]+1,-1)]
     local className=currentClassName:sub(1,1)..currentClassName:sub(2,ofLocations[1]-1):lower()
     local aspectName=currentClassName:sub(ofLocations[2]+1,ofLocations[2]+1)..currentClassName:sub(ofLocations[2]+2,-1):lower()
-    local tile=dfhack.screen.findGraphicsTile('PUTNAM_GODTIER',sburbTiles[aspectName:upper()],0)
+    local tile=dfhack.screen.findGraphicsTile('PUTNAM_GODTIER',sburbTiles[aspectName],0)
     return {class=className,aspect=aspectName,color=aspectColor,classLength=ofLocations[2],tile=tile}
 end
 

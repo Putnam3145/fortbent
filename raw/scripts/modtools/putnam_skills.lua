@@ -23,34 +23,41 @@ local function insertSkillsIntoWorld()
             formForSkill.name.first_name=skill.name
             formForSkill.name.unknown=magicIdentifier
             df.global.world.musical_forms.all:insert('#',formForSkill)
-            skillWorldIDs[skillName]=formForSkill.id
+            skillWorldIDs[skill.name]=formForSkill.id
             df.global.musical_form_next_id=df.global.musical_form_next_id+1
         end
     end
 end
 
 function addSkills(tbl)
-    for k,v in ipairs(tbl) do
+    for k,v in pairs(tbl) do
         table.insert(skills,v)
     end
     insertSkillsIntoWorld()
 end
 
 function assignSkillToUnit(unit,skill)
+    if not unit.status then return false end
+    if not unit.status.current_soul.performance_skills then
+        unit.status.current_soul.performance_skills=df.unit_soul.T_performance_skills:new()
+    end
     local skillAssignMusicalSkill=df.unit_musical_skill:new()
-    skillAssignMusicalSkill.id=skillWorldIDs[skill.name]
+    local properSkill=skills[skill]
+    skillAssignMusicalSkill.id=skillWorldIDs[skill]
     unit.status.current_soul.performance_skills.musical_forms:insert('#',skillAssignMusicalSkill)
 end
 
 function getSkillFromUnit(unit,skill)
+    if not unit.status or unit.status.current_soul or unit.status.current_soul.performance_skills then return false end
     for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
-        if df.musical_form.find(v.id).name.first_name==skill.name then return v end
+        if df.musical_form.find(v.id).name.first_name==skill then return v end
     end
     return false --not found
 end
 
 function getSkillsFromUnit(unit)
     local returnTable={}
+    if not unit.status or not unit.status.current_soul or not unit.status.current_soul.performance_skills then return false end
     for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         if df.musical_form.find(v.id).name.unknown==magicIdentifier then table.insert(returnTable,v) end
     end
