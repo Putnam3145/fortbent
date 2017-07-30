@@ -95,11 +95,13 @@ local function levelSkill(unit,skill,level) --local because all leveling should 
         skill.levelfuncs[level](unit)
         addSyndromesToUnit(skill.syndromes[level],unit)
         addAttributesToUnit(skill.attributes[level],unit)
+        addRealSkillsToUnit(properSkill.skills[level],unit)
     elseif type(skill)=='userdata' and skill._type==df.unit_musical_skill then
         local properSkill=skills[df.musical_form.find(skill.id).name.first_name]
         properSkill.levelfuncs[level](unit)
         addSyndromesToUnit(properSkill.syndromes[level],unit)
         addAttributesToUnit(properSkill.attributes[level],unit)
+        addRealSkillsToUnit(properSkill.skills[level],unit)
     end
 end
 
