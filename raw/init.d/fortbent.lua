@@ -305,12 +305,51 @@ eventful.onReport.lord_english_appear=function(reportId)
         end
     end
 end
+local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
+
+eventful.onUnitAttack.addSburbExperience=function(attackerId,defenderId,woundId)
+    local wound
+    for k,v in ipairs(df.unit.find(defenderId).body.wounds) do
+        if woundId=wound.id then wound=v end
+    end
+    putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(attackerId),math.floor(math.sqrt(wound.contact_area)+0.5)+1,'sburb')
+    putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(defenderId),1,'sburb')
+end
+
+eventful.onUnitDeath.addSburbExperience=function(unit_id)
+    local deadUnit=df.unit_find(unit_id)
+    local expValue=(unit.body.blood_max/500)
+    expValue=expValue+unit.body.physical_attrs.STRENGTH.value/1000
+    expValue=expValue+unit.body.physical_attrs.AGILITY.value/1000
+    expValue=expValue+unit.body.physical_attrs.TOUGHNESS.value/1000
+    expValue=expValue+unit.body.physical_attrs.ENDURANCE.value/1000
+    expValue=expValue+unit.status.current_soul.mental_attrs.WILLPOWER.value/1500
+    expValue=expValue+unit.status.current_soul.mental_attrs.SPATIAL_SENSE.value/1000
+    expValue=expValue+unit.status.current_soul.mental_attrs.KINESTHETIC_SENSE.value/1000
+    expValue=expValue+unit.status.current_soul.mental_attrs.FOCUS.value/2000
+    local killerId=df.incident.find(deadUnit.counters.death_id).killer
+    if df.unit.find(killerId) then
+        putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(killerId),expValue,'sburb')
+    end
+end
+
+eventful.onItemCreated.addSburbExperience=function(item_id)
+    local item=df.item.find(item_id)
+    if pcall(function() tostring(item.maker) end) and unit.find(item.maker) then
+        putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(item.maker),(item.quality+1)^2,'sburb')
+    end
+end
 
 local stateEvents={}
 
-stateEvents[SC_MAP_LOADED]=function() eventful.enableEvent(eventful.eventType.INTERACTION,5) eventful.enableEvent(eventful.eventType.REPORT,5) end
-
-stateEvents[SC_WORLD_LOADED]=stateEvents[SC_MAP_LOADED]
+stateEvents[SC_MAP_LOADED]=function() 
+    eventful.enableEvent(eventful.eventType.INTERACTION,1)
+    eventful.enableEvent(eventful.eventType.REPORT,1)
+    eventful.enableEvent(eventful.eventType.UNIT_ATTACK,5)
+    eventful.enableEvent(eventful.eventType.UNIT_DEATH,10)
+    eventful.enableEvent(eventful.eventType.ITEM_CREATED,5)
+    dfhack.script_environment('persist_timeout').onLoad() 
+end
 
 function onStateChange(op)
     local stateChangeFunc=stateEvents[op]

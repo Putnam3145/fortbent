@@ -114,6 +114,13 @@ function addExperienceToSkill(unit,skill,amount)
     return true
 end
 
+local function canGainExperienceWithCriterion(skill,criterion)
+    for k,v in pairs(skill.experienceCriteria) do
+        if v==criterion then return true end
+    end
+    return false
+end
+
 function addExperienceToAllSkillsWithLevelCriterion(unit,amount,criterion)
     for k,v in ipairs(unit.status.current_soul.perfomance_skills.musical_forms) do
         local musicalForm=df.musical_form.find(v.id)
