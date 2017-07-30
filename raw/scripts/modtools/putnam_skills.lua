@@ -49,6 +49,14 @@ function getSkillFromUnit(unit,skill)
     return false --not found
 end
 
+function getSkillsFromUnit(unit)
+    local returnTable={}
+    for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
+        if df.musical_form.find(v.id).name.unknown==magicIdentifier then table.insert(returnTable,v) end
+    end
+    return #returnTable>0 and returnTable or false
+end
+
 local function addSyndromesToUnit(syndromes,unit)
     for k,syndrome in ipairs(syndromes) do
         dfhack.run_script('modtools/add-syndrome','-target',unit.id,'-syndrome',syndrome,'-resetPolicy','-DoNothing')
@@ -59,12 +67,12 @@ local function addAttributesToUnit(attributes,unit)
     for k,v in ipairs(attributes) do
         if df.physical_attribute_type[v.name] then
             local unitPhysicalAttr=unit.body.physical_attrs[v.name]
-            math.max(0,unitPhysicalAttr.value=unitPhysicalAttr.value+v.bonus)
-            math.max(0,unitPhysicalAttr.max_value=unitPhysicalAttr.max_value+(v.bonus*2))
+            unitPhysicalAttr.value=math.max(0,unitPhysicalAttr.value+v.bonus)
+            unitPhysicalAttr.max_value=math.max(0,unitPhysicalAttr.max_value+(v.bonus*2))
         elseif df.mental_attribute_type[v.name] then
             local unitMentalAttr=unit.status.current_soul.mental_attrs[v.name]
-            math.max(0,unitMentalAttr.value=unitMentalAttr.value+v.bonus)
-            math.max(0,unitMentalAttr.max_value=unitMentalAttr.max_value+(v.bonus*2))        
+            unitMentalAttr.value=math.max(0,unitMentalAttr.value+v.bonus)
+            unitMentalAttr.max_value=math.max(0,unitMentalAttr.max_value+(v.bonus*2))        
         else
             print('Unrecognized attribute! '..v.name)
         end
@@ -108,6 +116,7 @@ function addExperienceToSkill(unit,skill,amount)
     if unitSkill.experience>levelThreshold then
         unitSkill.experience=unitSkill.experience-levelThreshold
         levelSkill(unit,skill,unitSkill.rating+1)
+        unitSkill.rating=unitSkill.rating+1
         addExperienceToSkill(unit,unitSkill,0) -- makes sure that, should the unit get enough experience to level multiple times, the unit will go through each level individually
     end
     return true

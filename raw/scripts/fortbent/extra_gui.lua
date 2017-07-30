@@ -2,7 +2,7 @@ local gui=require('gui')
 
 local widgets=require('gui.widgets')
 
-local roses = dfhack.script_environment('base/roses-table').loadRosesTable()
+local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
 
 local TransparentScreen=defclass(TransparentScreen,gui.Screen)
 
@@ -19,46 +19,39 @@ function TransparentScreen:onRender()
 end
 
 local sburbColors={
-    BREATH={fg=COLOR_LIGHTCYAN,bg=COLOR_BLACK},
-    LIGHT={fg=COLOR_YELLOW,bg=COLOR_BLACK},
-    TIME={fg=COLOR_LIGHTRED,bg=COLOR_BLACK},
-    SPACE={fg=COLOR_WHITE,bg=COLOR_BLACK},
-	LIFE={fg=COLOR_LIGHTGREEN,bg=COLOR_BLACK},
-	HOPE={fg=COLOR_YELLOW,bg=COLOR_BLACK},
-	VOID={fg=COLOR_BLUE,bg=COLOR_BLACK},
-	HEART={fg=COLOR_MAGENTA,bg=COLOR_BLACK},
-	BLOOD={fg=COLOR_RED,bg=COLOR_BLACK},
-	DOOM={fg=COLOR_GREEN,bg=COLOR_BLACK},
-	MIND={fg=COLOR_CYAN,bg=COLOR_BLACK},
-	RAGE={fg=COLOR_LIGHTMAGENTA,bg=COLOR_BLACK}
+    Breath={fg=COLOR_LIGHTCYAN,bg=COLOR_BLACK},
+    Light={fg=COLOR_YELLOW,bg=COLOR_BLACK},
+    Time={fg=COLOR_LIGHTRED,bg=COLOR_BLACK},
+    Space={fg=COLOR_WHITE,bg=COLOR_BLACK},
+	Life={fg=COLOR_LIGHTGREEN,bg=COLOR_BLACK},
+	Hope={fg=COLOR_YELLOW,bg=COLOR_BLACK},
+	Void={fg=COLOR_BLUE,bg=COLOR_BLACK},
+	Heart={fg=COLOR_MAGENTA,bg=COLOR_BLACK},
+	Blood={fg=COLOR_RED,bg=COLOR_BLACK},
+	Doom={fg=COLOR_GREEN,bg=COLOR_BLACK},
+	Mind={fg=COLOR_CYAN,bg=COLOR_BLACK},
+	Rage={fg=COLOR_LIGHTMAGENTA,bg=COLOR_BLACK}
 }
 
 local sburbTiles={
-	BREATH=0,
-	LIGHT=3,
-	TIME=1,
-	SPACE=2,
-	LIFE=7,
-	HOPE=8,
-	VOID=9, --the arbitrary numbers come from my arbitrary graphics page
-	HEART=6,
-	BLOOD=5,
-	DOOM=11,
-	MIND=10,
-	RAGE=4}
+	Breath=0,
+	Light=3,
+	Time=1,
+	Space=2,
+	Life=7,
+	Hope=8,
+	Void=9, --the arbitrary numbers come from my arbitrary graphics page
+	Heart=6,
+	Blood=5,
+	Doom=11,
+	Mind=10,
+	Rage=4}
 
 function getClaspect(unit)
-    local unitTable=roses.UnitTable[tostring(unit.id)]
-    if not unitTable then return {class=nil,color=nil} end
-    local unitClasses = roses.UnitTable[tostring(unit.id)]['Classes']
-    if not unitClasses then return {class=nil,color=nil} end 
-    local currentClass = unitClasses['Current']
-    if not currentClass then return {class=nil,color=nil} end
-    local classes = roses.ClassTable
-    local currentClassName = currentClass['Name']
-    if not unitClasses[currentClassName] then return {class=nil,color=nil} end
-    local currentClassLevel = tonumber(unitClasses[currentClassName]['Level'])+1
-    local ofLocations={currentClassName:find('_OF_')}
+    local currentClass = putnamSkills.getSkillsFromUnit(unit)[1]
+    local currentClassName = df.musical_form.find(currentClass.id).name.first_name
+    local currentClassLevel = currentClass.rating
+    local ofLocations={currentClassName:find(' of ')}
     local aspectColor=sburbColors[currentClassName:sub(ofLocations[2]+1,-1)]
     local className=currentClassName:sub(1,1)..currentClassName:sub(2,ofLocations[1]-1):lower()
     local aspectName=currentClassName:sub(ofLocations[2]+1,ofLocations[2]+1)..currentClassName:sub(ofLocations[2]+2,-1):lower()

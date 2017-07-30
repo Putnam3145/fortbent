@@ -310,7 +310,7 @@ local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
 eventful.onUnitAttack.addSburbExperience=function(attackerId,defenderId,woundId)
     local wound
     for k,v in ipairs(df.unit.find(defenderId).body.wounds) do
-        if woundId=wound.id then wound=v end
+        if woundId==wound.id then wound=v end
     end
     putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(attackerId),math.floor(math.sqrt(wound.contact_area)+0.5)+1,'sburb')
     putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(defenderId),1,'sburb')

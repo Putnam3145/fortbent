@@ -1,43 +1,34 @@
 -- Assigns claspects based on personality, attributes etc.
-aspects={
-	"BREATH", --1
-	"LIGHT",
-	"TIME",
-	"SPACE",
-	"LIFE",
-	"HOPE",
-	"VOID",
-	"HEART",
-	"BLOOD",
-	"DOOM",
-	"MIND",
-	"RAGE"}
-    
+
+local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
+
 syndromeUtil=require('syndrome-util')
 
 rng=dfhack.random.new()
 
 function assignClaspect(unit,aspect,class)
 	return pcall(function() 
-        dfhack.run_script('classes/change-class','-unit',unit.id,'-class',class..'_OF_'..aspect)
+        putnamSkills.assignSkillToUnit(class..' of '..aspect)
         if unit.hist_figure_id then
             local hist_figure=df.historical_figure.find(unit.hist_figure_id)
             if hist_figure and hist_figure.info and hist_figure.info.kills then
                 for k,v in pairs(hist_figure.info.kills.killed_count) do
-                    pcall(function() dfhack.run_script('classes/add-experience','-unit',unit.id,'-amount',v) end)
+                    local caste=df.creature_raw.find(hist_figure_info.kills.killed_race[k]).caste[hist_figure_info.kills.killed_caste[k]]
+                    local bodySizeInfo=caste.body_size_1
+                    local bodySize=bodySizeInfo[#bodySizeInfo-1]/500
+                    local strength=caste.attributes.phys_att_range.STRENGTH[3]/1000
+                    local agility=caste.attributes.phys_att_range.AGILITY[3]/1000
+                    local toughness=caste.attributes.phys_att_range.TOUGHNESS[3]/1000
+                    local endurance=caste.attributes.phys_att_range.ENDURANCE[3]/1000
+                    local willpower=caste.attributes.ment_att_range.WILLPOWER[3]/1500
+                    local spatial_sense=caste.attributes.ment_att_range.SPATIAL_SENSE[3]/1000
+                    local kinesthetic_sense=caste.attributes.ment_att_range.KINESTHETIC_SENSE[3]/1000
+                    local focus=caste.attributes.ment_att_range.FOCUS[3]/2000
+                    putnamSkills.addExperienceToAllSkillsWithLevelCriterion(unit,v*(bodySize+strength+agility+toughness+endurance+willpower+spatial_sense+kinesthetic_sense+focus),'sburb')
                 end
             end
         end
     end)
-end
-
-function unitAlreadyHasClaspect(unit)
-    for k,c_syn in ipairs(unit.syndromes.active) do
-        for kk,syn_class in ipairs(df.syndrome.find(c_syn.type).syn_class) do
-            if syn_class.value=='IS_SBURBED' then return true end
-        end
-	end
-    return false
 end
 
 debugScript=false
@@ -59,7 +50,7 @@ function creatureIsSburbable(unit)
 end
 
 function unitDoesntNeedClaspect(unit)
-	return not creatureIsSburbable(unit) or unitAlreadyHasClaspect(unit)
+	return not creatureIsSburbable(unit) or putnamSkills.getSkillsFromUnit(unit)
 end
 
 function round(num)
@@ -110,7 +101,7 @@ function makeClaspect(unit,unitidx)
 	local creatureAspect = rng:random(12)+1
     local aspect=aspects[creatureAspect]
     local class=getClass(unit)
-    aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'LIGHT' --light default
+    aspect=type(aspect)=='string' and aspect or type(aspect)=='table' and aspect.text or 'Light' --light default
 	local worked,err=assignClaspect(unit,aspect,class)
     if worked then
 		return creatureAspect
