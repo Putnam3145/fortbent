@@ -327,6 +327,7 @@ eventful.onUnitDeath.addSburbExperience=function(unit_id)
     expValue=expValue+deadUnit.status.current_soul.mental_attrs.SPATIAL_SENSE.value/1000
     expValue=expValue+deadUnit.status.current_soul.mental_attrs.KINESTHETIC_SENSE.value/1000
     expValue=expValue+deadUnit.status.current_soul.mental_attrs.FOCUS.value/2000
+    expValue=expValue*(deadUnit.body.blood_max/2000)
     if df.incident.find(deadUnit.counters.death_id) then
         local killerId=df.incident.find(deadUnit.counters.death_id).killer
         if df.unit.find(killerId) then
