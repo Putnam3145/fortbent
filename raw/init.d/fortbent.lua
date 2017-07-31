@@ -312,8 +312,7 @@ eventful.onUnitAttack.addSburbExperience=function(attackerId,defenderId,woundId)
     for k,v in ipairs(df.unit.find(defenderId).body.wounds) do
         if woundId==v.id then wound=v end
     end
-    putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(attackerId),math.sqrt(wound.contact_area)+1,'sburb')
-    putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(defenderId),1,'sburb')
+    putnamSkills.addExperienceToAllSkillsWithLevelCriterion(df.unit.find(attackerId),1,'sburb')
 end
 
 eventful.onUnitDeath.addSburbExperience=function(unit_id)
