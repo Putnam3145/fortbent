@@ -112,6 +112,7 @@ function addExperienceToSkill(unit,skill,amount)
     --return false on failure, true on success
     local unitSkill=getSkillFromUnit(unit,skill)
     if not unitSkill then return false end --skills should only be explicitly added
+    amount=math.floor(amount+0.5)
     unitSkill.experience=unitSkill.experience+amount
     local putnamSkill=skills[skill]
     local levelThreshold=putnamSkill.levelUpThresholds[unitSkill.rating+1] or 1/0 --[[IEEE 754 standard, so this is positive infinity, which, fun fact, lua counts as more than any integer.
