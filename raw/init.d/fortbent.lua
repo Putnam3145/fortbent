@@ -318,7 +318,7 @@ end
 
 eventful.onUnitDeath.addSburbExperience=function(unit_id)
     local deadUnit=df.unit.find(unit_id)
-    local expValue=(deadUnit.body.blood_max/500)
+    local expValue=0
     expValue=expValue+deadUnit.body.physical_attrs.STRENGTH.value/1000
     expValue=expValue+deadUnit.body.physical_attrs.AGILITY.value/1000
     expValue=expValue+deadUnit.body.physical_attrs.TOUGHNESS.value/1000
