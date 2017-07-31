@@ -347,7 +347,7 @@ local stateEvents={}
 stateEvents[SC_MAP_LOADED]=function() 
     eventful.enableEvent(eventful.eventType.INTERACTION,1)
     eventful.enableEvent(eventful.eventType.REPORT,1)
-    eventful.enableEvent(eventful.eventType.UNIT_ATTACK,5)
+    eventful.enableEvent(eventful.eventType.UNIT_ATTACK,1)
     eventful.enableEvent(eventful.eventType.UNIT_DEATH,10)
     eventful.enableEvent(eventful.eventType.ITEM_CREATED,5)
     dfhack.script_environment('modtools/persist_timeout').onLoad() 
