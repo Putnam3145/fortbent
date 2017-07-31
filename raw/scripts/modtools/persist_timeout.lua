@@ -33,7 +33,7 @@ function onLoad()
     local listOfTimeouts={}
     for _,v in pairs(persistTimeoutTable._children) do
         local actualTable=persistTimeoutTable[v]
-        if actualTable then
+        if actualTable and actualTable.Tick then
             if (df_date.now()<df_date.new(actualTable.Tick)) then
                 table.insert(listToCull,v)
             else

@@ -2,6 +2,8 @@
 
 local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
 
+dfhack.run_script('fortbent/classes')
+
 local aspects=dfhack.script_environment('fortbent/claspects').aspects
 
 local classes=dfhack.script_environment('fortbent/claspects').classes
@@ -16,7 +18,7 @@ function assignClaspect(unit,aspect,class)
         local hist_figure=df.historical_figure.find(unit.hist_figure_id)
         if hist_figure and hist_figure.info and hist_figure.info.kills then
             for k,v in pairs(hist_figure.info.kills.killed_count) do
-                local caste=df.creature_raw.find(hist_figure.info.kills.killed_race[k]).caste[hist_figure.info.kills.killed_caste[k]]
+                local caste=df.creature_raw.find(hist_figure_info.kills.killed_race[k]).caste[hist_figure_info.kills.killed_caste[k]]
                 local bodySizeInfo=caste.body_size_1
                 local bodySize=bodySizeInfo[#bodySizeInfo-1]/500
                 local strength=caste.attributes.phys_att_range.STRENGTH[3]/1000
@@ -100,16 +102,30 @@ function getClass(unit)
     return raffle[rng:random(#raffle)+1]
 end
 
+local function constructListForScript(tbl)
+    local returnTbl={}
+    for k,v in pairs(tbl) do
+        table.insert(returnTbl,{v,nil,{}})
+    end
+    return returnTbl
+end
+
 function makeClaspect(unit,unitidx)
-	local creatureAspect = rng:random(12)+1
-    local aspect=aspects[creatureAspect]
-    local class=getClass(unit)
-	local worked,err=assignClaspect(unit,aspect,class)
-    if worked then
-		return creatureAspect
-	end
-    print(err)
-	return false
+    local ok,class,aspect
+    local script=require('gui.script')
+    script.start(function()
+        if df.global.gametype==df.game_type.ADVENTURE_MAIN and unit==df.global.world.units.active[0] then
+            ok,class=script.showListPrompt('Titles','Pick your class.',COLOR_WHITE,constructListForScript(classes))
+            ok,aspect=script.showListPrompt('Titles','Pick your aspect.',COLOR_WHITE,constructListForScript(aspects))
+            class=classes[class]
+            aspect=aspects[aspect]
+        else
+            local creatureAspect = rng:random(12)+1
+            aspect=aspects[creatureAspect]
+            class=getClass(unit)
+        end
+        return assignClaspect(unit,aspect,class)
+    end)
 end
 
 local pauseCounter=8
