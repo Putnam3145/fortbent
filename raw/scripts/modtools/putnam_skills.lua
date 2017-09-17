@@ -29,6 +29,11 @@ local function insertSkillsIntoWorld()
     end
 end
 
+function getSkillName(fakeSkill)
+    local musicalForm=df.musical_form.find(fakeSkill.id)
+    return musicalForm.name.unknown==magicIdentifier and musicalForm.name.first_name
+end
+
 function addSkills(tbl)
     for k,v in pairs(tbl) do
         skills[v.name]=v
@@ -139,4 +144,14 @@ function addExperienceToAllSkillsWithLevelCriterion(unit,amount,criterion)
             addExperienceToSkill(unit,musicalForm.name.first_name,amount)
         end
     end
+end
+
+function getAllUnitsWithSkillContainingString(str)
+    local units={}
+    for k,unit in ipairs(df.global.world.units.active) do
+        for kk,musicSkill in ipairs(getSkillsFromUnit(unit)) do 
+            if getSkillName(musicSkill):find(str) then table.insert(units,{unit=unit,skill=musicSkill.rating}) end
+        end
+    end
+    return units
 end

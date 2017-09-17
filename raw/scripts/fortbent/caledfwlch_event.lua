@@ -25,8 +25,8 @@ local function getPronoun(unit)
     end
 end
 
-local doomHero=df.unit.find(args.doom)
-local voidHero=df.unit.find(args.void)
+local doomHero=df.unit.find(tonumber(args.doom))
+local voidHero=df.unit.find(tonumber(args.void))
 local doomName=capitalizeFirstLetterOfString(doomHero.name.first_name)
 local voidName=capitalizeFirstLetterOfString(voidHero.name.first_name)
 local doomPronoun=getPronoun(doomHero)
