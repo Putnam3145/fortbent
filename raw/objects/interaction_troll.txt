@@ -21,7 +21,7 @@ interaction_troll
             [IE_IMMEDIATE]
             [SYNDROME]
                 [SYN_AFFECTED_CLASS:TROLL_LOWBLOOD]
-            [CE_CAN_DO_INTERACTION:PROB:20:START:0]
+            [CE_CAN_DO_INTERACTION:PROB:50:START:0]
                     [CDI:ADV_NAME:Shoot with psychic energy]
                     [CDI:INTERACTION:MATERIAL_EMISSION]
                     [CDI:USAGE_HINT:ATTACK]
@@ -37,7 +37,7 @@ interaction_troll
             [IE_IMMEDIATE]
             [SYNDROME]
                 [SYN_AFFECTED_CLASS:TROLL_CHOCOLATE]
-            [CE_CAN_DO_INTERACTION:PROB:15:START:0]
+            [CE_CAN_DO_INTERACTION:PROB:40:START:0]
                     [CDI:ADV_NAME:Shoot with psychic energy]
                     [CDI:INTERACTION:MATERIAL_EMISSION]
                     [CDI:USAGE_HINT:ATTACK]
@@ -53,7 +53,7 @@ interaction_troll
             [IE_IMMEDIATE]
             [SYNDROME]
                 [SYN_AFFECTED_CLASS:TROLL_YUCKYMUSTARD]
-            [CE_CAN_DO_INTERACTION:PROB:10:START:0]
+            [CE_CAN_DO_INTERACTION:PROB:30:START:0]
                     [CDI:ADV_NAME:Shoot with psychic energy]
                     [CDI:INTERACTION:MATERIAL_EMISSION]
                     [CDI:USAGE_HINT:ATTACK]
@@ -70,7 +70,7 @@ interaction_troll
             [SYNDROME]
                 [SYN_AFFECTED_CLASS:TROLL_LIME]
                 [SYN_AFFECTED_CLASS:TROLL_MUTANT]
-            [CE_CAN_DO_INTERACTION:PROB:30:START:0] Not sure if Calliope actually knew that they were that powerful or if she happens to be full of shit and wants to be super special without realizing that she probably already is (GODDAMNED MUSE OF SPACE)
+            [CE_CAN_DO_INTERACTION:PROB:20:START:0] Not sure if Calliope actually knew that they were that powerful or if she happens to be full of shit and wants to be super special without realizing that she probably already is (GODDAMNED MUSE OF SPACE)
                     [CDI:ADV_NAME:Shoot with psychic energy]
                     [CDI:INTERACTION:MATERIAL_EMISSION]
                     [CDI:USAGE_HINT:ATTACK]
@@ -170,7 +170,7 @@ interaction_troll
             [IE_IMMEDIATE]
             [SYNDROME]
                 [SYN_AFFECTED_CLASS:SUBJUGGLATOR]
-            [CE_CAN_DO_INTERACTION:PROB:95:START:0] Overpowered fucks. This is why they're so rare: they're too powerful.
+            [CE_CAN_DO_INTERACTION:PROB:95:START:0]
                     [CDI:ADV_NAME:Shoot with psychic energy]
                     [CDI:INTERACTION:MATERIAL_EMISSION]
                     [CDI:USAGE_HINT:ATTACK]
@@ -747,7 +747,7 @@ interaction_troll
             [SYN_IDENTIFIER:RAGE]
             [SYN_NAME:a rage player's wyycked majyyks]
             [SYN_CONCENTRATION_ADDED:1:1000]
-            [CE_FEEL_EMOTION:EMOTION:RAGE:SEV:100:START:0:END:1200:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:RAGE:SEV:1000:START:0:END:1200:ABRUPT_START:ABRUPT_END]
             
 [INTERACTION:HOPEFILL_TROLL]
     [I_SOURCE:CREATURE_ACTION]
@@ -760,7 +760,7 @@ interaction_troll
         [IE_IMMEDIATE]
         [SYNDROME]
             [SYN_NAME:a hope player]
-            [CE_FEEL_EMOTION:EMOTION:HOPE:SEV:100:START:0:END:1200:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:HOPE:SEV:1000:START:0:END:1200:ABRUPT_START:ABRUPT_END]
             
 [INTERACTION:HOPELESS_I_TROLL]
     [I_SOURCE:CREATURE_ACTION]
@@ -825,7 +825,7 @@ interaction_troll
         [IE_IMMEDIATE]
         [SYNDROME]
             [SYN_NAME:a heart player's emotion majyyks]
-            [CE_FEEL_EMOTION:EMOTION:JOY:SEV:50:START:0:END:2400:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:JOY:SEV:1000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
             
 [INTERACTION:ENJOY2_TROLL]
     [I_SOURCE:CREATURE_ACTION]
@@ -838,7 +838,7 @@ interaction_troll
         [IE_IMMEDIATE]
         [SYNDROME]
             [SYN_NAME:a heart player's emotion majyyks]
-            [CE_FEEL_EMOTION:EMOTION:JOY:SEV:1000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:JOY:SEV:10000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
             
 [INTERACTION:CARING_TROLL]
     [I_SOURCE:CREATURE_ACTION]
@@ -851,7 +851,7 @@ interaction_troll
         [IE_IMMEDIATE]
         [SYNDROME]
             [SYN_NAME:a blood player's vague majyyks]
-            [CE_FEEL_EMOTION:EMOTION:CARING:SEV:100:START:0:END:2400:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:CARING:SEV:1000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
 
 [INTERACTION:CARING2_TROLL]
     [I_SOURCE:CREATURE_ACTION]
@@ -864,7 +864,7 @@ interaction_troll
         [IE_IMMEDIATE]
         [SYNDROME]
             [SYN_NAME:a blood player's vague majyyks]
-            [CE_FEEL_EMOTION:EMOTION:CARING:SEV:2000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:CARING:SEV:10000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
             
 [INTERACTION:BLISS_TROLL]
     [I_SOURCE:CREATURE_ACTION]
@@ -877,7 +877,7 @@ interaction_troll
         [IE_IMMEDIATE]
         [SYNDROME]
             [SYN_NAME:a rage player's capricious majyyks]
-            [CE_FEEL_EMOTION:EMOTION:BLISS:SEV:50:START:0:END:2400:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:BLISS:SEV:1000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
             
 [INTERACTION:AGONY_TROLL]
     [I_SOURCE:CREATURE_ACTION]
@@ -890,7 +890,7 @@ interaction_troll
         [IE_IMMEDIATE]
         [SYNDROME]
             [SYN_NAME:a heart player's emotion majyyks]
-            [CE_FEEL_EMOTION:EMOTION:AGONY:SEV:500:START:0:END:2400:ABRUPT_START:ABRUPT_END]
+            [CE_FEEL_EMOTION:EMOTION:AGONY:SEV:1000:START:0:END:2400:ABRUPT_START:ABRUPT_END]
 
 [INTERACTION:AGONY2_TROLL]
     [I_SOURCE:CREATURE_ACTION]
