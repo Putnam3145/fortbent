@@ -152,3 +152,7 @@ function assignAllClaspects()
 end
 
 require('repeat-util').scheduleUnlessAlreadyScheduled('Claspect Assignment',100,'ticks',assignAllClaspects)
+
+if ...=='-force' then
+    assignAllClaspects()
+end
