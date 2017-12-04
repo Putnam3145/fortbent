@@ -4,9 +4,11 @@ local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
 
 dfhack.run_script('fortbent/classes')
 
-local aspects=dfhack.script_environment('fortbent/claspects').aspects
+local claspect_helpers=dfhack.script_environment('fortbent/claspects')
 
-local classes=dfhack.script_environment('fortbent/claspects').classes
+local aspects=claspect_helpers.aspects
+
+local classes=claspect_helpers.classes
 
 syndromeUtil=require('syndrome-util')
 
@@ -62,6 +64,17 @@ function round(num)
     return math.floor(num+.5) 
 end
 
+function getLunarSway(unit) --haha yeah yeah
+    local traits=unit.status.current_soul.personality.traits
+    local lunar_sway=0
+    lunar_sway=lunar_sway+(traits.CHEER_PROPENSITY-50)
+    lunar_sway=lunar_sway-(traits.ANXIETY_PROPENSITY-50)
+    lunar_sway=lunar_sway-(traits.DISDAIN_ADVICE-50)
+    lunar_sway=lunar_sway+(traits.IMMODERATION-50)
+    lunar_sway=lunar_sway-(traits.PRIVACY-50)
+    return lunar_sway>0 and 0 or 1 --0 is prospit, 1 is derse
+end
+
 function getClass(unit)
     --it's a silly personality test
     local class_pers={}
@@ -72,18 +85,18 @@ function getClass(unit)
     local female_lean=unit.sex==1 and 20 or 0
     local male_exclusive=unit.sex==0 and 0.5 or 1
     local female_exclusive=unit.sex==1 and 0.5 or 1
-    class_pers.Heir=passive+round(traits.PERSEVERENCE/2)+male_lean --Equius demands things insistently and John follows instructions even when he thinks they're dumb.
-    class_pers.Seer=passive+round(traits.CURIOUS/2)+female_lean
-    class_pers.Knight=active+round(traits.BRAVERY/2)+male_lean --Based more on the archetype of knight than the knights we've seen (Latula, Karkat, Dave)
-    class_pers.Witch=(active+round(traits.CHEER_PROPENSITY/2)+20)*female_exclusive --Damara was a happy girl before Meenah broke her, Jade and Feferi need no introduction.
-    class_pers.Maid=(active+round(traits.GREGARIOUSNESS/2)+20)*female_exclusive --yeah this one's a bit of a stretch but whatever
+    class_pers.Heir=passive+round(traits.DUTIFULNESS/2)+male_lean
+    class_pers.Seer=passive+round(50-traits.DEPRESSION_PROPENSITY)+female_lean
+    class_pers.Knight=active+round(traits.CONFIDENCE/2)+male_lean
+    class_pers.Witch=(active+round(traits.IMAGINATION/2)+20)*female_exclusive
+    class_pers.Maid=(active+round(traits.DUTIFULNESS/2)+20)*female_exclusive
     class_pers.Page=passive+math.abs(50-traits.CONFIDENCE)+male_lean --50-trait means that it'll weigh it both if they're confident and underconfident.
-    class_pers.Prince=(active+math.abs(50-traits.VIOLENT)+20)*male_exclusive --destroy, violent, meh
-    class_pers.Rogue=passive+round(traits.FRIENDLINESS/2)+female_lean --rufioh, nepeta, roxy; yeah, friendliness is a constant there
+    class_pers.Prince=(active+math.abs(50-traits.VIOLENT)+20)*male_exclusive
+    class_pers.Rogue=passive+round(traits.GREED/2)+female_lean
     class_pers.Thief=active+round(traits.GREED/2)+female_lean
-    class_pers.Sylph=passive+round(traits.ALTRUISM/2)+female_lean
-    class_pers.Bard=(passive+round(traits.CRUELTY/2)+20)*male_exclusive --okay that might be a bit inappropriate, but you gotta work with what you have...
-    class_pers.Mage=active+round(traits.ABSTRACT_INCLINED/2)+male_lean
+    class_pers.Sylph=passive+round(traits.IMAGINATION/2)+female_lean
+    class_pers.Bard=(passive+round(traits.VIOLENT/2)+20)*male_exclusive
+    class_pers.Mage=active+round(50-traits.DEPRESSION_PROPENSITY)+male_lean
     --wow look at that I actually managed 6 active and 6 passive classes
     local total_weight=0
     for k,v in pairs(class_pers) do
@@ -100,6 +113,82 @@ function getClass(unit)
         end
     end
     return raffle[rng:random(#raffle)+1]
+end
+
+local function boost_aspect(aspect_table,aspect,extreme_lean)
+    local adjacent_aspects=claspect_helpers.get_adjacent_aspects(aspect)
+    local opposite_aspect=claspect_helpers.get_opposite_aspect(aspect)
+    local opposite_adjacent_aspects=claspect_helpers.get_adjacent_aspects(opposite_aspect)
+    aspect_table[aspect]=aspect_table[aspect]+extreme_lean and 6 or 4
+    aspect_table[opposite_aspect]=aspect_table[opposite_aspect]+2
+    for k,adjacent_aspect in ipairs(adjacent_aspects) do
+        aspect_table[adjacent_aspect]=aspect_table[adjacent_aspect]+extreme_lean and 3 or 2
+    end
+    for k,opposite_adjacent_aspect in ipairs(opposite_adjacent_aspects) do
+        aspect_table[opposite_adjacent_aspect]=aspect_table[opposite_adjacent_aspect]+1
+    end
+end
+
+local function drain_aspect(aspect_table,aspect)
+    local adjacent_aspects=claspect_helpers.get_adjacent_aspects(aspect)
+    local opposite_aspect=claspect_helpers.get_opposite_aspect(aspect)
+    local opposite_adjacent_aspects=claspect_helpers.get_adjacent_aspects(opposite_aspect)
+    local non_adjacent_aspects=claspect_helpers.get_non_adjacent_aspects(aspect)
+    aspect_table[aspect]=aspect_table[aspect]-3
+    aspect_table[opposite]=aspect_table[opposite]-3
+    for k,adjacent_aspect in ipairs(adjacent_aspects) do
+        aspect_table[adjacent_aspect]=aspect_table[adjacent_aspect]-1
+    end
+    for k,opposite_adjacent_aspect in ipairs(opposite_adjacent_aspects) do
+        aspect_table[opposite_adjacent_aspect]=aspect_table[opposite_adjacent_aspect]-1
+    end
+    for k,non_adjacent_aspect in ipairs(non_adjacent_aspects) do
+        aspect_table[non_adjacent_aspect]=aspect_table[non_adjacent_aspect]+3
+    end
+end
+
+local function boost_aspect_pair_by_personality_trait(aspect,trait,aspect_table)
+    local opposite_aspect=claspect_helpers.get_opposite_aspect(aspect)
+    if trait>80 then
+        boost_aspect(aspect_table,aspect,true)
+    elseif trait>60 then
+        boost_aspect(aspect_table,aspect,false)
+    elseif trait<40 then
+        boost_aspect(aspect_table,opposite_aspect,false)
+    elseif trait<20 then
+        boost_aspect(aspect_table,opposite_aspect,true)
+    else
+        drain_aspect(aspect_table,aspect)
+    end
+end
+
+function getAspect(unit)
+    --[[i'm basically using the personality test but in dwarf fortress terms so here's the deal in this post
+    http://katanahime.tumblr.com/post/168061341354/complete-explanation-for-extended-zodiac-aspect
+    ]]
+    local traits=unit.status.current_soul.personality.traits
+    local aspect_tbl=claspect_helpers.make_new_aspect_table()
+    boost_aspect_pair_by_personality_trait('Blood',trait.GREGARIOUSNESS,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Blood',trait.SWAYED_BY_EMOTIONS,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Light',trait.CURIOUS,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Light',trait.ASSERTIVENESS,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Space',trait.ABSTRACT_INCLINED,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Time',trait.PERFECTIONIST,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Heart',trait.VANITY,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Heart',trait.THOUGHTLESSNESS,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Hope',trait.HOPEFUL,aspect_tbl) -- :mspa:
+    boost_aspect_pair_by_personality_trait('Hope',trait.PERSEVERANCE,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Life',trait.ALTRUISM,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Doom',trait.EMOTIONALLY_OBSESSIVE,aspect_tbl)
+    local best_aspect_num=0
+    local cur_aspect="Time"
+    for k,v in pairs(aspect_tbl) do
+        if v>best_aspect_num then
+            best_aspect_num=v
+            cur_aspect=k
+        end
+    end
+    return cur_aspect
 end
 
 local function constructListForScript(tbl)
@@ -120,8 +209,7 @@ function makeClaspect(unit,unitidx)
             class=classes[class]
             aspect=aspects[aspect]
         else
-            local creatureAspect = rng:random(12)+1
-            aspect=aspects[creatureAspect]
+            aspect=getAspect(unit)
             class=getClass(unit)
         end
         return assignClaspect(unit,aspect,class)
