@@ -1,0 +1,14 @@
+inorganic_thoughts_troll
+
+[OBJECT:INORGANIC]
+
+[INORGANIC:FORTBENT_EMOTIONS]
+    [STATE_NAME:ALL:feelings]
+    [SYNDROME]
+        [SYN_NAME:arguing with a kismesis]
+    [SYNDROME]
+        [SYN_NAME:the soothing of an auspistice]
+    [SYNDROME]
+        [SYN_NAME:a feelings jam with the moirail]
+    [SYNDROME]
+        [SYN_NAME:auspiticizing]

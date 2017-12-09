@@ -1,0 +1,10 @@
+creature_dummy_fortbent
+
+[OBJECT:CREATURE]
+
+[CREATURE:GRAPHICS_CREATURE_FORTBENT]
+[ARENA_RESTRICTED]
+[NAME:none:none:none]
+[DESCRIPTION:none:none:none]
+[CASTE_NAME:none:none:none]
+[DOES_NOT_EXIST]
