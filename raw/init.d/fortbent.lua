@@ -342,41 +342,6 @@ eventful.onItemCreated.addSburbExperience=function(item_id)
     end
 end
 
-local waitTicksForCaledfwlchCheck=2000
-
-local doomUnit=nil
-
-local voidUnit=nil
-
-eventful.onTick.causeCaledfwlchEvent=function()
-    if df.global.year_tick%waitTicksForCaledfwlchCheck==0 then
-        if not (doomUnit and dfhack.units.isSane(doomUnit)) then
-            local doomUnits=putnamSkills.getAllUnitsWithSkillContainingString('Doom')
-            for k,v in ipairs(doomUnits) do
-                if v.skill>14 and dfhack.units.isCitizen(v.unit) and dfhack.units.isSane(v.unit) then
-                    waitTicksForCaledfwlchCheck=100
-                    doomUnit=v.unit
-                end
-            end
-        end
-        if not (voidUnit and dfhack.units.isSane(voidUnit)) then
-            local voidUnits=putnamSkills.getAllUnitsWithSkillContainingString('Void')
-            for k,v in ipairs(voidUnits) do
-                if v.skill>14 and dfhack.units.isCitizen(v.unit) and dfhack.units.isSane(v.unit) then
-                    waitTicksForCaledfwlchCheck=100
-                    voidUnit=v.unit
-                end
-            end
-        end
-        if hasNotAlreadyMadeCaledfwlch() and voidUnit and doomUnit and dfhack.units.isSane(voidUnit) and dfhack.units.isSane(doomUnit)
-            waitTicksForCaledfwlchCheck==10000000000
-            dfhack.run_script('fortbent/caledfwlch_event','-doom',doomUnit.unit.id,'-void',voidUnit.unit.id)
-            return true
-        end
-        return false
-    end
-end
-
 local stateEvents={}
 
 stateEvents[SC_MAP_LOADED]=function() 
