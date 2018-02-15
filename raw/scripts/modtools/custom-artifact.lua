@@ -114,7 +114,7 @@ function createArtifact(itemType,itemSubtype,name,material,entityFilter,siteFilt
     newArtifact.anon_6=-1
     newArtifact.anon_7=-1
     newArtifact.anon_8=-1
-    newArtifact.anon_12=pickedSite
+    newArtifact.anon_12[0]=pickedSite
     newArtifact.anon_13=1
     newArtifact.anon_14=-1
     newArtifact.anon_15=-1
