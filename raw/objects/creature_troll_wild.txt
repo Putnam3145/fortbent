@@ -226,7 +226,6 @@ creature_troll_wild
         [BIOME:NOT_FREEZING]
         [LARGE_ROAMING]
         [MEANDERER]
-        [PET]
         [ADOPTS_OWNER]
         [NOCTURNAL]
         [TRAINABLE]
