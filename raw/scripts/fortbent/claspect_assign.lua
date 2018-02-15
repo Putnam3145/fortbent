@@ -64,7 +64,7 @@ function round(num)
     return math.floor(num+.5) 
 end
 
-function getLunarSway(unit) --haha yeah yeah
+function getLunarSway(unit)
     local traits=unit.status.current_soul.personality.traits
     local lunar_sway=0
     lunar_sway=lunar_sway+(traits.CHEER_PROPENSITY-50)
@@ -180,15 +180,10 @@ function getAspect(unit)
     boost_aspect_pair_by_personality_trait('Hope',trait.PERSEVERANCE,aspect_tbl)
     boost_aspect_pair_by_personality_trait('Life',trait.ALTRUISM,aspect_tbl)
     boost_aspect_pair_by_personality_trait('Doom',trait.EMOTIONALLY_OBSESSIVE,aspect_tbl)
-    local best_aspect_num=0
-    local cur_aspect="Time"
-    for k,v in pairs(aspect_tbl) do
-        if v>best_aspect_num then
-            best_aspect_num=v
-            cur_aspect=k
-        end
-    end
-    return cur_aspect
+    aspect_tbl=require('utils').invert(aspect_tbl)
+    table.sort(aspect_tbl)
+    local chosen=rng:random(531441)+1
+    return aspect_tbl[12-math.floor(math.log(chosen)/math.log(3))]
 end
 
 local function constructListForScript(tbl)
