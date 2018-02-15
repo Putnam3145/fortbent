@@ -63,7 +63,7 @@ function get_non_adjacent_aspects(aspect)
     local aspect_num=aspects_by_index[aspect]
     for k,v in ipairs(aspect_circle) do
         if get_not_adjacent_aspect(aspect_num,k) then
-            tbl.insert(aspect_list,aspects[v])
+            table.insert(aspect_list,aspects[v])
         end
     end
     return aspect_list
@@ -71,18 +71,18 @@ end
     
 function make_new_aspect_table()
     return {
-        'Time',
-        'Space',
-        'Heart',
-        'Mind',
-        'Hope',
-        'Rage',
-        'Light',
-        'Void',
-        'Breath',
-        'Blood',
-        'Life',
-        'Doom'
+        Time=0,
+        Space=0,
+        Heart=0,
+        Mind=0,
+        Hope=0,
+        Rage=0,
+        Light=0,
+        Void=0,
+        Breath=0,
+        Blood=0,
+        Life=0,
+        Doom=0
     }
 end
   

@@ -119,10 +119,10 @@ local function boost_aspect(aspect_table,aspect,extreme_lean)
     local adjacent_aspects=claspect_helpers.get_adjacent_aspects(aspect)
     local opposite_aspect=claspect_helpers.get_opposite_aspect(aspect)
     local opposite_adjacent_aspects=claspect_helpers.get_adjacent_aspects(opposite_aspect)
-    aspect_table[aspect]=aspect_table[aspect]+extreme_lean and 6 or 4
+    aspect_table[aspect]=aspect_table[aspect]+(extreme_lean and 6 or 4)
     aspect_table[opposite_aspect]=aspect_table[opposite_aspect]+2
     for k,adjacent_aspect in ipairs(adjacent_aspects) do
-        aspect_table[adjacent_aspect]=aspect_table[adjacent_aspect]+extreme_lean and 3 or 2
+        aspect_table[adjacent_aspect]=aspect_table[adjacent_aspect]+(extreme_lean and 3 or 2)
     end
     for k,opposite_adjacent_aspect in ipairs(opposite_adjacent_aspects) do
         aspect_table[opposite_adjacent_aspect]=aspect_table[opposite_adjacent_aspect]+1
@@ -135,7 +135,7 @@ local function drain_aspect(aspect_table,aspect)
     local opposite_adjacent_aspects=claspect_helpers.get_adjacent_aspects(opposite_aspect)
     local non_adjacent_aspects=claspect_helpers.get_non_adjacent_aspects(aspect)
     aspect_table[aspect]=aspect_table[aspect]-3
-    aspect_table[opposite]=aspect_table[opposite]-3
+    aspect_table[opposite_aspect]=aspect_table[opposite_aspect]-3
     for k,adjacent_aspect in ipairs(adjacent_aspects) do
         aspect_table[adjacent_aspect]=aspect_table[adjacent_aspect]-1
     end
@@ -177,13 +177,16 @@ function getAspect(unit)
     boost_aspect_pair_by_personality_trait('Heart',traits.VANITY,aspect_tbl)
     boost_aspect_pair_by_personality_trait('Heart',traits.THOUGHTLESSNESS,aspect_tbl)
     boost_aspect_pair_by_personality_trait('Hope',traits.HOPEFUL,aspect_tbl) -- :mspa:
-    boost_aspect_pair_by_personality_trait('Hope',traits.PERSEVERANCE,aspect_tbl)
+    boost_aspect_pair_by_personality_trait('Hope',traits.PERSEVERENCE,aspect_tbl)
     boost_aspect_pair_by_personality_trait('Life',traits.ALTRUISM,aspect_tbl)
     boost_aspect_pair_by_personality_trait('Doom',traits.EMOTIONALLY_OBSESSIVE,aspect_tbl)
-    aspect_tbl=require('utils').invert(aspect_tbl)
-    table.sort(aspect_tbl)
-    local chosen=rng:random(531441)+1
-    return aspect_tbl[12-math.floor(math.log(chosen)/math.log(3))]
+    local sortTable={}
+    for k,v in pairs(aspect_tbl) do
+        table.insert(sortTable,{name=k,value=v})
+    end
+    table.sort(sortTable,function(a,b) return a.value>b.value end)
+    local chosen=12-math.floor(math.log(rng:random(531441)+1)/math.log(3))
+    return sortTable[chosen].name
 end
 
 local function constructListForScript(tbl)
