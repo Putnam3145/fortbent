@@ -51,7 +51,7 @@ function RelationsOverlay:onShow()
     if not self.relationships then self:dismiss() return end
     local overrideIds={}
     for k,relationship in ipairs(self.relationships) do
-        for kk,relationship_type in ipairs(relationship.anon_3) do --anon_3 is a vector of relationship types. The existing enum is not related to anon_3's version.
+        for kk,relationship_type in ipairs(relationship.attitude) do --attitude is a vector of relationship types. The existing enum is not related to attitude's version.
             if custom_relation_types[relationship_type] then table.insert(overrideIds,{id=relationship.histfig_id,str=custom_relation_types[relationship_type]}) end
         end
     end
@@ -89,8 +89,8 @@ local putnamEvents=dfhack.script_environment('modtools/putnam_events')
 local function hasCustomRelationship(histfig,relationship_type)
     local typeToLookFor=custom_relation_types[relationship_type]
     for k,v in ipairs(histfig.info.relationships.list) do
-        for kk,vv in ipairs(v.anon_3) do
-            if vv==typeToLookFor then return v.histfig_id,v.anon_4[kk] end
+        for kk,vv in ipairs(v.attitude) do
+            if vv==typeToLookFor then return v.histfig_id,v.rank[kk] end
         end
     end
     return false
@@ -99,8 +99,8 @@ end
 local function addNewRelationship(histfig1,histfig2,relationship_type,value)
     for k,v in ipairs(histfig1.info.relationships.list) do
         if v.histfig_id==histfig2.id then
-            v.anon_3:insert('#',custom_relation_types[relationship_type])
-            v.anon_4:insert('#',value)
+            v.attitude:insert('#',custom_relation_types[relationship_type])
+            v.rank:insert('#',value)
             return true
         end
     end
@@ -110,10 +110,10 @@ end
 local function removeRelationship(histfig1,histfig2,relationship_type)
     for k,v in ipairs(histfig1.info.relationships.list) do
         if v.histfig_id==histfig2.id then
-            for kk,vv in ipairs(v.anon_3) do
+            for kk,vv in ipairs(v.attitude) do
                 if vv==relationship_type then 
                     vv=-relationship_type 
-                    v.anon_4[kk]=-v.anon_4[kk] 
+                    v.rank[kk]=-v.rank[kk] 
                     return true
                 end
             end
@@ -126,8 +126,8 @@ local function adjustRelationship(histfig1,histfig2,relationship_type,value)
     local typeToLookFor=type(relationship_type)=='string' and custom_relation_types[relationship_type] or relationship_type
     for k,v in ipairs(histfig1.info.relationships.list) do
         if v.histfig_id==histfig2.id then
-            for kk,vv in ipairs(v.anon_3) do
-                if vv==typeToLookFor then v.anon_4[kk]=v.anon_4[kk]+value return v.anon_4[kk] end
+            for kk,vv in ipairs(v.attitude) do
+                if vv==typeToLookFor then v.rank[kk]=v.rank[kk]+value return v.rank[kk] end
             end
         end
     end
@@ -141,14 +141,14 @@ local function getMutualRelation(histfig1,histfig2,relationship_type)
         for kk,vv in ipairs(histfig2.info.relationships.list) do
             if vv.histfig_id==v.histfig_id then
                 local total_relation_value=0
-                for kkk,vvv in ipairs(v.anon_3) do
+                for kkk,vvv in ipairs(v.attitude) do
                     if vvv==relationship_type then
-                        total_relation_value=total_relation_value+v.anon_4[kkk]
+                        total_relation_value=total_relation_value+v.rank[kkk]
                     end
                 end
-                for kkk,vvv in ipairs(vv.anon_3) do
+                for kkk,vvv in ipairs(vv.attitude) do
                     if vvv==relationship_type then
-                        total_relation_value=total_relation_value+vv.anon_4[kkk]
+                        total_relation_value=total_relation_value+vv.rank[kkk]
                     end                    
                 end
                 if greatest_mutual_relationship.value<total_relation_value then
@@ -164,7 +164,7 @@ end
 local function getAllRelations(histfig,relationship_type)
     local relations={}
     for k,v in ipairs(histfig.info.relationships.list) do
-        for kk,vv in ipairs(v.anon_3) do
+        for kk,vv in ipairs(v.attitude) do
             if vv==relationship_type then table.insert(relations,df.historical_figure.find(v.histfig_id)) end
         end
     end
