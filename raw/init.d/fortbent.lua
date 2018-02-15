@@ -33,18 +33,22 @@ local function mind_blast_color_change()
     clockwork_majyyks.tile_color[0]=optic_color
 end
 
+local function cull_names()
+    dfhack.run_command('fortbent/cull_names','-universal')
+end
+
 local repeat_util=require('repeat-util')
 
 repeat_util.scheduleUnlessAlreadyScheduled('Clockwork Majyyks',math.ceil(df.global.enabler.gfps/15),'frames',clockwork_majyyks_color_change) --EPILEPSY: the magic number on the left (15 by default) is the FPS of the clockwork majyyks scroll effect. You can reduce it to manageable levels by lowering that number or remove it entirely by removing this line.
 
 repeat_util.scheduleUnlessAlreadyScheduled('Psiioniic Blast',5,'ticks',mind_blast_color_change)
 
+repeat_util.scheduleUnlessAlreadyScheduled('Cull Names',100,'ticks',cull_names)
+
 function onUnload()
     repeat_util.cancel('Clockwork Majyyks')
     repeat_util.cancel('Psiioniic Blast')
 end
-
-dfhack.run_command('script',SAVE_PATH..'/raw/fortbent_onload.txt')
 
 local eraseReport = function(unit,report)
  for i,v in ipairs(unit.reports.log.Combat) do
@@ -350,9 +354,10 @@ stateEvents[SC_MAP_LOADED]=function()
     eventful.enableEvent(eventful.eventType.UNIT_ATTACK,1)
     eventful.enableEvent(eventful.eventType.UNIT_DEATH,10)
     eventful.enableEvent(eventful.eventType.ITEM_CREATED,5)
-    eventful.enableEvent(eventful.eventType.TICK,1)
+    dfhack.run_command('script',SAVE_PATH..'/raw/fortbent_onload.txt')
     dfhack.script_environment('modtools/persist_timeout').onLoad() 
     dfhack.run_command('fortbent/classes')
+    
 end
 
 function onStateChange(op)
