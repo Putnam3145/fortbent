@@ -86,7 +86,7 @@ trollCastes={
     TROLL_LIME={idx=6,prefix='Ca',optional={letter='n',criterion=function(suffix) return suffix:find('[aeiousnczgpl]')==1 end},color=COLOR_LIGHTGREEN},
     TROLL_OLIVE={idx=8,prefix='Le',color=COLOR_GREEN},
     TROLL_JADE={idx=10,prefix='Vir',color=COLOR_LIGHTGREEN}, --16 colors and only two are green, oof
-    TROLL_TEAL={idx=12,prefix='Li',optional={letter='b',criterion=function(suffix) return suffix:find('[aeiouscnz]')==1 end},color=COLOR_CYAN},
+    TROLL_TEAL={idx=12,prefix='Li',optional={letter='b',criterion=function(suffix) return suffix:find('[aeiouscnzr]')==1 end},color=COLOR_CYAN},
     TROLL_CERULEAN={idx=14,prefix='Scor',color=COLOR_LIGHTBLUE},
     TROLL_INDIGO={idx=16,prefix='Sagi',color=COLOR_BLUE},
     TROLL_PURPLE={idx=18,prefix='Capri',color=COLOR_MAGENTA},
