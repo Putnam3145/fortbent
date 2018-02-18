@@ -3,7 +3,7 @@ descriptor_color_troll
 [OBJECT:DESCRIPTOR_COLOR]
 
 [COLOR:TYRIAN_PURPLE]
-    [NAME:tyrian purple]
+    [NAME:fuschia]
     [WORD:PURPLE]
     [RGB:150:0:77]
 
@@ -53,7 +53,7 @@ descriptor_color_troll
     [RGB:161:161:0]
     
 [COLOR:LOW_OCHRE]
-    [NAME:ochre]
+    [NAME:bronze]
     [WORD:BROWN]
     [RGB:161:82:3]
     
