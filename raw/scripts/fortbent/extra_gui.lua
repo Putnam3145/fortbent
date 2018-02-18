@@ -4,6 +4,8 @@ local widgets=require('gui.widgets')
 
 local putnamSkills=dfhack.script_environment('modtools/putnam_skills')
 
+local claspectAssign=dfhack.script_environment('fortbent/claspect_assign')
+
 local TransparentScreen=defclass(TransparentScreen,gui.Screen)
 
 function TransparentScreen:onInput(keys)
@@ -45,7 +47,23 @@ local sburbTiles={
 	Blood=5,
 	Doom=11,
 	Mind=10,
-	Rage=4}
+    Rage=4
+}
+    
+local extendedZodiacSburbAspects={
+	Breath={tile=11,suffix={'us','un'}}, --ONE INDEXED TABLES GOTTA ADD ONE TO THE LUNAR SWAY BEFORE THIS WORKS
+	Light={tile=5,suffix={'pio','pia'}},
+	Time={tile=0,suffix={'rist','ries'}},
+	Space={tile=7,suffix={'go','ga'}},
+	Life={tile=1,suffix={'sci','sces'}},
+	Hope={tile=2,suffix={'nius','rius'}},
+	Void={tile=4,suffix={'ittanius','ittarius'}}, --the arbitrary numbers come whatpumpkin's arbitrary extended zodiac page
+	Heart={tile=8,suffix={'lo','o'}},
+	Blood={tile=9,suffix={'cer','cen'}},
+	Doom={tile=10,suffix={'mino','mini'}},
+	Mind={tile=6,suffix={'ra','za'}},
+    Rage={tile=3,suffix={'icorn','iborn'}},
+}
 
 function getClaspect(unit)
     local currentClass
@@ -61,17 +79,64 @@ function getClaspect(unit)
     return {class=className,aspect=aspectName,color=aspectColor,classLength=ofLocations[2],tile=tile}
 end
 
+trollCastes={
+    TROLL_BURGUNDY={idx=0,prefix='Ar',color=COLOR_RED},
+    TROLL_BRONZE={idx=2,prefix='Taur',color=COLOR_BROWN},
+    TROLL_GOLD={idx=4,prefix='Gem',color=COLOR_YELLOW},
+    TROLL_LIME={idx=6,prefix='Ca',optional={letter='n',criterion=function(suffix) return suffix:find('[aeiousnczgpl]')==1 end},color=COLOR_LIGHTGREEN},
+    TROLL_OLIVE={idx=8,prefix='Le',color=COLOR_GREEN},
+    TROLL_JADE={idx=10,prefix='Vir',color=COLOR_LIGHTGREEN}, --16 colors and only two are green, oof
+    TROLL_TEAL={idx=12,prefix='Li',optional={letter='b',criterion=function(suffix) return suffix:find('[aeiouscnz]')==1 end},color=COLOR_CYAN},
+    TROLL_CERULEAN={idx=14,prefix='Scor',color=COLOR_LIGHTBLUE},
+    TROLL_INDIGO={idx=16,prefix='Sagi',color=COLOR_BLUE},
+    TROLL_PURPLE={idx=18,prefix='Capri',color=COLOR_MAGENTA},
+    TROLL_VIOLET={idx=20,prefix='Aqu',optional={letter='a',criterion=function(suffix) return not suffix:find('[aeiou]')==1 end},color=COLOR_MAGENTA}, --see above comment about green
+    TROLL_FUSCHIA={idx=22,prefix='Pi',color=COLOR_LIGHTMAGENTA},
+}
+
+trollCastes.TROLL_MUTANT=trollCastes.TROLL_LIME
+
+function makeZodiacSign(prefix,suffix,optional)
+    if optional then
+        if optional.criterion(suffix) then
+            prefix=prefix..optional.letter
+        end
+    end
+    if prefix:sub(-1)==suffix:sub(1,1) and prefix..suffix~='Cannius' then --if last letter of prefix is the same as first letter of suffix
+        suffix=suffix:sub(2) --remove first letter of suffix
+    end
+    return prefix..suffix
+end
+
+function getCaste(unit)
+    for k,v in ipairs(df.creature_raw.find(unit.race).caste[unit.caste].creature_class) do
+        local casteInfo=trollCastes[v.value]
+        if casteInfo then return casteInfo end
+    end
+    return {idx=-30000,prefix='bepis',color=COLOR_WHITE}
+end
+
+function getZodiac(unit)
+    local aspect,caste,sway=extendedZodiacSburbAspects[getClaspect(unit).aspect],getCaste(unit),claspectAssign.getLunarSway(unit)
+    if caste.idx==-30000 then return {tile=dfhack.screen.findGraphicsTile('HUSSIE_EMOTES',8,1),name='ERROR',color=COLOR_WHITE} end
+    return {
+        tile=dfhack.screen.findGraphicsTile('EXTENDED_ZODIAC',aspect.tile,caste.idx+sway),
+        name=makeZodiacSign(caste.prefix,aspect.suffix[sway+1],caste.optional),
+        color=caste.color
+    }
+end
+
 local ExtraUnitListInfo=defclass(ExtraUnitListInfo,TransparentScreen)
 
-function ExtraUnitListInfo:toggleClaspects()
-    self.showClaspects=not self.showClaspects
+function ExtraUnitListInfo:changeMode()
+    self.displayMode=(self.displayMode+1)%3
 end
 
 function ExtraUnitListInfo:onInput(keys)
     self:inputToSubviews(keys)
     self:sendInputToParent(keys)
     if keys.CUSTOM_F then
-        self:toggleClaspects()
+        self:changeMode()
     end
     if keys.LEAVESCREEN or keys.UNITVIEW_RELATIONSHIPS_ZOOM then
         self:dismiss()
@@ -113,13 +178,13 @@ function ExtraUnitListInfo:onRender()
         end
         self.buttonDisplayTimeout=math.ceil(df.global.enabler.gfps/30)
     end
-    if self.showClaspects then
+    if self.displayMode~=0 then
         local parent=self._native.parent
-        local stupidWorkaround='                 '
+        local stupidWorkaround='                             '
         local curPage=math.floor(parent.cursor_pos[parent.page]/self.pageY)
-        for k,v in ipairs(self.overrides[parent.page]) do
-            if math.floor((k-1)/self.pageY)==curPage then
-                if v.class then
+        if self.displayMode==1 then
+            for k,v in ipairs(self.sburbOverrides[parent.page]) do
+                if math.floor((k-1)/self.pageY)==curPage and v.class then
                     local yPos=((k-1)%self.pageY)+4
                     if dfhack.screen.inGraphicsMode() and v.tile then
                         if parent.cursor_pos[parent.page]==k-1 then
@@ -141,20 +206,44 @@ function ExtraUnitListInfo:onRender()
                     end
                 end
             end
+        else
+            for k,v in ipairs(self.zodiacOverrides[parent.page]) do
+                if math.floor((k-1)/self.pageY)==curPage and v.color~=COLOR_WHITE then
+                    local yPos=((k-1)%self.pageY)+4
+                    if dfhack.screen.inGraphicsMode() and v.tile then
+                        if parent.cursor_pos[parent.page]==k-1 then
+                            dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX+1,yPos,v.name..stupidWorkaround)
+                            dfhack.screen.paintTile({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,yPos,'a',v.tile)
+                        else
+                            dfhack.screen.paintString({fg=v.color,bg=COLOR_BLACK},self.jobX+1,yPos,v.name..stupidWorkaround)
+                            dfhack.screen.paintTile({fg=v.color,bg=COLOR_BLACK},self.jobX,yPos,'a',v.tile)
+                        end
+                    else
+                        if parent.cursor_pos[parent.page]==k-1 then
+                            dfhack.screen.paintString({fg=COLOR_BLACK,bg=COLOR_GREY},self.jobX,yPos,v.name..stupidWorkaround)
+                        else
+                            dfhack.screen.paintString({fg=v.color,bg=COLOR_BLACK},self.jobX,yPos,v.name..stupidWorkaround)
+                        end
+                    end
+                end
+            end
         end
     end
     dfhack.screen.paintString({fg=COLOR_LIGHTRED,bg=COLOR_BLACK},self.buttonDisplayX,df.global.gps.dimy-2,'f')
-    dfhack.screen.paintString({fg=COLOR_WHITE,bg=COLOR_BLACK},self.buttonDisplayX+1,df.global.gps.dimy-2,': Display Sburb roles')
+    dfhack.screen.paintString({fg=COLOR_WHITE,bg=COLOR_BLACK},self.buttonDisplayX+1,df.global.gps.dimy-2,': Fortbent info')
     
 end
 
 function ExtraUnitListInfo:init(args)
-    self.showClaspects=false
-    self.overrides={}
+    self.displayMode=0
+    self.sburbOverrides={}
+    self.zodiacOverrides={}
     for k,unitList in ipairs(args.parent.units) do
-        self.overrides[k]={}
+        self.sburbOverrides[k]={}
+        self.zodiacOverrides[k]={}
         for kk,unit in ipairs(unitList) do
-            table.insert(self.overrides[k],getClaspect(unit))
+            table.insert(self.sburbOverrides[k],getClaspect(unit))
+            table.insert(self.zodiacOverrides[k],getZodiac(unit))
         end
     end
 end

@@ -41,6 +41,9 @@ Pheobus:
 * Original composer for the song "Penumbra Fortasm" and "FantasyP" are based on, "Penumbra Phantasm" (unreleased, Fortasm based on [this](https://soundcloud.com/geminisuns/penumbra-phantasm-live-2012)).
 * The HONK effect at the end of the opening animation.  
 
+[Quixotican](https://quixotican-t.deviantart.com/):
+Made the [sprites](https://quixotican-t.deviantart.com/art/Extended-Zodiac-Sprites-718782643) for the extended zodiac (edited to be in an order more conducive to programming by me, but that's immaterial).
+
 [DFHack](https://github.com/DFHack/dfhack):
 * Too much to name.  
 
