@@ -14,13 +14,15 @@ syndromeUtil=require('syndrome-util')
 
 rng=dfhack.random.new()
 
+local aspectCounts=claspect_helpers.make_new_aspect_table()
+
 function assignClaspect(unit,aspect,class)
     putnamSkills.assignSkillToUnit(unit,class..' of '..aspect)
     if unit.hist_figure_id then
         local hist_figure=df.historical_figure.find(unit.hist_figure_id)
         if hist_figure and hist_figure.info and hist_figure.info.kills then
             for k,v in pairs(hist_figure.info.kills.killed_count) do
-                local caste=df.creature_raw.find(hist_figure_info.kills.killed_race[k]).caste[hist_figure_info.kills.killed_caste[k]]
+                local caste=df.creature_raw.find(hist_figure.info.kills.killed_race[k]).caste[hist_figure.info.kills.killed_caste[k]]
                 local bodySizeInfo=caste.body_size_1
                 local bodySize=bodySizeInfo[#bodySizeInfo-1]/500
                 local strength=caste.attributes.phys_att_range.STRENGTH[3]/1000
@@ -35,6 +37,7 @@ function assignClaspect(unit,aspect,class)
             end
         end
     end
+    aspectCounts[aspect]=aspectCounts[aspect]+1
     return unit,class..' of '..aspect
 end
 
@@ -56,8 +59,21 @@ function creatureIsSburbable(unit)
     return sburbableRaces[race_id]
 end
 
+function getUnitClaspect(unit)
+    local unitSkills=putnamSkills.getSkillsFromUnit(unit)
+    if not unitSkills then return false end
+    for k,v in ipairs(unitSkills) do
+        local skillString=putnamSkills.getSkillName(v)
+        local aspectInString=claspect_helpers.getAspectInString(skillString)
+        if aspectInString then
+            return {class=claspect_helpers.getClassInString(skillString),aspect=aspectInString}
+        end
+    end
+    return false --unit has no claspect
+end
+
 function unitDoesntNeedClaspect(unit)
-	return not creatureIsSburbable(unit) or putnamSkills.getSkillsFromUnit(unit)
+	return not creatureIsSburbable(unit) or getUnitClaspect(unit)
 end
 
 function round(num)
@@ -162,6 +178,42 @@ local function boost_aspect_pair_by_personality_trait(aspect,trait,aspect_table)
     end
 end
 
+aspectCounts.initialized=false
+
+function getAspectPerc()
+    if not aspectCounts.initialized then
+        for k,unit in ipairs(df.global.world.units.active) do
+            local claspect=getUnitClaspect(unit)
+            if claspect then
+                aspectCounts[claspect.aspect]=aspectCounts[claspect.aspect]+1
+            end
+        end
+        aspectCounts.initialized=true
+    end
+    local percentageTable={}
+    local total=0
+    for k,v in pairs(aspectCounts) do
+        if k~='initialized' then
+            total=total+v
+        end
+    end
+    if total==0 then return aspectCounts end
+    for k,v in pairs(aspectCounts) do
+        if k~='initialized' then
+            percentageTable[k]=aspectCounts[k]/total
+        end
+    end
+    return percentageTable
+end
+
+local function get_first_aspect_that_isnt_too_common(aspect_quiz_results,aspect_percentages)
+    for k,v in ipairs(aspect_quiz_results) do
+        if aspect_percentages[v.name]<(k/48)+(1/16) then --k/48+1/16 == ((k+3)/4)/12
+            return v.name
+        end
+    end
+end
+
 function getAspect(unit)
     --[[i'm basically using the personality test but in dwarf fortress terms so here's the deal in this post
     http://katanahime.tumblr.com/post/168061341354/complete-explanation-for-extended-zodiac-aspect
@@ -185,8 +237,7 @@ function getAspect(unit)
         table.insert(sortTable,{name=k,value=v})
     end
     table.sort(sortTable,function(a,b) return a.value>b.value end)
-    local chosen=12-math.floor(math.log(rng:random(531441)+1)/math.log(3))
-    return sortTable[chosen].name
+    return get_first_aspect_that_isnt_too_common(sortTable,getAspectPerc())
 end
 
 local function constructListForScript(tbl)

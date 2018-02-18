@@ -6,6 +6,10 @@ skillWorldIDs={}
 
 local magicIdentifier=3145
 
+local function unitHasSoul(unit)
+    return (unit.status and unit.status.current_soul)
+end
+
 local function insertSkillsIntoWorld()
     local skillAlreadyInWorld={}
     for k,v in ipairs(df.global.world.musical_forms.all) do
@@ -42,7 +46,7 @@ function addSkills(tbl)
 end
 
 function assignSkillToUnit(unit,skill)
-    if not unit.status then return false end
+    if not unitHasSoul(unit) then return false end
     if not unit.status.current_soul.performance_skills then
         unit.status.current_soul.performance_skills=df.unit_soul.T_performance_skills:new()
     end
@@ -53,7 +57,7 @@ function assignSkillToUnit(unit,skill)
 end
 
 function getSkillFromUnit(unit,skill)
-    if not unit.status or not unit.status.current_soul or not unit.status.current_soul.performance_skills then return false end
+    if not unitHasSoul(unit) or not unit.status.current_soul.performance_skills then return false end
     for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         if df.musical_form.find(v.id).name.first_name==skill then return v end
     end
@@ -62,7 +66,7 @@ end
 
 function getSkillsFromUnit(unit)
     local returnTable={}
-    if not unit.status or not unit.status.current_soul or not unit.status.current_soul.performance_skills then return false end
+    if not unitHasSoul(unit) or not unit.status.current_soul.performance_skills then return false end
     for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         if df.musical_form.find(v.id).name.unknown==magicIdentifier then table.insert(returnTable,v) end
     end
@@ -138,6 +142,7 @@ local function canGainExperienceWithCriterion(skill,criterion)
 end
 
 function addExperienceToAllSkillsWithLevelCriterion(unit,amount,criterion)
+    if not unitHasSoul(unit) or not unit.status.current_soul.performance_skills then return false end --not actually a problem, anything with a skill will have those
     for k,v in ipairs(unit.status.current_soul.performance_skills.musical_forms) do
         local musicalForm=df.musical_form.find(v.id)
         if musicalForm.name.unknown==magicIdentifier and canGainExperienceWithCriterion(skills[musicalForm.name.first_name],criterion) then

@@ -27,6 +27,13 @@ aspects={
     
 aspects_by_index=utils.invert(aspects)
 
+function getAspectInString(str)
+    for k,v in pairs(aspects) do
+        if str:find(v) then return v end
+    end
+    return false
+end
+
 local aspect_circle={
     1,
     5,
@@ -99,5 +106,13 @@ classes={
 	"Sylph",
 	"Bard",
 	"Mage"}
+
+function getClassInString(str)
+    for k,v in pairs(classes) do
+        if str:find(v) then return v end
+    end
+    return false
+end
     
+
 classes_by_index=utils.invert(classes)
