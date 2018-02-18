@@ -12,6 +12,9 @@ optic_blast.build_color[1]=0
 optic_blast.tile_color[1]=0
 optic_blast.basic_color[1]=0
 
+local function unitHasSoul(unit)
+    return unit.status and unit.status.current_soul
+end
 
 local function clockwork_majyyks_color_change()
     clockwork_cur_color_idx=(clockwork_cur_color_idx%6)+1
@@ -326,10 +329,12 @@ eventful.onUnitDeath.addSburbExperience=function(unit_id)
     expValue=expValue+deadUnit.body.physical_attrs.AGILITY.value/1000
     expValue=expValue+deadUnit.body.physical_attrs.TOUGHNESS.value/1000
     expValue=expValue+deadUnit.body.physical_attrs.ENDURANCE.value/1000
-    expValue=expValue+deadUnit.status.current_soul.mental_attrs.WILLPOWER.value/1500
-    expValue=expValue+deadUnit.status.current_soul.mental_attrs.SPATIAL_SENSE.value/1000
-    expValue=expValue+deadUnit.status.current_soul.mental_attrs.KINESTHETIC_SENSE.value/1000
-    expValue=expValue+deadUnit.status.current_soul.mental_attrs.FOCUS.value/2000
+    if unitHasSoul(deadUnit) then
+        expValue=expValue+deadUnit.status.current_soul.mental_attrs.WILLPOWER.value/1500
+        expValue=expValue+deadUnit.status.current_soul.mental_attrs.SPATIAL_SENSE.value/1000
+        expValue=expValue+deadUnit.status.current_soul.mental_attrs.KINESTHETIC_SENSE.value/1000
+        expValue=expValue+deadUnit.status.current_soul.mental_attrs.FOCUS.value/2000
+    end
     expValue=expValue*(deadUnit.body.blood_max/2000)
     if df.incident.find(deadUnit.counters.death_id) then
         local killerId=df.incident.find(deadUnit.counters.death_id).killer
