@@ -80,7 +80,12 @@ function round(num)
     return math.floor(num+.5) 
 end
 
+function unitHasSoul(unit)
+    return unit.status and unit.status.current_soul
+end
+
 function getLunarSway(unit)
+    if not unitHasSoul(unit) then return 0 end
     local traits=unit.status.current_soul.personality.traits
     local lunar_sway=0
     lunar_sway=lunar_sway+(traits.CHEER_PROPENSITY-50)

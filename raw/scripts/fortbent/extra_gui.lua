@@ -242,8 +242,10 @@ function ExtraUnitListInfo:init(args)
         self.sburbOverrides[k]={}
         self.zodiacOverrides[k]={}
         for kk,unit in ipairs(unitList) do
-            table.insert(self.sburbOverrides[k],getClaspect(unit))
-            table.insert(self.zodiacOverrides[k],getZodiac(unit))
+            if unit.status and unit.status.current_soul then
+                table.insert(self.sburbOverrides[k],getClaspect(unit))
+                table.insert(self.zodiacOverrides[k],getZodiac(unit))
+            end
         end
     end
 end
