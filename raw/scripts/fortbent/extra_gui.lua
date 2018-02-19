@@ -274,10 +274,17 @@ function ExtraUnitScreen:onRender()
             dfhack.screen.paintString(self.claspectInfo.color,2+self.claspectInfo.classLength,3,self.claspectInfo.aspect)
         end
     end
+    if self.extendedZodiacInfo.color~=COLOR_BLACK then
+        dfhack.screen.paintString({fg=self.extendedZodiacInfo.color,bg=COLOR_BLACK},3,5,self.extendedZodiacInfo.name)
+        if dfhack.screen.inGraphicsMode() then
+            dfhack.screen.paintTile({fg=COLOR_BLACK,bg=COLOR_GREY},2,5,'a',self.extendedZodiacInfo.tile)
+        end
+    end
 end
    
 function ExtraUnitScreen:init(args)
     self.claspectInfo=getClaspect(args.parent.unit)
+    self.extendedZodiacInfo=getZodiac(args.parent.unit)
 end
    
 viewscreenActions={}
