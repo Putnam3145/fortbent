@@ -90,7 +90,7 @@ local function hasCustomRelationship(histfig,relationship_type)
     local typeToLookFor=custom_relation_types[relationship_type]
     for k,v in ipairs(histfig.info.relationships.list) do
         for kk,vv in ipairs(v.attitude) do
-            if vv==typeToLookFor then return v.histfig_id,v.rank[kk] end
+            if vv==typeToLookFor then return v.histfig_id,v.counter[kk] end
         end
     end
     return false
@@ -100,7 +100,7 @@ local function addNewRelationship(histfig1,histfig2,relationship_type,value)
     for k,v in ipairs(histfig1.info.relationships.list) do
         if v.histfig_id==histfig2.id then
             v.attitude:insert('#',custom_relation_types[relationship_type])
-            v.rank:insert('#',value)
+            v.counter:insert('#',value)
             return true
         end
     end
@@ -113,7 +113,7 @@ local function removeRelationship(histfig1,histfig2,relationship_type)
             for kk,vv in ipairs(v.attitude) do
                 if vv==relationship_type then 
                     vv=-relationship_type 
-                    v.rank[kk]=-v.rank[kk] 
+                    v.counter[kk]=-v.counter[kk] 
                     return true
                 end
             end
@@ -127,7 +127,7 @@ local function adjustRelationship(histfig1,histfig2,relationship_type,value)
     for k,v in ipairs(histfig1.info.relationships.list) do
         if v.histfig_id==histfig2.id then
             for kk,vv in ipairs(v.attitude) do
-                if vv==typeToLookFor then v.rank[kk]=v.rank[kk]+value return v.rank[kk] end
+                if vv==typeToLookFor then v.counter[kk]=v.counter[kk]+value return v.counter[kk] end
             end
         end
     end
@@ -143,12 +143,12 @@ local function getMutualRelation(histfig1,histfig2,relationship_type)
                 local total_relation_value=0
                 for kkk,vvv in ipairs(v.attitude) do
                     if vvv==relationship_type then
-                        total_relation_value=total_relation_value+v.rank[kkk]
+                        total_relation_value=total_relation_value+v.counter[kkk]
                     end
                 end
                 for kkk,vvv in ipairs(vv.attitude) do
                     if vvv==relationship_type then
-                        total_relation_value=total_relation_value+vv.rank[kkk]
+                        total_relation_value=total_relation_value+vv.counter[kkk]
                     end                    
                 end
                 if greatest_mutual_relationship.value<total_relation_value then
