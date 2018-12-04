@@ -153,7 +153,7 @@ function createArtifact(itemType,itemSubtype,name,material,entityFilter,siteFilt
     newEvent.site=pickedSite
     df.global.world.history.events:insert('#',newEvent)
     df.global.world.artifacts.all:insert('#',newArtifact)
-    df.world_site.find(pickedSite).artifacts:insert('#',newArtifact)
+    df.world_site.find(pickedSite).unk_1.artifacts:insert('#',newArtifact)
     df.global.artifact_next_id=df.global.artifact_next_id+1
 end
 
