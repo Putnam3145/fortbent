@@ -16,28 +16,6 @@ modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL -command [ fortbent/alch
 
 modtools/reaction-trigger -reactionName ALCHEMIZE_TROLL_ADV -command [ fortbent/alchemize -unit \\WORKER_ID -adventure ]
 
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_CALEDFWLCH_CUE -itemMat INORGANIC:CUEBALL_LE_POISON_NO_ALCHEMIZE -amount 1 -name "Caledfwlch" -specificEntityType [ TIER_3_SBURB DERSE ]
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_BUNNY_NO_ALCHEMIZE -itemMat INORGANIC:CUEBALL_LE_POISON_NO_ALCHEMIZE -amount 1 -name "Liv Tyler" -specificEntityType [ TIER_2_SBURB TIER_3_SBURB DERSE ]
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_KATANA_ZILLY -itemMat INORGANIC:UNBREAKABLE_STUFF_TROLL -amount 1 -name "The Unbreakable Katana"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_DEMONBANE_ZILLY -itemMat INORGANIC:SPECIAL_SHARP_NO_ALCHEMIZE -amount 1 -name "Demonbane Ragripper"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_ZILLYHOO -itemMat INORGANIC:SPECIAL_BLUNT_NO_ALCHEMIZE -amount 1 -name "Warhammer of Zillyhoo"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_ZILLYWAIR -itemMat INORGANIC:SPECIAL_SHARP_NO_ALCHEMIZE -amount 1 -name "Cutlass of Zillywair"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_ZILLYWUT -itemMat INORGANIC:SPECIAL_SHARP_NO_ALCHEMIZE -amount 1 -name "Battlespork of Zillywut"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_ZILLYWIGH -itemMat INORGANIC:SPECIAL_SHARP_NO_ALCHEMIZE -amount 1 -name "Blunderbuss of Zillywigh"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_ZILLYWICH -itemMat INORGANIC:SPECIAL_SHARP_NO_ALCHEMIZE -amount 1 -name "Thistles of Zillywich"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_DICE_ZILLY -itemMat INORGANIC:SPECIAL_SHARP_NO_ALCHEMIZE -amount 1 -name "Flourite Solo"
-
-modtools/custom-artifact -itemType WEAPON:ITEM_WEAPON_TROLL_CLAW_EIGHT_ZILLY -itemMat INORGANIC:SPECIAL_SHARP_NO_ALCHEMIZE -amount 1 -name "Action Claws"
-
 fortbent/grist
 
 fortbent/heroic_just
