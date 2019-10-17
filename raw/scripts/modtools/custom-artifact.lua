@@ -110,18 +110,19 @@ function createArtifact(itemType,itemSubtype,name,material,entityFilter,siteFilt
     newArtifact.anon_2=-1000000
     newArtifact.anon_3=-1000000
     newArtifact.anon_4=pickedSite
-    newArtifact.anon_5=1
+    newArtifact.anon_5=4
     newArtifact.anon_6=-1
     newArtifact.anon_7=-1
     newArtifact.anon_8=-1
     newArtifact.anon_12:insert('#',pickedSite)
-    newArtifact.anon_13=1
+    newArtifact.anon_13=4
     newArtifact.anon_14=-1
     newArtifact.anon_15=-1
     newArtifact.anon_16=-1
-    newArtifact.anon_17=250
-    newArtifact.anon_18=0
-    newArtifact.anon_19=3
+    newArtifact.anon_17=-1
+    newArtifact.anon_18=10000
+    newArtifact.anon_19=0
+    newArtifact.anon_20=0
     if name then
         newArtifact.name.has_name=true
         newArtifact.name.first_name=name
