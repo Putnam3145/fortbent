@@ -55,20 +55,19 @@ onRelationshipUpdate=onRelationshipUpdate or dfhack.event.new()
 
 current_relations_checked=current_relations_checked or {}
 
-local function checkRelationshipUpdates() --todo: ignore this, it doesn't actually work for what i'm doing lol
+local function checkRelationshipUpdates()
     for k,v in ipairs(df.global.world.units.active) do
         local histfig=df.historical_figure.find(v.hist_figure_id)
         if not (not histfig or not histfig.info or not histfig.info.relationships) then
             current_relations_checked[v.hist_figure_id]=current_relations_checked[v.hist_figure_id] or {}
-            for kk,relationship in ipairs(histfig.info.relationships.list) do
+            for kk,relationship in ipairs(histfig.info.relationships.hf_visual) do
                 current_relations_checked[v.hist_figure_id][relationship.histfig_id]=current_relations_checked[v.hist_figure_id][relationship.histfig_id] or {}
                 local thisHistFigRelations=current_relations_checked[v.hist_figure_id][relationship.histfig_id]
-                for relation_type_index,relation_type in ipairs(relationship.anon_3) do
-                    thisHistFigRelations[relation_type]=thisHistFigRelations[relation_type] or relationship.anon_4[relation_type_index]
-                    if thisHistFigRelations[relation_type]~=relationship.anon_4[relation_type_index] then
-                        onRelationshipUpdate(v.hist_figure_id,relationship.histfig_id,relation_type,thisHistFigRelations[relation_type],relationship.anon_4[relation_type_index])
-                        --onRelationshipUpdate.example=function(histfig1_id,histfig2_id,relationship_type,old_value,new_value)
-                        thisHistFigRelations[relation_type]=relationship.anon_4[relation_type_index]
+                for _,idx in {"love","loyalty","respect","fear","trust","familiarity"} do
+                    thisHistFigRelations[idx] = thisHistFigRelations[idx] or relationship[idx]
+                    if thisHistFigRelations[idx] ~= relationship[idx] then
+                        onRelationshipUpdate(relationship,v.hist_figure_id,relationship.histfig_id,idx,thisHistFigRelations[idx],relationship[idx])
+                        thisHistFigRelations[idx] = relationship[idx]
                     end
                 end
             end
