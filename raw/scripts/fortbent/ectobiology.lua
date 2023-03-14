@@ -50,7 +50,9 @@ local function getSpouseOrLover(unit)
         local hist_fig=df.historical_figure.find(unit.hist_figure_id)
         for k,v in ipairs(hist_fig.histfig_links) do
             if df.histfig_hf_link_spousest:is_instance(v) or df.histfig_hf_link_loverst:is_instance(v) then
-                return_table.lover={dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (matesprit)',nil,target_hf}
+                local hf = df.historical_figure.find(v.target_hf)
+                if hf then lover_unit = df.unit.find(hf.unit_id) end
+                if(lover_unit) then return_table.lover={dfhack.TranslateName(dfhack.units.getVisibleName(lover_unit))..' (matesprit)',nil,target_hf} end
             end
         end
     end
