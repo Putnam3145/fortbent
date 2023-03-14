@@ -29,7 +29,7 @@ end
 
 local function hasCustomRelationship(histfig,relationship_type)
     local typeToLookFor=custom_relation_types[relationship_type]
-    for k,v in ipairs(histfig.info.relationships.list) do
+    for k,v in ipairs(histfig.info.relationships.hf_visual) do
         for kk,vv in ipairs(v.attitude) do
             if vv==typeToLookFor then return v.histfig_id end
         end
